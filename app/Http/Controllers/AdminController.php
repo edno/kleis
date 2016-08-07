@@ -1,0 +1,168 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+use App\Http\Requests;
+use App\User;
+use App\Group;
+
+class AdminController extends Controller
+{
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    public function showUsers()
+    {
+        $users = User::orderBy('firstname', 'asc')->orderBy('lastname', 'asc')->get();
+        return view('user/users', ['users' => $users]);
+    }
+
+    /**
+     * Edit the given user
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function editUser($id)
+    {
+        $user = User::findOrFail($id);
+        $groups = Group::orderBy('name', 'asc')->get();
+        return view('user/user',
+            ['user' => $user, 'groups' => $groups]
+        );
+    }
+
+    /**
+     * Open a new user form.
+     *
+     * @return Response
+     */
+    public function newUser()
+    {
+        $groups = Group::orderBy('name', 'asc')->get();
+        return view('user/user',
+            ['user' => new User, 'groups' => $groups]
+        );
+    }
+
+    /**
+     * Add a new user.
+     *
+     * @return Response
+     */
+    public function addUser(Request $request)
+    {
+        $this->validate($request, [
+            'firstname' => 'required|alpha_num|min:3|max:100',
+            'lastname' => 'required|alpha_num|min:3|max:100',
+            'email' => 'required|email',
+            'password' => 'required|alpha_dash|min:8|confirmed',
+            'password_confirmation' => 'required|min:8',
+            'level' => 'required',
+            'status' => 'required',
+            'group' => 'required_if:level,1'
+        ]);
+
+        $user = new User;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->firstname = ucwords($request->firstname);
+        $user->lastname = ucwords($request->lastname);
+        $user->level = $request->level;
+        $user->status = $request->status;
+        if (false === empty($request->group)) {
+            $user->group_id = $request->group;
+        }
+        $user->created_by = $request->user()->id;
+        $user->save();
+        return redirect('administrators')->with('status', "'{$user->email}' successfully created.");
+    }
+
+    /**
+     * Update an user.
+     *
+     * @param  Request  $request
+     * @param  int  $id
+     * @return Response
+     */
+    public function updateUser(Request $request, $id)
+    {
+        $this->validate($request, [
+            'firstname' => 'required|alpha_num|min:3|max:100',
+            'lastname' => 'required|alpha_num|min:3|max:100',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'present|alpha_dash|min:8|confirmed',
+            'password_confirmation' => 'required_with:password|min:8',
+            'level' => 'required',
+            'status' => 'required',
+            'group' => 'required_if:level,1'
+        ]);
+
+        $user = User::findOrFail($id);
+        $user->email = $request->email;
+        if (false === empty($request->password)) {
+            $user->password = bcrypt($request->password);
+        }
+        $user->firstname = $request->firstname;
+        $user->lastname = $request->lastname;
+        $user->level = $request->level;
+        if (false === empty($request->group)) {
+            $user->group_id = $request->group;
+        }
+        $user->status = $request->status;
+        $user->group_id = $request->group;
+        $user->update();
+        return redirect('administrators')->with('status', "'{$user->email}' successfully updated.");
+    }
+
+    /**
+     * Enable an user.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function enableUser($id)
+    {
+        $user = User::findOrFail($id);
+        $user->status = 1;
+        $user->update();
+        return redirect('administrators')->with('status', "'{$user->email}' successfully enabled.");
+    }
+
+    /**
+     * Disable an user.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function disableUser($id)
+    {
+        $user = User::findOrFail($id);
+        $user->status = 0;
+        $user->update();
+        return redirect('administrators')->with('status', "'{$user->email}' successfully disabled.");
+    }
+
+    /**
+     * Remove an user.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function removeUser($id)
+    {
+        $user = User::findOrFail($id);
+        $email = $user->email;
+        $user->delete();
+        return redirect('administrators')->with('status', "'{$email}' successfully deleted.");
+    }
+}

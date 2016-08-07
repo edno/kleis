@@ -1,0 +1,1 @@
+{"virtualbox":{"/home/vagrant/laravel-squid-refuge":{"type":null,"mount_options":[],"guestpath":"/home/vagrant/laravel-squid-refuge","hostpath":"/Users/edno/Workspace/laravel-squid-refuge","disabled":false,"__vagrantfile":true},"/vagrant":{"guestpath":"/vagrant","hostpath":"/Users/edno/Workspace/laravel-squid-refuge","disabled":false,"__vagrantfile":true}}}
