@@ -78,7 +78,7 @@ php -r "unlink('composer-setup.php');"
 
 ## Déploiement
 
-### Installation des sources
+### Installation des sources
 
 2 options pour l'installation des sources:
 
