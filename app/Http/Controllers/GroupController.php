@@ -38,7 +38,7 @@ class GroupController extends Controller
             $group->name = $request->name;
             $group->created_by = $request->user()->id;
             $group->save();
-            return redirect('groups')->with('status', "Group '{$group->name}' successfully created.");
+            return redirect('groups')->with('status', "Groupe '{$group->name}' ajouté avec succès.");
         }
     }
 
@@ -52,7 +52,7 @@ class GroupController extends Controller
         $name = $group->name;
         $group->name = $request->name;
         $group->update();
-        return redirect('groups')->with('status', "Group '{$name}' renamed to '{$group->name}'.");
+        return redirect('groups')->with('status', "Groupe '{$name}' renommé en '{$group->name}'.");
     }
 
     public function removeGroup($id)
@@ -60,7 +60,7 @@ class GroupController extends Controller
         $group = Group::findOrFail($id);
         $name = $group->name;
         $group->delete();
-        return redirect('groups')->with('status', "Group '{$name}' successfully deleted.");
+        return redirect('groups')->with('status', "Groupe '{$name}' a été supprimé.");
     }
 
     public function showAccounts($id)

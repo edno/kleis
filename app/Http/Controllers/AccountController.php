@@ -82,7 +82,7 @@ class AccountController extends Controller
         $account->group_id = $request->group;
         $account->created_by = $request->user()->id;
         $account->save();
-        return redirect('accounts')->with('status', "Account '{$account->netlogin}' successfully created.");
+        return redirect('accounts')->with('status', "Compte '{$account->netlogin}' ajouté avec succès.");
     }
 
     /**
@@ -108,7 +108,7 @@ class AccountController extends Controller
         $account->status = $request->status;
         $account->group_id = $request->group;
         $account->update();
-        return redirect('accounts')->with('status', "Account '{$account->netlogin}' successfully updated.");
+        return redirect('accounts')->with('status', "Compte '{$account->netlogin}' mis à jour avec succès.");
     }
 
     /**
@@ -125,7 +125,7 @@ class AccountController extends Controller
             $account->expire = date_create('+90 day')->format('Y-m-d');
         }
         $account->update();
-        return redirect('accounts')->with('status', "Account '{$account->netlogin}' successfully enabled, expire date is now {$account->expire}.");
+        return redirect('accounts')->with('status', "Compte '{$account->netlogin}' est maintenant actif et expirera le {$account->expire}.");
     }
 
     /**
@@ -139,7 +139,7 @@ class AccountController extends Controller
         $account = Account::findOrFail($id);
         $account->status = 0;
         $account->update();
-        return redirect('accounts')->with('status', "Account '{$account->netlogin}' successfully disabled.");
+        return redirect('accounts')->with('status', "Compte '{$account->netlogin}' a été désactivé.");
     }
 
     /**
@@ -153,6 +153,6 @@ class AccountController extends Controller
         $account = Account::findOrFail($id);
         $netlogin = $account->netlogin;
         $account->delete();
-        return redirect('accounts')->with('status', "Account '{$netlogin}' successfully deleted.");
+        return redirect('accounts')->with('status', "Compte '{$netlogin}' a été supprimé.");
     }
 }

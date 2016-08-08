@@ -84,7 +84,7 @@ class AdminController extends Controller
         }
         $user->created_by = $request->user()->id;
         $user->save();
-        return redirect('administrators')->with('status', "'{$user->email}' successfully created.");
+        return redirect('administrators')->with('status', "'{$user->email}' ajouté avec succès.");
     }
 
     /**
@@ -121,7 +121,7 @@ class AdminController extends Controller
         $user->status = $request->status;
         $user->group_id = $request->group;
         $user->update();
-        return redirect('administrators')->with('status', "'{$user->email}' successfully updated.");
+        return redirect('administrators')->with('status', "'{$user->email}' mis à jour avec succès.");
     }
 
     /**
@@ -135,7 +135,7 @@ class AdminController extends Controller
         $user = User::findOrFail($id);
         $user->status = 1;
         $user->update();
-        return redirect('administrators')->with('status', "'{$user->email}' successfully enabled.");
+        return redirect('administrators')->with('status', "'{$user->email}' est maintenant actif.");
     }
 
     /**
@@ -149,7 +149,7 @@ class AdminController extends Controller
         $user = User::findOrFail($id);
         $user->status = 0;
         $user->update();
-        return redirect('administrators')->with('status', "'{$user->email}' successfully disabled.");
+        return redirect('administrators')->with('status', "'{$user->email}' a été désactivé.");
     }
 
     /**
@@ -163,6 +163,6 @@ class AdminController extends Controller
         $user = User::findOrFail($id);
         $email = $user->email;
         $user->delete();
-        return redirect('administrators')->with('status', "'{$email}' successfully deleted.");
+        return redirect('administrators')->with('status', "'{$email}' a été supprimé.");
     }
 }
