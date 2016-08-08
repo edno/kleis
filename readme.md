@@ -91,6 +91,7 @@ tar -xzf kleis-*.tar.gz --directory /var/www/
 #### 2- GitLab
 Cloner le projet `kleis` depuis **GitLab**:
 ```shell
+cd /var/www
 git clone https://gitlab.com/edno/kleis.git
 ```
 
