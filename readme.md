@@ -1,27 +1,177 @@
-# Laravel PHP Framework
+# Kleis
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+Kleis est un gestionnaire simplifié pour proxy.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+## Pré-requis
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+La procédure d'installation décrite est pour un environnement **Debian**.
 
-## Official Documentation
+Toute les commandes sont données pour un utilisateur avec des droits de type `root`.
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+### Git (optionnel)
 
-## Contributing
+L'installation de Git est nécessaire uniquement pour déployer **Kleis** depuis GitLab.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+Executer la commande:
+```shell
+apt-get install git
+```
 
-## Security Vulnerabilities
+### MySQL
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+Installer **MySQL Server** avec la commande:
+```shell
+apt-get install -y mysql-server mysql-client
+```
 
-## License
+Sécuriser l'installation (accepter `Y` toutes les questions)
+```shell
+mysql_server_secure
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+Se connecter au serveur MySQL avec les identifiant du compte `root`
+```shell
+mysql -u<login-mysql-root> -p<mot-de-passe-mysql-root>
+```
+
+Créer la base de données `kleis`
+```mysql
+create database kleis;
+exit
+```
+
+### Apache
+
+Installer **Apache** avec la commande:
+```shell
+apt-get install -y apache2
+```
+
+Activer le module `rewrite`:
+```shell
+a2enmod rewrite
+```
+
+### PHP5
+
+Installer **PHP5** et ses modules avec la commande:
+```shell
+apt-get install -y php5 php5-mysql
+```
+
+Redémarrer le service Apache
+```shell
+service apache2 restart
+```
+
+### Composer
+**Composer** est le gestionnaire de paquets pour PHP utilisé par `Kleis`.
+
+Installer Composer avec la commande suivante:
+```shell
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+php -r "if (hash_file('SHA384', 'composer-setup.php') === 'e115a8dc7871f15d853148a7fbac7da27d6c0030b848d9b3dc09e2a0388afed865e6a3d6b3c0fad45c48e2b5fc1196ae') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+php composer-setup.php --install-dir=bin --filename=composer
+php -r "unlink('composer-setup.php');"
+```
+
+
+## Déploiement
+
+### Installation des sources
+
+2 options pour l'installation des sources:
+
+#### 1- Package Tar Gz
+Extraire l'archive `kleis` dans le répertoire `/var/www/`:
+```shell
+tar -xzf kleis-*.tar.gz --directory /var/www/
+```
+
+#### 2- GitLab
+Cloner le projet `kleis` depuis **GitLab**:
+```shell
+git clone https://gitlab.com/edno/kleis.git
+```
+
+### Installation des dépendances
+
+A partir de cette étapes, l'ensemble des commandes doivent être exécutées depuis le répertoire d'installation de **Kleis** :
+```shell
+cd /var/www/kleis
+```
+
+Installer les dépendances en utilisant la commande `install` de **Composer** :
+```shell
+php composer install
+```
+
+### Configuration
+
+Créer le fichier `.env` qui hébergera la configuration:
+```
+cp .env.example .env
+```
+
+Editer le fichier `.env` et adatper les paramètres suivants:
+
+| Paramétre | Description |
+|-----------|-------------|
+| `APP_URL`   | URL de l'application, par exemple `http://kleis.app:8080` |
+| `DB_DATABASE` | Base de données de l'application : `kleis` |
+| `DB_USERNAME` | Utilisateur ayant accès en lecture-écriture à la base de données `DB_DATABASE` |
+| `DB_PASSWORD` | Mot de passe pour l'utilisateur `DB_USERNAME` |
+
+Générer la clef unique de l'application
+```
+php artisan key:generate
+```
+
+### Permission des répertoires
+
+Changer les permissions des repertoires de **Kleis**
+```shell
+chown -R www-data:www-data /var/www/kleis
+chmod -R 755 /var/www/kleis
+```
+
+### Tables de la base de données
+Installer les tables dans la base de données :
+```shell
+php artisan migrate --seed
+```
+
+### Site Apache
+
+Cette étape considère que seule l'application **Kleis** est hébergée par le serveur **Apache**.
+
+Installer le fichier de configuration `kleis.conf`
+```shell
+cp kleis.conf /etc/apache2/sites-available/
+```
+
+Désactiver le site par défaut
+```shell
+a2dissite 000-default
+```
+
+Activer **Kleis**
+```shell
+a2ensite kleis
+```
+
+Redémarrer le service `apache2`
+```shell
+service apache2 restart
+```
+
+## Fin
+
+**Kleis** est maintenant installé et accessible :
+- http://localhost
+- `http://<nom-du-serveur>`
+- http://<ip-du-server>
+
+La première connexion se fait avec le compte super administrateur par défaut :
+- email : `admin@kleis.app`
+- mot de passe : `admin`
