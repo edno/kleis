@@ -60,7 +60,7 @@
                                 <td class="table-text">
                                     <div><i class="fa {{ $user->getStatus()['icon'] }}" title="{{ $user->getStatus()['text'] }}"></i></div>
                                 </td>
-                                <td class="align-right">
+                                <td class="align-right col-xs-2">
                                     <div class="btn-toolbar">
                                         <div class="btn-group">
                                             <a href="/user/{{ $user->id }}" class="btn btn-default"><i class="fa fa-pencil"></i></a>

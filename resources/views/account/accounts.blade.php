@@ -75,7 +75,7 @@
                                 <td class="table-text">
                                     <div><i class="fa {{ $account->getStatus()['icon'] }}" title="{{ $account->getStatus()['text'] }}"></i></div>
                                 </td>
-                                <td class="align-right">
+                                <td class="align-right col-xs-2">
                                     <div class="btn-toolbar">
                                         <div class="btn-group">
                                             <a href="/account/{{ $account->id }}" class="btn btn-default"><i class="fa fa-pencil"></i></a>

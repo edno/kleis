@@ -76,7 +76,7 @@
                                 <td class="table-text">
                                     <div><span class="badge">{{ $group->countAccounts() }}</span></div>
                                 </td>
-                                <td class="align-right">
+                                <td class="align-right col-xs-2">
                                     <div class="btn-toolbar">
                                         <div class="btn-group">
                                             <a href="#" class="btn btn-default edit-link" id="edit{{ $group->id }}"><i class="fa fa-pencil"></i></a>
