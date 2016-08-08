@@ -17,6 +17,9 @@ Route::get('/', function () {
 
 Route::auth();
 
+// home
+Route::get('/home', 'HomeController@index');
+
 // Accounts
 Route::get('/accounts', 'AccountController@showAccounts');
 Route::post('/account', 'AccountController@addAccount');
@@ -43,4 +46,9 @@ Route::get('/user/{id}/enable', 'AdminController@enableUer');
 Route::get('/user/{id}/disable', 'AdminController@disableUser');
 Route::get('/user/{id}/delete', 'AdminController@removeUser');
 
-Route::get('/home', 'HomeController@index');
+// Whitelists
+Route::get('whitelist/domains', 'ProxyListItemController@showWhiteListDomains');
+Route::get('whitelist/urls', 'ProxyListItemController@showWhiteListUrls');
+Route::post('whitelist/{type}', 'ProxyListItemController@addItem');
+Route::post('whitelist/{type}/{id}', 'ProxyListItemController@updateItem');
+Route::get('whitelist/{type}/{id}/delete', 'ProxyListItemController@removeItem');

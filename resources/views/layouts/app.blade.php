@@ -60,7 +60,13 @@
                         <li><a href="{{ url('/accounts') }}">Comptes</a></li>
                         @if (Auth::user()->level > 1)
                             <li><a href="{{ url('/groups') }}">D&eacute;l&eacute;gations</a></li>
-                            <li><a href="#">Liste blanche</a></li>
+                            <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Listes Blanches <span class="caret"></span></a>
+                              <ul class="dropdown-menu">
+                                <li><a href="{{ url('/whitelist/domains') }}"><i class="fa fa-btn fa-globe"></i>Domaines</a></li>
+                                <li><a href="{{ url('/whitelist/urls') }}"><i class="fa fa-btn fa-link"></i>URLs</a></li>
+                              </ul>
+                            </li>
                         @endif
                         @if (Auth::user()->level == 9)
                             <li><a href="{{ url('/administrators') }}">Administrateurs</a></li>
