@@ -42,7 +42,7 @@ Route::get('/user', 'AdminController@newUser');
 Route::get('/user/{id}', 'AdminController@editUser');
 Route::post('/user', 'AdminController@addUser');
 Route::post('/user/{id}', 'AdminController@updateUser');
-Route::get('/user/{id}/enable', 'AdminController@enableUer');
+Route::get('/user/{id}/enable', 'AdminController@enableUser');
 Route::get('/user/{id}/disable', 'AdminController@disableUser');
 Route::get('/user/{id}/delete', 'AdminController@removeUser');
 
