@@ -169,9 +169,9 @@ service apache2 restart
 ## Fin
 
 **Kleis** est maintenant installé et accessible :
-- http://localhost
+- `http://localhost`
 - `http://<nom-du-serveur>`
-- http://<ip-du-server>
+- `http://<ip-du-server>`
 
 La première connexion se fait avec le compte super administrateur par défaut :
 - email : `admin@kleis.app`
