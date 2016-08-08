@@ -59,6 +59,8 @@ Installer **PHP5** et ses modules avec la commande:
 apt-get install -y php5 php5-mysql
 ```
 
+Cette installation suffit à satisfaire les [pré-requis](https://laravel.com/docs/5.1/installation#installation) du framework **Laravel 5** sur lequel est construit **Kleis**.
+
 Redémarrer le service Apache
 ```shell
 service apache2 restart
