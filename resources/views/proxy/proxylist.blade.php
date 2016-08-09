@@ -23,7 +23,7 @@
                 {{ csrf_field() }}
                 <div class="col-lg-12">
                     <div class="input-group">
-                        <input type="text" class="form-control" name="value" id="itemname" placeholder="http://adresse.url">
+                        <input type="text" class="form-control" name="value" id="itemname" placeholder="{{ ($type == 'url') ? 'http://adresse.url' : 'domaine.sousdomaine.ext' }}">
                         <span class="input-group-btn">
                             <button type="submit" class="btn btn-default hidden" type="button" id="button-save">
                                 <i class="fa fa-save"></i> Enregister
