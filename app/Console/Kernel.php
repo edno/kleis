@@ -13,7 +13,9 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        // Commands\Inspire::class,
+        Commands\ExportAccounts::class,
+        Commands\ExportGroups::class,
+        Commands\ExportWhitelists::class,
     ];
 
     /**
