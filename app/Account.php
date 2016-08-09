@@ -17,16 +17,19 @@ class Account extends Model
     ];
 
     const ACCOUNT_EMPLOYMENT = [
-        0 => [  'text' => "recherche d'emploi",
+        0 => [  'text' => "bénéficiare en recherche d'emploi",
                 'icon' => 'fa-binoculars',
                 'unicon' => '&#xf1e5;'],
-        1 => [  'text' => 'salarié',
+        1 => [  'text' => 'bénéficiare avec recherche emploi',
                 'icon' => 'fa-institution',
                 'unicon' => '&#xf19c;' ],
         2 => [  'text' => 'étudiant',
                 'icon' => 'fa-graduation-cap',
                 'unicon' => '&#xf19d;' ],
-        9 => [  'text' => 'bénévole',
+        10 => [  'text' => 'bénévole',
+                'icon' => 'fa-heart',
+                'unicon' => '&#xf004;' ],
+        11 => [  'text' => 'salarié',
                 'icon' => 'fa-support',
                 'unicon' => '&#xf1cd;' ],
     ];

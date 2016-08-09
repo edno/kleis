@@ -109,12 +109,11 @@
                 <label for="employment" class="col-md-4 control-label">Emploi</label>
                 <div class="col-md-6">
                     <select id="employment" class="form-control" name="employment" style="font-family:'FontAwesome', Arial;">
-                        <option value="0" {{ ($account->employment == 0) ? 'selected="true"' : null }}>&#xf1e5; Recherche d&apos;emploi</option>
-                        <option value="1" {{ ($account->employment == 1) ? 'selected="true"' : null }}>&#xf19c; Salari&eacute;</option>
-                    {{--<!-- Example of additional options
-                        <option value="2" {{ ($account->employment == 2) ? 'selected="true"' : null }}>&#xf19d; Student</option>
-                        <option value="9" {{ ($account->employment == 9) ? 'selected="true"' : null }}>&#xf1cd; Volunteer</option>
-                    -->--}}
+                        <option value="0" {{ ($account->employment == 0) ? 'selected="true"' : null }}>&#xf1e5; B&eacute;n&eacute;ficiaire en recherche d&apos;emploi</option>
+                        <option value="1" {{ ($account->employment == 1) ? 'selected="true"' : null }}>&#xf19c; B&eacute;n&eacute;ficiaire avec emploi</option>
+                        <option value="2" {{ ($account->employment == 2) ? 'selected="true"' : null }}>&#xf19d; Etudiant</option>
+                        <option value="10" {{ ($account->employment == 10) ? 'selected="true"' : null }}>&#xf004; B&eacute;n&eacute;vole</option>
+                        <option value="11" {{ ($account->employment == 11) ? 'selected="true"' : null }}>&#xf1cd; Salari&eacute;</option>
                     </select>
                 </div>
             </div>
