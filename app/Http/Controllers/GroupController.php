@@ -28,7 +28,7 @@ class GroupController extends Controller
     public function addGroup(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|min:8|max:100',
+            'name' => 'required|max:100',
         ]);
 
         if (false === empty($request->id)) {
@@ -45,7 +45,7 @@ class GroupController extends Controller
     public function updateGroup(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required|min:8|max:100',
+            'name' => 'required|max:100',
         ]);
 
         $group = Group::findOrFail($id);
