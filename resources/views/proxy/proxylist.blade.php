@@ -25,7 +25,7 @@
                     <div class="input-group">
                         <input type="text" class="form-control" name="value"
                             id="itemname"
-                            placeholder="{{ ($type == 'url') ? 'http://serveur/url/precise/et/complete' : 'sousdomaine.domaine.ext' }}">
+                            placeholder="{{ ($type == 'url') ? 'http://serveur/url/precise/et/complete' : 'domaine.ext ou sousdomaine.domaine.ext' }}">
                         <span class="input-group-btn">
                             <button type="submit" class="btn btn-default hidden" type="button" id="button-save">
                                 <i class="fa fa-save"></i> Enregister
