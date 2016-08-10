@@ -78,8 +78,8 @@ class AccountController extends Controller
             'netpass' => 'required',
             'expire' => 'required_if:status,1|date',
             'category' => 'required',
-            'status' => 'required',
-            'group' => 'required'
+            'status' => 'required|in:0,1',
+            'group' => 'required|exists:groups,id'
         ]);
 
         $account = new Account;
@@ -111,11 +111,10 @@ class AccountController extends Controller
             'firstname' => 'required|alpha_num|min:3|max:100',
             'lastname' => 'required|alpha_num|min:3|max:100',
             'netlogin' => 'required',
-            'netpass' => 'required',
             'expire' => 'required_if:status,1|date',
             'category' => 'required',
-            'status' => 'required',
-            'group' => 'required'
+            'status' => 'required|in:0,1',
+            'group' => 'required|exists:groups,id'
         ]);
 
         $account = Account::findOrFail($id);
