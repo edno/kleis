@@ -20,7 +20,7 @@ class ExportGroups extends Command
      *
      * @var string
      */
-    protected $description = 'Export proxy groups of accounts';
+    protected $description = 'Export proxy groups (category) of accounts';
 
     /**
      * Create a new command instance.
@@ -39,10 +39,10 @@ class ExportGroups extends Command
      */
      public function handle()
      {
-         $groups = Account::ACCOUNT_EMPLOYMENT;
+         $groups = Account::ACCOUNT_CATEGORY;
          foreach ($groups as $id => $group){
              $filename = 'export/groups/group-' . str_pad($id, 4, '0', STR_PAD_LEFT) . '.txt';
-             $accounts = Account::where('status', 1)->where('employment', $id)->orderBy('netlogin', 'desc')->get();
+             $accounts = Account::where('status', 1)->where('category', $id)->orderBy('netlogin', 'desc')->get();
              Storage::put($filename, '');
              $count = count($accounts);
              $bar = $this->output->createProgressBar($count);

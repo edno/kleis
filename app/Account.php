@@ -16,7 +16,7 @@ class Account extends Model
                 'unicon' => '&#xf0ac;' ]
     ];
 
-    const ACCOUNT_EMPLOYMENT = [
+    const ACCOUNT_CATEGORY = [
         0 => [  'text' => "bénéficiare en recherche d'emploi",
                 'icon' => 'fa-binoculars',
                 'unicon' => '&#xf1e5;'],
@@ -53,6 +53,6 @@ class Account extends Model
 
     public function getEmployment()
     {
-        return self::ACCOUNT_EMPLOYMENT[$this->employment];
+        return self::ACCOUNT_CATEGORY[$this->category];
     }
 }

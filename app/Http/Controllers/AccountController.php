@@ -71,13 +71,26 @@ class AccountController extends Controller
      */
     public function addAccount(Request $request)
     {
+        $this->validate($request, [
+            'firstname' => 'required|alpha_num|min:3|max:100',
+            'lastname' => 'required|alpha_num|min:3|max:100',
+            'netlogin' => 'required|uniques:accounts',
+            'netpass' => 'required',
+            'expire' => 'required_if:status,1|date',
+            'category' => 'required',
+            'status' => 'required',
+            'group' => 'required'
+        ]);
+
         $account = new Account;
         $account->netlogin = $request->netlogin;
         $account->netpass = bcrypt($request->netpass);
         $account->firstname = ucwords($request->firstname);
         $account->lastname = ucwords($request->lastname);
-        $account->employment = $request->employment;
-        $account->expire = $request->expirydate;
+        $account->category = $request->category;
+        if (empty($account->expire)) {
+            $account->expire = date_create('+90 day')->format('Y-m-d');
+        }
         $account->status = $request->status;
         $account->group_id = $request->group;
         $account->created_by = $request->user()->id;
@@ -94,6 +107,17 @@ class AccountController extends Controller
      */
     public function updateAccount(Request $request, $id)
     {
+        $this->validate($request, [
+            'firstname' => 'required|alpha_num|min:3|max:100',
+            'lastname' => 'required|alpha_num|min:3|max:100',
+            'netlogin' => 'required',
+            'netpass' => 'required',
+            'expire' => 'required_if:status,1|date',
+            'category' => 'required',
+            'status' => 'required',
+            'group' => 'required'
+        ]);
+
         $account = Account::findOrFail($id);
         $account->netlogin = $request->netlogin;
         if (false === empty($request->netpass)) {
@@ -101,7 +125,7 @@ class AccountController extends Controller
         }
         $account->firstname = $request->firstname;
         $account->lastname = $request->lastname;
-        $account->employment = $request->employment;
+        $account->category = $request->category;
         if (false === empty($request->expirydate)) {
             $account->expire = $request->expirydate;
         }
