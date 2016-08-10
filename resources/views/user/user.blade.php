@@ -39,7 +39,16 @@
             <div id="divpass" class="form-group{{ !empty($user->id) ? ' hidden' : ''}}">
                 <label for="password" class="col-md-4 control-label">Mot de passe</label>
                 <div class="col-md-6">
-                    <input id="password" type="password" class="form-control" name="password" value="">
+                    <div class="input-group">
+                        <input id="password" type="password" class="form-control" name="password" value="">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" id="copy-button"
+                                data-toggle="tooltip" data-placement="button"
+                                title="Copier dans le presse-papier">
+                                Copier
+                            </button>
+                        </span>
+                    </div>
                     @if ($errors->has('password'))
                         <span class="help-block">
                             <strong>{{ $errors->first('password') }}</strong>
@@ -56,6 +65,33 @@
                     @endif
                 </div>
             </div>
+
+            <script type="text/javascript" language="javascript">
+                document.addEventListener("DOMContentLoaded", function(event) {
+                    $('#copy-button').tooltip();
+                    $('#copy-button').bind('click', function() {
+                        var accountinfo = "Utilisateur: " + $('#email').val()
+                            + "\r\n" + "Mot de passe: " + $('#password').val();
+                        try {
+                            var success = copyToClipboard(accountinfo);
+                            if (success) {
+                                $('#copy-button').trigger('copied', ['Copié']);
+                            } else {
+                                $('#copy-button').trigger('copied', ['Copier avec Ctrl-c']);
+                            }
+                        } catch (err) {
+                            $('#copy-button').trigger('copied', ['Copier avec Ctrl-c']);
+                        }
+                    });
+                    $('#copy-button').bind('copied', function(event, message) {
+                        $(this).attr('title', message)
+                            .tooltip('fixTitle')
+                            .tooltip('show')
+                            .attr('title', "Copier dans le presse-papier")
+                            .tooltip('fixTitle');
+                    });
+                });
+            </script>
 
             <div class="form-group{{ $errors->has('firstname') ? ' has-error' : '' }}">
                 <label for="firstname" class="col-md-4 control-label">Pr&eacute;nom</label>
