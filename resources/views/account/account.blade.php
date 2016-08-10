@@ -52,7 +52,16 @@
             @endif
                 <label for="password" class="col-md-4 control-label">Mot de passe</label>
                 <div class="col-md-6">
-                    <input id="password" class="form-control" name="password" value="" disabled="true">
+                    <div class="input-group">
+                        <input id="password" class="form-control" name="password" value="" disabled="true">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" id="copy-button"
+                                data-toggle="tooltip" data-placement="button"
+                                title="Copier dans le presse-papier">
+                                Copier
+                            </button>
+                        </span>
+                    </div>
                     @if ($errors->has('netpass'))
                         <span class="help-block">
                             <strong>{{ $errors->first('netpass') }}</strong>
@@ -65,11 +74,41 @@
                 </div>
             </div>
             <input id="netpass" type="hidden" class="form-control" name="netpass" value="">
+
+
+            <script type="text/javascript" language="javascript">
+                document.addEventListener("DOMContentLoaded", function(event) {
+                    $('#copy-button').tooltip();
+                    $('#copy-button').bind('click', function() {
+                        var accountinfo = "Compte: " + $('#netlogin').val()
+                            + "\r\n" + "Mot de passe: " + $('#netpass').val();
+                        try {
+                            var success = copyToClipboard(accountinfo);
+                            if (success) {
+                                $('#copy-button').trigger('copied', ['Copié']);
+                            } else {
+                                $('#copy-button').trigger('copied', ['Copier avec Ctrl-c']);
+                            }
+                        } catch (err) {
+                            $('#copy-button').trigger('copied', ['Copier avec Ctrl-c']);
+                        }
+                    });
+                    $('#copy-button').bind('copied', function(event, message) {
+                        $(this).attr('title', message)
+                            .tooltip('fixTitle')
+                            .tooltip('show')
+                            .attr('title', "Copier dans le presse-papier")
+                            .tooltip('fixTitle');
+                    });
+                });
+            </script>
+
             @if (empty($account->id))
                 <script type="text/javascript" language="javascript">
                     document.addEventListener("DOMContentLoaded", function(event) {
-                        $('#password').val(randomPassword.create(8, randomPassword.chrLower+randomPassword.chrNumbers));
-                        $('#netpass').val($('#password').val());
+                        var password = randomPassword.create(8, randomPassword.chrLower+randomPassword.chrNumbers);
+                        $('#password').val(password);
+                        $('#netpass').val(password);
                     });
                 </script>
             @endif
@@ -108,7 +147,7 @@
                                 + $('#lastname').val().substr(0, 3) + ''
                                 + accountSalt;
                             $('#account').val(account.toLowerCase());
-                            $('#netlogin').val($('#account').val());
+                            $('#netlogin').val(account.toLowerCase());
                         };
                         $('#firstname').change(function() { AccountGenerator()});
                         $('#lastname').change(function() { AccountGenerator()});
@@ -184,7 +223,7 @@
                         <i class="fa fa-btn fa-save"></i> Enregistrer
                     </button>
                     @if (!empty($account->id))
-                        <a href="#" class="btn" onclick="$('#password').val(randomPassword.create(8, randomPassword.chrLower+randomPassword.chrNumbers)); $('#divpass').removeClass('hidden');">
+                        <a href="#" class="btn" onclick="$('#password').val(randomPassword.create(8, randomPassword.chrLower+randomPassword.chrNumbers)); $('#netpass').val($('#password').val()); $('#divpass').removeClass('hidden');">
                             <i class="fa fa-btn fa-key"></i> Mot de passe
                         </a>
                     @endif
