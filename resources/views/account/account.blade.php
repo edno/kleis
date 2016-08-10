@@ -36,11 +36,16 @@
                 <label for="account" class="col-md-4 control-label">Compte</label>
                 <div class="col-md-6">
                     <input id="account" class="form-control" name="account" value="{{ $account->netlogin }}" disabled="true">
+                    @if ($errors->has('netlogin'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('netlogin') }}</strong>
+                        </span>
+                    @endif
                 </div>
             </div>
             <input id="netlogin" type="hidden" class="form-control" name="netlogin" value="{{ $account->netlogin }}">
 
-            @if (!empty($account->id))
+            @if (!empty($account->id) && false === $errors->has('netpass'))
                 <div id="divpass" class="form-group hidden">
             @else
                 <div id="divpass" class="form-group">
@@ -48,9 +53,15 @@
                 <label for="password" class="col-md-4 control-label">Mot de passe</label>
                 <div class="col-md-6">
                     <input id="password" class="form-control" name="password" value="" disabled="true">
-                    <span class="help-block hidden-print">
-                        <strong>notez le mot de passe ou imprimer cette page avant d&apos;enregistrer</strong>
-                    </span>
+                    @if ($errors->has('netpass'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('netpass') }}</strong>
+                        </span>
+                    @else
+                        <span class="help-block hidden-print">
+                            <strong>notez le mot de passe ou imprimer cette page avant d&apos;enregistrer</strong>
+                        </span>
+                    @endif
                 </div>
             </div>
             <input id="netpass" type="hidden" class="form-control" name="netpass" value="">

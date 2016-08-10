@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\User;
 
+use WhiteHat101\Crypt\APR1_MD5;
+
 class Account extends Model
 {
     const ACCOUNT_STATUS = [
@@ -39,7 +41,7 @@ class Account extends Model
      *
      * @var array
      */
-    protected $fillable = ['firstname', 'lastname', 'netlogin', 'netpass', 'expire', 'status', 'group', 'created_by'];
+    protected $fillable = ['firstname', 'lastname', 'netlogin', 'netpass', 'expire', 'status', 'group_id', 'category', 'created_by'];
 
     public function getCreator()
     {
@@ -55,4 +57,10 @@ class Account extends Model
     {
         return self::ACCOUNT_CATEGORY[$this->category];
     }
+
+    public static function generateHash($password)
+    {
+        return APR1_MD5::hash($password);
+    }
+
 }

@@ -16,11 +16,11 @@ class AccountsTableSeeder extends Seeder
             'created_by' => 1,
             'group_id' => 1,
             'netlogin' => 'alidup4242',
-            'netpass' => '3x@mp1e',
+            'netpass' => Account::generateHash('3x@mp1ePassW0r6'),
             'firstname' => 'Alice',
             'lastname' => 'Dupont',
             'expire' => date("Ymd"),
-            'status' => 0
+            'status' => 1
         ]);
     }
 }

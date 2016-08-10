@@ -76,7 +76,7 @@ class AccountController extends Controller
             'lastname' => 'required|alpha_num|min:3|max:100',
             'netlogin' => 'required|uniques:accounts',
             'netpass' => 'required',
-            'expire' => 'required_if:status,1|date',
+            'expirydate' => 'required_if:status,1|date',
             'category' => 'required',
             'status' => 'required|in:0,1',
             'group' => 'required|exists:groups,id'
@@ -84,7 +84,7 @@ class AccountController extends Controller
 
         $account = new Account;
         $account->netlogin = $request->netlogin;
-        $account->netpass = bcrypt($request->netpass);
+        $account->netpass = Account::generateHash($request->netpass);
         $account->firstname = ucwords($request->firstname);
         $account->lastname = ucwords($request->lastname);
         $account->category = $request->category;
@@ -111,7 +111,7 @@ class AccountController extends Controller
             'firstname' => 'required|alpha_num|min:3|max:100',
             'lastname' => 'required|alpha_num|min:3|max:100',
             'netlogin' => 'required',
-            'expire' => 'required_if:status,1|date',
+            'expirydate' => 'required_if:status,1|date',
             'category' => 'required',
             'status' => 'required|in:0,1',
             'group' => 'required|exists:groups,id'
@@ -120,7 +120,7 @@ class AccountController extends Controller
         $account = Account::findOrFail($id);
         $account->netlogin = $request->netlogin;
         if (false === empty($request->netpass)) {
-            $account->netpass = bcrypt($request->netpass);
+            $account->netpass = Account::generateHash($request->netpass);
         }
         $account->firstname = $request->firstname;
         $account->lastname = $request->lastname;
