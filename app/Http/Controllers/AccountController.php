@@ -74,11 +74,11 @@ class AccountController extends Controller
         $this->validate($request, [
             'firstname' => 'required|alpha_num|min:3|max:100',
             'lastname' => 'required|alpha_num|min:3|max:100',
-            'netlogin' => 'required|uniques:accounts',
-            'netpass' => 'required',
-            'expirydate' => 'required_if:status,1|date',
+            'netlogin' => 'required|unique:accounts,netlogin',
+            'netpass' => 'required|min:8|different:netlogin',
+            'expirydate' => 'required_if:status,1|date|after:today',
             'category' => 'required',
-            'status' => 'required|in:0,1',
+            'status' => 'required|boolean',
             'group' => 'required|exists:groups,id'
         ]);
 
@@ -110,10 +110,10 @@ class AccountController extends Controller
         $this->validate($request, [
             'firstname' => 'required|alpha_num|min:3|max:100',
             'lastname' => 'required|alpha_num|min:3|max:100',
-            'netlogin' => 'required',
-            'expirydate' => 'required_if:status,1|date',
+            'netlogin' => 'required|unique:accounts,netlogin',
+            'expirydate' => 'required_if:status,1|date|after:today',
             'category' => 'required',
-            'status' => 'required|in:0,1',
+            'status' => 'required|boolean',
             'group' => 'required|exists:groups,id'
         ]);
 
