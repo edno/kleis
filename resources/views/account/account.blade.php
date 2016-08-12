@@ -116,7 +116,7 @@
             <div class="form-group{{ $errors->has('firstname') ? ' has-error' : '' }}">
                 <label for="firstname" class="col-md-4 control-label">Pr&eacute;nom</label>
                 <div class="col-md-6">
-                    <input id="firstname" class="form-control" name="firstname" value="{{ $account->firstname }}">
+                    <input id="firstname" class="form-control" name="firstname" value="{{ $account->firstname }}"{{ empty($account->id) ? ' disabled="true"' : '' }}>
                     @if ($errors->has('firstname'))
                         <span class="help-block">
                             <strong>{{ $errors->first('firstname') }}</strong>
@@ -128,7 +128,7 @@
             <div class="form-group{{ $errors->has('lastname') ? ' has-error' : '' }}">
                 <label for="lastname" class="col-md-4 control-label">Nom</label>
                 <div class="col-md-6">
-                    <input id="lastname" class="form-control" name="lastname" value="{{ $account->lastname }}">
+                    <input id="lastname" class="form-control" name="lastname" value="{{ $account->lastname }}"{{ empty($account->id) ? ' disabled="true"' : '' }}>
                     @if ($errors->has('lastname'))
                         <span class="help-block">
                             <strong>{{ $errors->first('lastname') }}</strong>

@@ -73,7 +73,7 @@ class AdminController extends Controller
         ]);
 
         $user = new User;
-        $user->email = $request->email;
+        $user->email = strtolower($request->email);
         $user->password = bcrypt($request->password);
         $user->firstname = ucwords($request->firstname);
         $user->lastname = ucwords($request->lastname);
@@ -99,7 +99,7 @@ class AdminController extends Controller
         $this->validate($request, [
             'firstname' => 'required|alpha_num|min:3|max:100',
             'lastname' => 'required|alpha_num|min:3|max:100',
-            'email' => 'required|email|unique:users,email',
+            'email' => 'required|email|exists:users,email',
             'password' => 'present|alpha_dash|min:8|confirmed',
             'password_confirmation' => 'required_with:password|min:8',
             'level' => 'required',
@@ -108,12 +108,9 @@ class AdminController extends Controller
         ]);
 
         $user = User::findOrFail($id);
-        $user->email = $request->email;
         if (false === empty($request->password)) {
             $user->password = bcrypt($request->password);
         }
-        $user->firstname = $request->firstname;
-        $user->lastname = $request->lastname;
         $user->level = $request->level;
         if (false === empty($request->group)) {
             $user->group_id = $request->group;

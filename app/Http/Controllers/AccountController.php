@@ -121,8 +121,6 @@ class AccountController extends Controller
         if (false === empty($request->netpass)) {
             $account->netpass = Account::generateHash($request->netpass);
         }
-        $account->firstname = $request->firstname;
-        $account->lastname = $request->lastname;
         $account->category = $request->category;
         if (false === empty($request->expirydate)) {
             $account->expire = $request->expirydate;
