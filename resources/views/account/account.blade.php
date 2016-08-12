@@ -3,7 +3,7 @@
 @section('content')
 
 <script type="text/javascript" language="javascript">
-    var randomPassword = new RandomPassword();
+    var kleisPassword = new KleisPassword();
 </script>
 
 <div class="visible-print">
@@ -106,14 +106,14 @@
             @if (empty($account->id))
                 <script type="text/javascript" language="javascript">
                     document.addEventListener("DOMContentLoaded", function(event) {
-                        var password = randomPassword.create(8, randomPassword.chrLower+randomPassword.chrNumbers);
+                        var password = kleisPassword.generate();
                         $('#password').val(password);
                         $('#netpass').val(password);
                     });
                 </script>
             @endif
 
-            <div class="form-group{{ $errors->has('firstname') ? ' has-error' : '' }}">
+            <div class="form-group generator-kleis{{ $errors->has('firstname') ? ' has-error' : '' }}">
                 <label for="firstname" class="col-md-4 control-label">Pr&eacute;nom</label>
                 <div class="col-md-6">
                     <input id="firstname" class="form-control" name="firstname" value="{{ $account->firstname }}"{{ empty($account->id) ? ' disabled="true"' : '' }}>
@@ -125,7 +125,7 @@
                 </div>
             </div>
 
-            <div class="form-group{{ $errors->has('lastname') ? ' has-error' : '' }}">
+            <div class="form-group generator-kleis{{ $errors->has('lastname') ? ' has-error' : '' }}">
                 <label for="lastname" class="col-md-4 control-label">Nom</label>
                 <div class="col-md-6">
                     <input id="lastname" class="form-control" name="lastname" value="{{ $account->lastname }}"{{ empty($account->id) ? ' disabled="true"' : '' }}>
@@ -139,18 +139,12 @@
 
             @if (empty($account->id))
                 <script type="text/javascript" language="javascript">
-                    var randomSalt = new RandomPassword();
-                    var accountSalt = randomSalt.create(4, randomSalt.chrNumbers);
                     document.addEventListener("DOMContentLoaded", function(event) {
-                        function AccountGenerator () {
-                            var account = $('#firstname').val().substr(0, 3) + ''
-                                + $('#lastname').val().substr(0, 3) + ''
-                                + accountSalt;
-                            $('#account').val(account.toLowerCase());
-                            $('#netlogin').val(account.toLowerCase());
-                        };
-                        $('#firstname').change(function() { AccountGenerator()});
-                        $('#lastname').change(function() { AccountGenerator()});
+                        $('.generator-kleis').change(function() {
+                            var account = AccountGenerator($('#firstname').val(), $('#lastname').val());
+                            $('#account').val(account);
+                            $('#netlogin').val(account);
+                        });
                     });
                 </script>
             @endif
@@ -223,7 +217,7 @@
                         <i class="fa fa-btn fa-save"></i> Enregistrer
                     </button>
                     @if (!empty($account->id))
-                        <a href="#" class="btn" onclick="$('#password').val(randomPassword.create(8, randomPassword.chrLower+randomPassword.chrNumbers)); $('#netpass').val($('#password').val()); $('#divpass').removeClass('hidden');">
+                        <a href="#" class="btn" onclick="$('#password').val(kleisPassword.generate()); $('#netpass').val($('#password').val()); $('#divpass').removeClass('hidden');">
                             <i class="fa fa-btn fa-key"></i> Mot de passe
                         </a>
                     @endif
