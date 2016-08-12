@@ -47,21 +47,29 @@ class User extends Authenticatable
 
     public function getStatus()
     {
-        return self::USER_STATUS[$this->status];
+        if (isset(self::USER_STATUS[$this->status])) {
+            return self::USER_STATUS[$this->status];
+        } else {
+            return null;
+        }
     }
 
     public function getLevel()
     {
-        return self::USER_LEVEL[$this->level];
+        if (isset(self::USER_LEVEL[$this->level])) {
+            return self::USER_LEVEL[$this->level];
+        } else {
+            return null;
+        }
     }
 
     public function getCreator()
     {
-        return User::findOrFail($this->created_by);
+        return User::find($this->created_by);
     }
 
     public function getGroup()
     {
-        return Group::findOrFail($this->group_id);
+        return Group::find($this->group_id);
     }
 }
