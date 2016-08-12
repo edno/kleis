@@ -89,6 +89,11 @@
                                         <div class="btn-group">
                                             <a href="#" class="btn btn-default edit-link" id="edit{{ $group->id }}"><i class="fa fa-pencil"></i></a>
                                             <a href="/group/{{ $group->id }}/accounts" class="btn btn-default"><i class="fa fa-list-alt"></i></a>
+                                            @if ($group->countAccounts(1) > 0)
+                                                <a href="/group/{{ $group->id }}/disable" class="btn btn-default"><i class="fa fa-ban"></i></a>
+                                            @else
+                                                <a href="#" class="btn btn-default disabled" disabled="true"><i class="fa fa-ban"></i></a>
+                                            @endif
                                             @if ($group->countAccounts(0) > 0)
                                                 <a href="/group/{{ $group->id }}/purge" class="btn btn-default"><i class="fa fa-recycle"></i></a>
                                             @else

@@ -73,10 +73,19 @@ class GroupController extends Controller
     {
         $group = Group::findOrFail($id);
         $accounts = Group::Find($id)->accounts()->where('status', 0);
-        $count = count($accounts);
-        if ($count > 0 ) {
+        if (count($accounts) > 0 ) {
             $accounts->delete();
         }
         return redirect('groups')->with('status', "Groupe '{$group->name}': comptes inactifs supprimés.");
+    }
+
+    public function disableAccounts($id)
+    {
+        $group = Group::findOrFail($id);
+        $accounts = Group::Find($id)->accounts()->where('status', 1)->get();
+        foreach ($accounts as $account) {
+            $account->disable();
+        }
+        return redirect('groups')->with('status', "Groupe '{$group->name}': comptes désactivés.");
     }
 }

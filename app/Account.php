@@ -63,4 +63,19 @@ class Account extends Model
         return APR1_MD5::hash($password);
     }
 
+    public function enable()
+    {
+        $this->status = 1;
+        if (empty($this->expire) || $this->expire <= date('Y-m-d')) {
+            $this->expire = date_create('+90 day')->format('Y-m-d');
+        }
+        $this->update();
+    }
+
+    public function disable()
+    {
+        $this->status = 0;
+        $this->update();
+    }
+
 }

@@ -138,11 +138,7 @@ class AccountController extends Controller
     public function enableAccount($id)
     {
         $account = Account::findOrFail($id);
-        $account->status = 1;
-        if (empty($account->expire) || $account->expire <= date('Y-m-d')) {
-            $account->expire = date_create('+90 day')->format('Y-m-d');
-        }
-        $account->update();
+        $account->enable();
         return redirect('accounts')->with('status', "Compte '{$account->netlogin}' est maintenant actif et expirera le {$account->expire}.");
     }
 
@@ -155,8 +151,7 @@ class AccountController extends Controller
     public function disableAccount($id)
     {
         $account = Account::findOrFail($id);
-        $account->status = 0;
-        $account->update();
+        $account->disable();
         return redirect('accounts')->with('status', "Compte '{$account->netlogin}' a été désactivé.");
     }
 
