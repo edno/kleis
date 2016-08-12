@@ -35,6 +35,7 @@ Route::get('/groups', 'GroupController@showGroups');
 Route::post('/groups', 'GroupController@addGroup');
 Route::get('/group/{id}/delete', 'GroupController@removeGroup');
 Route::get('/group/{id}/accounts', 'GroupController@showAccounts');
+Route::get('/group/{id}/purge', 'GroupController@purgeAccounts');
 
 // Users (app administrators)
 Route::get('/administrators', 'AdminController@showUsers');

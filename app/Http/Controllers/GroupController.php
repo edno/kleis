@@ -68,4 +68,15 @@ class GroupController extends Controller
         $group = Group::findOrFail($id);
         return view('account/accounts', ['accounts' => Group::Find($id)->accounts, 'group' => $group]);
     }
+
+    public function purgeAccounts($id)
+    {
+        $group = Group::findOrFail($id);
+        $accounts = Group::Find($id)->accounts()->where('status', 0);
+        $count = count($accounts);
+        if ($count > 0 ) {
+            $accounts->delete();
+        }
+        return redirect('groups')->with('status', "Groupe '{$group->name}': comptes inactifs supprimés.");
+    }
 }

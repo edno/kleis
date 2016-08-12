@@ -72,7 +72,7 @@
                     <tbody>
                         @foreach ($groups as $group)
                             <tr>
-                                <td class="table-text">
+                                <td class="table-text col-xs-3">
                                     <div id="group{{ $group->id }}">{{ $group->name }}</div>
                                 </td>
                                 <td class="table-text">
@@ -84,11 +84,16 @@
                                 <td class="table-text">
                                     <div><span class="badge">{{ $group->countUsers() }}</span></div>
                                 </td>
-                                <td class="align-right col-xs-2">
+                                <td class="align-right col-xs-3">
                                     <div class="btn-toolbar">
                                         <div class="btn-group">
                                             <a href="#" class="btn btn-default edit-link" id="edit{{ $group->id }}"><i class="fa fa-pencil"></i></a>
                                             <a href="/group/{{ $group->id }}/accounts" class="btn btn-default"><i class="fa fa-list-alt"></i></a>
+                                            @if ($group->countAccounts(0) > 0)
+                                                <a href="/group/{{ $group->id }}/purge" class="btn btn-default"><i class="fa fa-recycle"></i></a>
+                                            @else
+                                                <a href="#" class="btn btn-default disabled" disabled="true"><i class="fa fa-recycle"></i></a>
+                                            @endif
                                             @if ($group->countAccounts() + $group->countUsers() > 0)
                                                 <a href="#" class="btn btn-default disabled" disabled="true"><i class="fa fa-trash"></i></a>
                                             @else
