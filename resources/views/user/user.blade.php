@@ -139,7 +139,7 @@
                     <select id="level" class="form-control" name="level" style="font-family:'FontAwesome', Arial;">
                         <option value="1" {{ ($user->level == 1 || old('level') == 1) ? 'selected="true"' : null }}>&#xf1cd; Gestionnaire</option>
                         <option value="2" {{ ($user->level == 2 || old('level') == 2) ? 'selected="true"' : null }}>&#xf132; Administrateur</option>
-                        @if ($user->level >= 9)
+                        @if (Auth::user()->level == 9)
                             <option value="9" {{ ($user->level == 9 || old('level') == 9) ? 'selected="true"' : null }}>&#xf135; Super Administrateur</option>
                         @endif
                     </select>
