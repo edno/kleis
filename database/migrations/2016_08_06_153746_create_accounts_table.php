@@ -22,7 +22,7 @@ class CreateAccountsTable extends Migration
             $table->string('lastname');
             $table->integer('category')->default(0);
             $table->date('expire')->nullable();
-            $table->integer('status')->default(1);
+            $table->boolean('status')->default(1);
             $table->timestamps();
         });
     }
