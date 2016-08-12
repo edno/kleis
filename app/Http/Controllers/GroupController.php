@@ -66,7 +66,8 @@ class GroupController extends Controller
     public function showAccounts($id)
     {
         $group = Group::findOrFail($id);
-        return view('account/accounts', ['accounts' => Group::Find($id)->accounts, 'group' => $group]);
+        $accounts = Group::find($id)->accounts()->paginate(20);
+        return view('account/accounts', ['accounts' => $accounts, 'group' => $group]);
     }
 
     public function purgeAccounts($id)
