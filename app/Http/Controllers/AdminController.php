@@ -62,8 +62,8 @@ class AdminController extends Controller
     public function addUser(Request $request)
     {
         $this->validate($request, [
-            'firstname' => 'required|alpha_num|min:3|max:100',
-            'lastname' => 'required|alpha_num|min:3|max:100',
+            'firstname' => 'required|alpha_num|max:100',
+            'lastname' => 'required|alpha_num|max:100',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|alpha_dash|min:8|confirmed',
             'password_confirmation' => 'required|min:8',
@@ -97,8 +97,6 @@ class AdminController extends Controller
     public function updateUser(Request $request, $id)
     {
         $this->validate($request, [
-            'firstname' => 'required|alpha_num|min:3|max:100',
-            'lastname' => 'required|alpha_num|min:3|max:100',
             'email' => 'required|email|exists:users,email',
             'password' => 'present|alpha_dash|min:8|confirmed',
             'password_confirmation' => 'required_with:password|min:8',

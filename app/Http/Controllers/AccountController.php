@@ -72,8 +72,8 @@ class AccountController extends Controller
     public function addAccount(Request $request)
     {
         $this->validate($request, [
-            'firstname' => 'required|alpha_num|min:3|max:100',
-            'lastname' => 'required|alpha_num|min:3|max:100',
+            'firstname' => 'required|alpha_num|max:100',
+            'lastname' => 'required|alpha_num|max:100',
             'netlogin' => 'required|unique:accounts,netlogin',
             'netpass' => 'required|min:8|different:netlogin',
             'expirydate' => 'required_if:status,1|date|after:today',
@@ -108,8 +108,6 @@ class AccountController extends Controller
     public function updateAccount(Request $request, $id)
     {
         $this->validate($request, [
-            'firstname' => 'required|alpha_num|min:3|max:100',
-            'lastname' => 'required|alpha_num|min:3|max:100',
             'netlogin' => 'required|exists:accounts,netlogin',
             'expirydate' => 'required_if:status,1|date|after:today',
             'category' => 'required',
