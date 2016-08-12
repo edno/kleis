@@ -62,7 +62,8 @@
                     <!-- Table Headings -->
                     <thead>
                         <th>D&eacute;l&eacute;gation</th>
-                        <th>Comptes utilisateurs</th>
+                        <th>Comptes actifs</th>
+                        <th>Comptes inactifs</th>
                         <th>Gestionnaires</th>
                         <th>&nbsp;</th>
                     </thead>
@@ -75,7 +76,10 @@
                                     <div id="group{{ $group->id }}">{{ $group->name }}</div>
                                 </td>
                                 <td class="table-text">
-                                    <div><span class="badge">{{ $group->countAccounts() }}</span></div>
+                                    <div><span class="badge">{{ $group->countAccounts(1) }}</span></div>
+                                </td>
+                                <td class="table-text">
+                                    <div><span class="badge">{{ $group->countAccounts(0) }}</span></div>
                                 </td>
                                 <td class="table-text">
                                     <div><span class="badge">{{ $group->countUsers() }}</span></div>

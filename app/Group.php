@@ -14,9 +14,12 @@ class Group extends Model
      */
     protected $fillable = ['name', 'created_by'];
 
-    public function countAccounts()
+    public function countAccounts($status = null)
     {
         $accounts = static::find($this->id)->accounts;
+        if (false === is_null($status)) {
+            $accounts = $accounts->where('status', $status);
+        }
         return count($accounts);
     }
 
