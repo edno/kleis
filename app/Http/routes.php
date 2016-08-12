@@ -47,6 +47,8 @@ Route::post('/user/{id}', 'AdminController@updateUser');
 Route::get('/user/{id}/enable', 'AdminController@enableUser');
 Route::get('/user/{id}/disable', 'AdminController@disableUser');
 Route::get('/user/{id}/delete', 'AdminController@removeUser');
+Route::get('/profile', 'UserController@showProfile');
+Route::post('/profile', 'AdminController@updateUser');
 
 // Whitelists
 Route::get('whitelist/domains', 'ProxyListItemController@showWhiteListDomains');

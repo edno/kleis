@@ -2,6 +2,20 @@
 
 @section('content')
 
+@if (session('status'))
+    <div class="alert alert-success alert-dismissable">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        {{ session('status') }}
+    </div>
+    <script type="text/javascript" language="javascript">
+        document.addEventListener("DOMContentLoaded", function(event) {
+            $(".alert-dismissable").fadeTo(2000, 500).slideUp(500, function(){
+                $(".alert-dismissable").alert('close');
+            });
+        });
+    </script>
+@endif
+
 <div class="panel panel-default hidden-print">
     <div class="panel-heading">
         <div class="panel-title pull-left">
@@ -17,10 +31,10 @@
         <div class="clearfix"></div>
     </div>
     <div class="panel-body">
-        @if (!empty($user->id))
-            <form class="form-horizontal" role="form" method="POST" action="{{ url('/user') }}/{{ $user->id }}">
+        @if ( Auth::user()->id != $user->id )
+            <form class="form-horizontal" role="form" method="POST" action="{{ url('/user') }}{{ empty($user->id) ? '' : '/'.$user->id }}">
         @else
-            <form class="form-horizontal" role="form" method="POST" action="{{ url('/user') }}">
+            <form class="form-horizontal" role="form" method="POST" action="{{ url('/profile') }}">
         @endif
             {{ csrf_field() }}
 
@@ -118,6 +132,7 @@
             </div>
 
 
+            @if ( Auth::user()->id != $user->id )
             <div class="form-group">
                 <label for="level" class="col-md-4 control-label">Niveau</label>
                 <div class="col-md-6">
@@ -154,8 +169,16 @@
                     });
                 });
             </script>
+            @else
+            <div class="form-group">
+                <label for="level" class="col-md-4 control-label">Niveau</label>
+                <div class="col-md-6">
+                    <input class="form-control" value="{{ ucfirst($user->getLevel()['text']) }}" disabled="true">
+                </div>
+            </div>
+            @endif
 
-
+            @if ( Auth::user()->id != $user->id )
             <div id="divgroup" class="form-group{{ $errors->has('group') ? ' has-error' : '' }}{{ $user->level > 1 ? ' hidden' : '' }}">
                 <label for="group" class="col-md-4 control-label">D&eacute;l&eacute;gation</label>
                 <div class="col-md-6">
@@ -171,7 +194,16 @@
                     @endif
                 </div>
             </div>
+            @else
+            <div class="form-group">
+                <label for="level" class="col-md-4 control-label">D&eacute;l&eacute;gation</label>
+                <div class="col-md-6">
+                    <input class="form-control" value="{{ $user->getGroup() ? $user->getGroup()->name : '&#9679;' }}" disabled="true">
+                </div>
+            </div>
+            @endif
 
+            @if ( Auth::user()->id != $user->id )
             <div class="form-group">
                 <label for="status" class="col-md-4 control-label">Statut</label>
                 <div class="col-md-6">
@@ -188,6 +220,7 @@
                     });
                 });
             </script>
+            @endif
 
             <div class="form-group">
                 <div class="col-md-10 col-md-offset-4">
@@ -199,7 +232,7 @@
                             <i class="fa fa-btn fa-key"></i> Changer mot de passe
                         </a>
                     @endif
-                    <a href="/administrators" class="btn" type="button">
+                    <a href="{{ (Auth::user()->id == $user->id) ? '/home' : '/administrators' }}" class="btn" type="button">
                         <i class="fa fa-btn fa-undo"></i> Annuler
                     </a>
                 </div>

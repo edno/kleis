@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\User;
 use App\Group;
+use Auth;
 
 class AdminController extends Controller
 {
@@ -94,29 +95,44 @@ class AdminController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function updateUser(Request $request, $id)
+    public function updateUser(Request $request, $id = 0)
     {
         $this->validate($request, [
-            'email' => 'required|email|exists:users,email',
-            'password' => 'present|alpha_dash|min:8|confirmed',
+            'password' => 'alpha_dash|min:8|confirmed',
             'password_confirmation' => 'required_with:password|min:8',
-            'level' => 'required',
-            'status' => 'required|boolean',
-            'group' => 'required_if:level,1'
+            'status' => 'boolean',
+            'group' => 'exists:groups,id'
         ]);
 
+        if ($request->is('profile')) {
+            $id = Auth::user()->id;
+        }
+
         $user = User::findOrFail($id);
+        $update = false;
+
         if (false === empty($request->password)) {
             $user->password = bcrypt($request->password);
         }
-        $user->level = $request->level;
+        if (false === empty($request->level)) {
+            $user->level = $request->level;
+        }
+        if (false === empty($request->status)) {
+            $user->status = $request->status;
+        }
         if (false === empty($request->group)) {
             $user->group_id = $request->group;
         }
-        $user->status = $request->status;
-        $user->group_id = $request->group;
+
         $user->update();
-        return redirect('administrators')->with('status', "'{$user->email}' mis à jour avec succès.");
+
+        if ($request->is('profile')) {
+            $redirect = 'profile';
+        } else {
+            $redirect = 'administrators';
+        }
+
+        return redirect($redirect)->with('status', "'{$user->email}' mis à jour avec succès.");
     }
 
     /**
