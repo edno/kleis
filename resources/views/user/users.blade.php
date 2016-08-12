@@ -38,6 +38,7 @@
                     <thead>
                         <th>Nom</th>
                         <th>Niveau</th>
+                        <th>D&eacute;l&eacute;gation</th>
                         <th>Email</th>
                         <th>Actif</th>
                         <th>&nbsp;</th>
@@ -53,6 +54,9 @@
                                 </td>
                                 <td class="table-text">
                                     <div><div><i class="fa {{ $user->getLevel()['icon'] }}" title="{{ $user->getLevel()['text'] }}"></i></div></div>
+                                </td>
+                                <td class="table-text">
+                                    <div>{{ $user->getGroup() ? $user->getGroup()->name : '&#9679;' }}</div>
                                 </td>
                                 <td class="table-text">
                                     <div>{{ $user->email }}</div>
