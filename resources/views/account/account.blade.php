@@ -3,6 +3,7 @@
 @section('content')
 
 <script type="text/javascript" language="javascript">
+    var kleisAccount = new KleisAccount();
     var kleisPassword = new KleisPassword();
 </script>
 
@@ -141,7 +142,7 @@
                 <script type="text/javascript" language="javascript">
                     document.addEventListener("DOMContentLoaded", function(event) {
                         $('.generator-kleis').change(function() {
-                            var account = AccountGenerator($('#firstname').val(), $('#lastname').val());
+                            var account = kleisAccount.generate($('#firstname').val(), $('#lastname').val());
                             $('#account').val(account);
                             $('#netlogin').val(account);
                         });
