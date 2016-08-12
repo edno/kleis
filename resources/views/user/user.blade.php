@@ -31,7 +31,7 @@
         <div class="clearfix"></div>
     </div>
     <div class="panel-body">
-        @if ( Auth::user()->id != $user->id )
+        @if ( Auth::user()->id != $user->id || Request::url() != url('/profile'))
             <form class="form-horizontal" role="form" method="POST" action="{{ url('/user') }}{{ empty($user->id) ? '' : '/'.$user->id }}">
         @else
             <form class="form-horizontal" role="form" method="POST" action="{{ url('/profile') }}">
@@ -232,7 +232,7 @@
                             <i class="fa fa-btn fa-key"></i> Changer mot de passe
                         </a>
                     @endif
-                    <a href="{{ (Auth::user()->id == $user->id) ? '/home' : '/administrators' }}" class="btn" type="button">
+                    <a href="{{ (Auth::user()->id == $user->id  && Request::url() == url('/profile')) ? '/home' : '/administrators' }}" class="btn" type="button">
                         <i class="fa fa-btn fa-undo"></i> Annuler
                     </a>
                 </div>
