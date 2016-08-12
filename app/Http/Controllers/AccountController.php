@@ -110,7 +110,7 @@ class AccountController extends Controller
         $this->validate($request, [
             'firstname' => 'required|alpha_num|min:3|max:100',
             'lastname' => 'required|alpha_num|min:3|max:100',
-            'netlogin' => 'required|unique:accounts,netlogin',
+            'netlogin' => 'required|exists:accounts,netlogin',
             'expirydate' => 'required_if:status,1|date|after:today',
             'category' => 'required',
             'status' => 'required|boolean',
@@ -118,7 +118,6 @@ class AccountController extends Controller
         ]);
 
         $account = Account::findOrFail($id);
-        $account->netlogin = $request->netlogin;
         if (false === empty($request->netpass)) {
             $account->netpass = Account::generateHash($request->netpass);
         }
