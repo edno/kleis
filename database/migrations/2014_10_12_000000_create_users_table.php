@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('phone')->nullable();
             $table->string('password');
             $table->string('level')->default(0);
-            $table->string('status')->default(1);
+            $table->boolean('status')->default(1);
             $table->integer('group_id')->index();
             $table->integer('created_by')->index();
             $table->rememberToken();

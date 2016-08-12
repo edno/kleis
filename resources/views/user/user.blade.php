@@ -50,7 +50,7 @@
                 </div>
             </div>
 
-            <div id="divpass" class="form-group{{ !empty($user->id) ? ' hidden' : ''}}">
+            <div id="divpass" class="form-group{{ !empty($user->id) ? ' hidden' : ''}}{{ ($errors->has('password') || $errors->has('password_confirmation')) ? ' has-error' : '' }}">
                 <label for="password" class="col-md-4 control-label">Mot de passe</label>
                 <div class="col-md-6">
                     <div class="input-group">
