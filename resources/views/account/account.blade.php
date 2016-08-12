@@ -2,6 +2,7 @@
 
 @section('content')
 
+@if (count($groups) > 0)
 <script type="text/javascript" language="javascript">
     var kleisAccount = new KleisAccount();
     var kleisPassword = new KleisPassword();
@@ -248,5 +249,12 @@
             </div>
         </div>
     @endif
+
+@else
+    <div class="alert alert-warning">
+        <strong>Aucune d&eacute;l&eacute;gation disponible !</strong> Veuillez cr&eacute;er une d&eacute;l&eacute;gation avant de continuer.
+    </div>
+
+@endif
 
 @endsection
