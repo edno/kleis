@@ -24,4 +24,15 @@ class Group extends Model
     {
         return $this->hasMany(Account::class);
     }
+
+    public function countUsers()
+    {
+        $users = static::find($this->id)->users;
+        return count($users);
+    }
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
 }

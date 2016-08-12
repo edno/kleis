@@ -63,6 +63,7 @@
                     <thead>
                         <th>D&eacute;l&eacute;gation</th>
                         <th>Comptes utilisateurs</th>
+                        <th>Gestionnaires</th>
                         <th>&nbsp;</th>
                     </thead>
 
@@ -76,12 +77,15 @@
                                 <td class="table-text">
                                     <div><span class="badge">{{ $group->countAccounts() }}</span></div>
                                 </td>
+                                <td class="table-text">
+                                    <div><span class="badge">{{ $group->countUsers() }}</span></div>
+                                </td>
                                 <td class="align-right col-xs-2">
                                     <div class="btn-toolbar">
                                         <div class="btn-group">
                                             <a href="#" class="btn btn-default edit-link" id="edit{{ $group->id }}"><i class="fa fa-pencil"></i></a>
                                             <a href="/group/{{ $group->id }}/accounts" class="btn btn-default"><i class="fa fa-list-alt"></i></a>
-                                            @if ($group->countAccounts() > 0)
+                                            @if ($group->countAccounts() + $group->countUsers() > 0)
                                                 <a href="#" class="btn btn-default disabled" disabled="true"><i class="fa fa-trash"></i></a>
                                             @else
                                                 <a href="/group/{{ $group->id }}/delete" class="btn btn-default"><i class="fa fa-trash"></i></a>
