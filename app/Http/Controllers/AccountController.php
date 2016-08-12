@@ -31,7 +31,7 @@ class AccountController extends Controller
         if (Auth::user()->level == 1) {
             return redirect()->action('GroupController@showAccounts', [Auth::user()->group_id]);
         } else {
-            $accounts = Account::orderBy('netlogin', 'asc')->get();
+            $accounts = Account::orderBy('netlogin', 'asc')->paginate(20);
             return view('account/accounts', ['accounts' => $accounts]);
         }
     }

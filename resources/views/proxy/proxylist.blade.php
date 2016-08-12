@@ -92,6 +92,10 @@
         </div>
     </div>
 
+    <div class="text-center">
+        {{ $items->links() }}
+    </div>
+
     <script type="text/javascript" language="javascript">
         document.addEventListener("DOMContentLoaded", function(event) {
             $('.edit-link').click(function () {

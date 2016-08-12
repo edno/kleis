@@ -21,7 +21,7 @@ class GroupController extends Controller
 
     public function showGroups()
     {
-        $groups = Group::orderBy('name', 'asc')->get();
+        $groups = Group::orderBy('name', 'asc')->paginate(20);
         return view('group/groups', ['groups' => $groups]);
     }
 

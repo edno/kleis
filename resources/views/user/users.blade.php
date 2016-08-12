@@ -87,4 +87,8 @@
         </div>
     </div>
 
+    <div class="text-center">
+        {{ $users->links() }}
+    </div>
+
 @endsection

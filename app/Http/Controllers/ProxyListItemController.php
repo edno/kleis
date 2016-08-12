@@ -31,7 +31,7 @@ class ProxyListItemController extends Controller
 
     protected function showList($type)
     {
-        $items = ProxyListItem::where('type', $type)->orderBy('value', 'asc')->get();
+        $items = ProxyListItem::where('type', $type)->orderBy('value', 'asc')->paginate(20);
         return view("proxy/proxylist", ['items' => $items, 'type' => $type]);
     }
 

@@ -22,7 +22,7 @@ class AdminController extends Controller
 
     public function showUsers()
     {
-        $users = User::orderBy('firstname', 'asc')->orderBy('lastname', 'asc')->get();
+        $users = User::orderBy('firstname', 'asc')->orderBy('lastname', 'asc')->paginate(20);
         return view('user/users', ['users' => $users]);
     }
 

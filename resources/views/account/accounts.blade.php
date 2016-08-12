@@ -102,4 +102,8 @@
         </div>
     </div>
 
+    <div class="text-center">
+        {{ $accounts->links() }}
+    </div>
+
 @endsection
