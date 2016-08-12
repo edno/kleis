@@ -61,7 +61,7 @@
                                 <tr class="text-muted">
                             @endif
                                 <td class="table-text">
-                                    <div><i class="fa {{ $account->getEmployment()['icon'] }}" title="{{ ucfirst($account->getEmployment()['text']) }}"></i></div>
+                                    <div><i class="fa {{ $account->getCategory()['icon'] }}" title="{{ ucfirst($account->getCategory()['text']) }}"></i></div>
                                 </td>
                                 <td class="table-text">
                                     <div>{{ $account->firstname }} {{ $account->lastname }}</div>

@@ -53,7 +53,7 @@ class Account extends Model
         return self::ACCOUNT_STATUS[$this->status];
     }
 
-    public function getEmployment()
+    public function getCategory()
     {
         return self::ACCOUNT_CATEGORY[$this->category];
     }
