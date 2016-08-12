@@ -17,8 +17,8 @@ var KleisAccount = function (chunkLen, saltLen) {
 };
 
 KleisAccount.prototype.generate = function (in1, in2) {
-    var strPart1 = in1.replace(/[^A-Z|^0-9]/gi, '').removeAccents().toLowerCase();
-    var strPart2 = in2.replace(/[^A-Z|^0-9]/gi, '').removeAccents().toLowerCase();
+    var strPart1 = in1.removeAccents().replace(/[^A-Z|^0-9]/gi, '').toLowerCase();
+    var strPart2 = in2.removeAccents().replace(/[^A-Z|^0-9]/gi, '').toLowerCase();
     var strA = strPart1.substr(0, this.chunkLen);
     var strB = strPart2.substr(0, this.chunkLen);
     if (strA.length < this.chunkLen) {
