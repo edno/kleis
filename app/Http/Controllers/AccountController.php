@@ -29,7 +29,8 @@ class AccountController extends Controller
     public function showAccounts($category = null)
     {
         if (Auth::user()->level == 1) {
-            return redirect()->action('GroupController@showAccounts', [Auth::user()->group_id]);
+            $controller = new GroupController();
+            return $controller->showAccounts(Auth::user()->group_id, $category);
         } else {
             if (false === empty($category)) {
                 $accounts = Account::orderBy('netlogin', 'asc')->where('category', $category)->paginate(20);
