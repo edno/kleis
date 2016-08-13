@@ -26,12 +26,16 @@ class AccountController extends Controller
      *
      * @return Response
      */
-    public function showAccounts()
+    public function showAccounts($category = null)
     {
         if (Auth::user()->level == 1) {
             return redirect()->action('GroupController@showAccounts', [Auth::user()->group_id]);
         } else {
-            $accounts = Account::orderBy('netlogin', 'asc')->paginate(20);
+            if (false === empty($category)) {
+                $accounts = Account::orderBy('netlogin', 'asc')->where('category', $category)->paginate(20);
+            } else {
+                $accounts = Account::orderBy('netlogin', 'asc')->paginate(20);
+            }
             return view('account/accounts', ['accounts' => $accounts]);
         }
     }

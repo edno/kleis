@@ -29,6 +29,7 @@ Route::post('/account/{id}', 'AccountController@updateAccount');
 Route::get('/account/{id}/enable', 'AccountController@enableAccount');
 Route::get('/account/{id}/disable', 'AccountController@disableAccount');
 Route::get('/account/{id}/delete', 'AccountController@removeAccount');
+Route::get('/accounts/category/{category}', 'AccountController@showAccounts');
 
 // Groups (accounts)
 Route::get('/groups', 'GroupController@showGroups');

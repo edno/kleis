@@ -17,6 +17,12 @@
 @endif
 
     <!-- Current Accounts -->
+    <ul class="nav nav-tabs">
+        <li{{ Request::is("accounts/category/*") ? '' : ' class=active' }}><a href="{{ url('/accounts') }}"><i class="fa fa-asterisk"></i> Tous</a></li>
+        @foreach (App\Account::ACCOUNT_CATEGORY as $id => $category)
+            <li{{ Request::is("accounts/category/$id") ? ' class=active' : '' }}><a href="{{ url('/accounts/category') . '/' . $id }}"><i class="fa {{ $category['icon'] }}"></i> {{ mb_strtoupper(mb_substr($category['text'], 0, 1)).mb_substr($category['text'], 1) }}</a></li>
+        @endforeach
+    </ul>
     <div class="panel panel-default">
         <div class="panel-heading">
             <div class="panel-title pull-left">
