@@ -68,12 +68,14 @@
                                     <div class="btn-toolbar">
                                         <div class="btn-group">
                                             <a href="/user/{{ $user->id }}" class="btn btn-default"><i class="fa fa-pencil"></i></a>
-                                            @if ($user->status == 1)
+                                            @if($user->id == Auth::user()->id)
+                                                <a href="#" class="btn btn-default disabled" disabled="true"><i class="fa fa-ban"></i></a>
+                                            @elseif ($user->status == 1)
                                                 <a href="/user/{{ $user->id }}/disable" class="btn btn-default"><i class="fa fa-ban"></i></a>
                                             @else
                                                 <a href="/user/{{ $user->id }}/enable" class="btn btn-default"><i class="fa fa-check"></i></a>
                                             @endif
-                                            @if ($user->status == 1)
+                                            @if ($user->status == 1 || $user->id == Auth::user()->id)
                                                 <a href="#" class="btn btn-default disabled" disabled="true"><i class="fa fa-trash"></i></a>
                                             @else
                                                 <a href="/user/{{ $user->id }}/delete" class="btn btn-default"><i class="fa fa-trash"></i></a>
