@@ -38,7 +38,7 @@ class GroupController extends Controller
             $group->name = $request->name;
             $group->created_by = $request->user()->id;
             $group->save();
-            return redirect('groups')->with('status', "Groupe '{$group->name}' ajouté avec succès.");
+            return redirect('groups')->with('status', "Délégation '{$group->name}' ajoutée avec succès.");
         }
     }
 
@@ -52,7 +52,7 @@ class GroupController extends Controller
         $name = $group->name;
         $group->name = $request->name;
         $group->update();
-        return redirect('groups')->with('status', "Groupe '{$name}' renommé en '{$group->name}'.");
+        return redirect('groups')->with('status', "Délégation '{$name}' renommée en '{$group->name}'.");
     }
 
     public function removeGroup($id)
@@ -60,13 +60,17 @@ class GroupController extends Controller
         $group = Group::findOrFail($id);
         $name = $group->name;
         $group->delete();
-        return redirect('groups')->with('status', "Groupe '{$name}' a été supprimé.");
+        return redirect('groups')->with('status', "Délégation '{$name}' a été supprimée.");
     }
 
-    public function showAccounts($id)
+    public function showAccounts($id, $category = null)
     {
         $group = Group::findOrFail($id);
-        $accounts = Group::find($id)->accounts()->paginate(20);
+        if (false === empty($category)) {
+            $accounts = Group::find($id)->accounts()->where('category', $category)->paginate(20);
+        } else {
+            $accounts = Group::find($id)->accounts()->paginate(20);
+        }
         return view('account/accounts', ['accounts' => $accounts, 'group' => $group]);
     }
 
@@ -77,7 +81,7 @@ class GroupController extends Controller
         if (count($accounts) > 0 ) {
             $accounts->delete();
         }
-        return redirect('groups')->with('status', "Groupe '{$group->name}': comptes inactifs supprimés.");
+        return redirect('groups')->with('status', "Délégation '{$group->name}': comptes inactifs supprimés.");
     }
 
     public function disableAccounts($id)
@@ -87,6 +91,6 @@ class GroupController extends Controller
         foreach ($accounts as $account) {
             $account->disable();
         }
-        return redirect('groups')->with('status', "Groupe '{$group->name}': comptes désactivés.");
+        return redirect('groups')->with('status', "Délégation '{$group->name}': comptes désactivés.");
     }
 }
