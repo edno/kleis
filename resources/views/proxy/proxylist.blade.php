@@ -52,9 +52,15 @@
     <!-- Current Groups -->
     <div class="panel panel-default">
         <div class="panel-heading">
-            <div class="panel-title">
+            <div class="panel-title pull-left">
                 {{ ucfirst($type) }}s en Liste Blanche
             </div>
+            <div class="panel-title pull-right">
+                <a href="{{ Request::url() }}/clear" class="btn btn-default" style="float: right;">
+                    <i class="fa fa-recycle"></i> Vider la liste
+                </a>
+            </div>
+            <div class="clearfix"></div>
         </div>
 
         <div class="panel-body">

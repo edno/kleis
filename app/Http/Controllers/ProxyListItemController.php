@@ -19,16 +19,6 @@ class ProxyListItemController extends Controller
         $this->middleware('auth');
     }
 
-    public function showWhiteListDomains()
-    {
-        return $this->showList('domain');
-    }
-
-    public function showWhiteListUrls()
-    {
-        return $this->showList('url');
-    }
-
     protected function showList($type)
     {
         $items = ProxyListItem::where('type', $type)->orderBy('value', 'asc')->paginate(20);
@@ -74,5 +64,12 @@ class ProxyListItemController extends Controller
         $value = $item->value;
         $item->delete();
         return redirect("whitelist/{$type}s")->with('status', ucfirst("{$type} '{$value}' a été supprimé."));
+    }
+
+    public function clearList($type)
+    {
+        $items = ProxyListItem::where('type', $type);
+        $items->delete();
+        return redirect("whitelist/{$type}s")->with('status', ucfirst("Liste '{$type}' a été vidée."));
     }
 }

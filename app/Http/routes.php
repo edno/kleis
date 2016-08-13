@@ -51,8 +51,8 @@ Route::get('/profile', 'UserController@showProfile');
 Route::post('/profile', 'AdminController@updateUser');
 
 // Whitelists
-Route::get('whitelist/domains', 'ProxyListItemController@showWhiteListDomains');
-Route::get('whitelist/urls', 'ProxyListItemController@showWhiteListUrls');
+Route::get('whitelist/{type}s', 'ProxyListItemController@showList');
 Route::post('whitelist/{type}', 'ProxyListItemController@addItem');
 Route::post('whitelist/{type}/{id}', 'ProxyListItemController@updateItem');
 Route::get('whitelist/{type}/{id}/delete', 'ProxyListItemController@removeItem');
+Route::get('whitelist/{type}s/clear', 'ProxyListItemController@clearList');
