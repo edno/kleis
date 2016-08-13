@@ -33,12 +33,58 @@
                 @endif
             </div>
             <div class="panel-title pull-right">
-                <a href="{{ url('/account') }}" class="btn btn-default" style="float: right;">
-                    <i class="fa fa-plus"></i> Cr&eacute;er un compte
-                </a>
+                <div class="btn-toolbar pull-right" style="float: right;">
+                    <form class="form-inline pull-right" role="form">
+                        <input id="search-type" type="hidden" name="type" value="account">
+                        <div class="btn-toolbar">
+                            <div class="input-group">
+                                <div class="search-box input-group-btn hidden">
+                                    <button id="search-option-button" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span id="search-option">Compte</span>&nbsp;<span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li class="search-option" value="account"><a href="#">Compte</a>
+                                        <li class="search-option" value="fullname"><a href="#">Nom</a>
+                                        <!--<li class="search-option" value="group"><a href="#">D&eacute;l&eacute;gation</a>-->
+                                    </ul>
+                                </div>
+                                <span class="search-box hidden">
+                                    <input id="search" class="form-control" name="search" value="">
+                                </span>
+                                <div id="search-button" class="search-button">
+                                    <a href="#" class="btn btn-default" role="button">
+                                        <i class="fa fa-search"></i>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <a href="{{ url('/account') }}" class="btn btn-default" role="button">
+                                <i class="fa fa-plus"></i> Cr&eacute;er un compte
+                            </a>
+                        </div>
+                    </form>
+                </div>
             </div>
             <div class="clearfix"></div>
         </div>
+        <script type="text/javascript" language="javascript">
+            document.addEventListener("DOMContentLoaded", function() {
+                $("#search-button").click(function() {
+                    if ($(this).hasClass('input-group-btn')) {
+                        $(this).parents('form:first').submit();
+                    } else {
+                        $(this).addClass('input-group-btn');
+                        $(".search-box").removeClass('hidden');
+                        $("#search").focus();
+                    }
+                });
+                $(".search-option").click(function() {
+                    $("#search-option").text($(this).text());
+                    $("#search-type").val($(this).attr('value'));
+                });
+            });
+        </script>
+
 
         <div class="panel-body">
             @if (count($accounts) > 0)

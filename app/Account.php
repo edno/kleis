@@ -36,6 +36,12 @@ class Account extends Model
                 'unicon' => '&#xf1cd;' ],
     ];
 
+    const ACCOUNT_SEARCH = [
+        'account' => ['netlogin'],
+        'fullname' => ['firstname', 'lastname'],
+        'group' => ['group_id']
+    ];
+
     /**
      * The attributes that are mass assignable.
      *

@@ -26,18 +26,32 @@ class AccountController extends Controller
      *
      * @return Response
      */
-    public function showAccounts($category = null)
+    public function showAccounts(Request $request, $category = null)
     {
         if (Auth::user()->level == 1) {
             $controller = new GroupController();
             return $controller->showAccounts(Auth::user()->group_id, $category);
         } else {
-            if (false === empty($category)) {
-                $accounts = Account::orderBy('netlogin', 'asc')->where('category', $category)->paginate(20);
+
+            if (false === is_null($category)) {
+                $accounts = Account::where('category', $category);
             } else {
-                $accounts = Account::orderBy('netlogin', 'asc')->paginate(20);
+                $accounts = Account::orderBy('netlogin', 'asc');
             }
-            return view('account/accounts', ['accounts' => $accounts]);
+
+            $search = '%';
+            $type = $request->input('type');
+            if (isset(Account::ACCOUNT_SEARCH[$type])) {
+                if (false === is_null($request->input('search'))) {
+                    $search = str_replace('*', '%', $request->input('search'));
+                }
+                //$search = explode(' ', $search);
+                $columns = Account::ACCOUNT_SEARCH[$type];
+                foreach ($columns as $idx => $column) {
+                    $accounts = $accounts->orWhere($column, 'LIKE', $search);
+                }
+            }
+            return view('account/accounts', ['accounts' => $accounts->paginate(20)]);
         }
     }
 
