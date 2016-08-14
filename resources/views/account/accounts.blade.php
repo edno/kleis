@@ -43,13 +43,13 @@
                                         <span id="search-option">Compte</span>&nbsp;<span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu">
-                                        <li class="search-option" value="account"><a href="#">Compte</a>
-                                        <li class="search-option" value="fullname"><a href="#">Nom</a>
-                                        <!--<li class="search-option" value="group"><a href="#">D&eacute;l&eacute;gation</a>-->
+                                        <li class="search-option" value="account"><a href="#">Compte</a></li>
+                                        <li class="search-option" value="fullname"><a href="#">Nom</a></li>
+                                        <li class="search-option" value="group"><a href="#">D&eacute;l&eacute;gation</a></li>
                                     </ul>
                                 </div>
                                 <span class="search-box hidden">
-                                    <input id="search" class="form-control" name="search" value="">
+                                    <input id="search" class="form-control" name="search" value="" placeholder="Jokers: * et %">
                                 </span>
                                 <div id="search-button" class="search-button">
                                     <a href="#" class="btn btn-default" role="button">

@@ -45,10 +45,22 @@ class AccountController extends Controller
                 if (false === is_null($request->input('search'))) {
                     $search = str_replace('*', '%', $request->input('search'));
                 }
-                //$search = explode(' ', $search);
+                $criteria = explode(' ', $search);
                 $columns = Account::ACCOUNT_SEARCH[$type];
                 foreach ($columns as $idx => $column) {
-                    $accounts = $accounts->orWhere($column, 'LIKE', $search);
+                    if (is_array($column)) {
+                        $relation = $column;
+                        foreach($relation as $table => $column)
+                        $accounts = $accounts->whereHas($table, function($query) use ($column, $criteria) {
+                            foreach($criteria as $value) {
+                                $query->orWhere($column, 'LIKE', $value);
+                            }
+                        });
+                    } else {
+                        foreach($criteria as $value) {
+                            $accounts = $accounts->orWhere($column, 'LIKE', $value);
+                        }
+                    }
                 }
             }
             return view('account/accounts', ['accounts' => $accounts->paginate(20)]);

@@ -39,7 +39,7 @@ class Account extends Model
     const ACCOUNT_SEARCH = [
         'account' => ['netlogin'],
         'fullname' => ['firstname', 'lastname'],
-        'group' => ['group_id']
+        'group' => [['group' => 'name']]
     ];
 
     /**
@@ -56,7 +56,7 @@ class Account extends Model
 
     public function group()
     {
-        return $this->hasOne('App\Group');
+        return $this->hasOne('App\Group', 'id', 'group_id');
     }
 
     public function getStatus()
@@ -88,5 +88,4 @@ class Account extends Model
         $this->status = 0;
         $this->update();
     }
-
 }
