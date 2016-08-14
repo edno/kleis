@@ -39,7 +39,7 @@ class Account extends Model
     const ACCOUNT_SEARCH = [
         'account' => ['netlogin'],
         'fullname' => ['firstname', 'lastname'],
-        'group' => [['group' => 'name']]
+        'group' => [['group' => 'name']],
     ];
 
     /**

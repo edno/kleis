@@ -28,41 +28,42 @@ class AccountController extends Controller
      */
     public function showAccounts(Request $request, $category = null)
     {
+        $accounts = Account::orderBy('netlogin', 'asc');
+        $group = null;
         if (Auth::user()->level == 1) {
-            $controller = new GroupController();
-            return $controller->showAccounts(Auth::user()->group_id, $category);
-        } else {
+            $group = Auth::user()->group;
+            $accounts = $accounts->where('group_id', Auth::user()->group_id);
+        }
 
-            if (false === is_null($category)) {
-                $accounts = Account::where('category', $category);
-            } else {
-                $accounts = Account::orderBy('netlogin', 'asc');
-            }
+        if (false === is_null($category)) {
+            $accounts = $accounts->where('category', $category);
+        }
 
-            $search = '%';
-            $type = $request->input('type');
-            if (isset(Account::ACCOUNT_SEARCH[$type]) && !empty($request->input('search'))) {
-                $search = str_replace('*', '%', $request->input('search'));
-                $criteria = explode(' ', $search);
-                $columns = Account::ACCOUNT_SEARCH[$type];
-                foreach ($columns as $idx => $column) {
-                    if (is_array($column)) {
-                        $relation = $column;
-                        foreach($relation as $table => $column)
-                        $accounts = $accounts->whereHas($table, function($query) use ($column, $criteria) {
-                            foreach($criteria as $value) {
-                                $query->orWhere($column, 'LIKE', $value);
-                            }
-                        });
-                    } else {
+        $search = '%';
+        $type = $request->input('type');
+
+        if (isset(Account::ACCOUNT_SEARCH[$type]) && !empty($request->input('search'))) {
+            $search = str_replace('*', '%', $request->input('search'));
+            $criteria = explode(' ', $search);
+            $columns = Account::ACCOUNT_SEARCH[$type];
+            
+            foreach ($columns as $idx => $column) {
+                if (is_array($column)) {
+                    $relation = $column;
+                    foreach($relation as $table => $column)
+                    $accounts = $accounts->whereHas($table, function($query) use ($column, $criteria) {
                         foreach($criteria as $value) {
-                            $accounts = $accounts->orWhere($column, 'LIKE', $value);
+                            $query->orWhere($column, 'LIKE', $value);
                         }
+                    });
+                } else {
+                    foreach($criteria as $value) {
+                        $accounts = $accounts->orWhere($column, 'LIKE', $value);
                     }
                 }
             }
-            return view('account/accounts', ['accounts' => $accounts->paginate(20)]);
         }
+        return view('account/accounts', ['accounts' => $accounts->paginate(20), 'group' => $group]);
     }
 
     /**
