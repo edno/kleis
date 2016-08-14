@@ -27,6 +27,12 @@ class User extends Authenticatable
                 'unicon' => '&#xf135;' ],
     ];
 
+    const SEARCH_CRITERIA = [
+        'email' => ['email'],
+        'fullname' => ['firstname', 'lastname'],
+        'group' => [['group' => 'name']],
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -65,7 +71,7 @@ class User extends Authenticatable
 
     public function creator()
     {
-        return $this->hasOne('App\User', 'created_by');
+        return $this->hasOne('App\User', 'id', 'created_by');
     }
 
     public function group()

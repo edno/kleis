@@ -21,10 +21,48 @@ class AdminController extends Controller
         $this->middleware('auth');
     }
 
-    public function showUsers()
+    public function showUsers(Request $request)
     {
-        $users = User::orderBy('firstname', 'asc')->orderBy('lastname', 'asc')->paginate(20);
-        return view('user/users', ['users' => $users]);
+        $users = User::orderBy('firstname', 'asc')->orderBy('lastname', 'asc');
+        $search = '%';
+        $crit = $request->input('type');
+
+        if (isset(User::SEARCH_CRITERIA[$crit]) && !empty($request->input('search'))) {
+            $search = str_replace('*', '%', $request->input('search'));
+            $criterion = explode(' ', $search);
+            $columns = User::SEARCH_CRITERIA[$crit];
+
+            $users = $users->where( function($q) use ($columns, $criteria) {
+                foreach ($columns as $column) {
+                    if (is_array($column)) {
+                        $relation = $column;
+                        foreach($relation as $table => $column) {
+                            $q->whereHas($table,
+                                function($query) use ($column, $criteria) {
+                                    foreach($criteria as $value) {
+                                        $query->orWhere($column, 'LIKE', $value);
+                                    }
+                                }
+                            );
+                        }
+                    } else {
+                        $q->orWhere(
+                            function($query) use ($column, $criteria) {
+                                foreach($criteria as $value) {
+                                    $query->orWhere($column, 'LIKE', $value);
+                                }
+                            }
+                        );
+                    }
+                }
+            });
+
+            $results = count($users->get());
+            $request->session()->flash('results', "{$results} résultats trouvés");
+            $request->session()->flash('search', $request->input('search'));
+            $request->session()->flash('type', $request->input('type'));
+        }
+        return view('user/users', ['users' => $users->paginate(20)]);
     }
 
     /**
@@ -146,7 +184,7 @@ class AdminController extends Controller
         $user = User::findOrFail($id);
         $user->status = 1;
         $user->update();
-        return redirect('administrators')->with('status', "'{$user->email}' est maintenant actif.");
+        return redirect()->back()->with('status', "'{$user->email}' est maintenant actif.");
     }
 
     /**
@@ -160,7 +198,7 @@ class AdminController extends Controller
         $user = User::findOrFail($id);
         $user->status = 0;
         $user->update();
-        return redirect('administrators')->with('status', "'{$user->email}' a été désactivé.");
+        return redirect()->back()->with('status', "'{$user->email}' a été désactivé.");
     }
 
     /**
@@ -174,6 +212,6 @@ class AdminController extends Controller
         $user = User::findOrFail($id);
         $email = $user->email;
         $user->delete();
-        return redirect('administrators')->with('status', "'{$email}' a été supprimé.");
+        return redirect()->back()->with('status', "'{$email}' a été supprimé.");
     }
 }

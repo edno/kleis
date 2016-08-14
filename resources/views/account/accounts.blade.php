@@ -2,10 +2,10 @@
 
 @section('content')
 
-@if (session('status'))
+@if (session('status') || session('results'))
     <div class="alert alert-success alert-dismissable">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        {{ session('status') }}
+        {{ session('status') }}{{ session('results') }}
     </div>
     <script type="text/javascript" language="javascript">
         document.addEventListener("DOMContentLoaded", function(event) {
@@ -38,20 +38,20 @@
                         <input id="search-type" type="hidden" name="type" value="account">
                         <div class="btn-toolbar">
                             <div class="input-group">
-                                <div class="search-box input-group-btn hidden">
+                                <div class="search-box input-group-btn{{ session('results') ? '' : ' hidden' }}">
                                     <button id="search-option-button" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <span id="search-option">Compte</span>&nbsp;<span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu">
-                                        <li class="search-option" value="account"><a href="#">Compte</a></li>
-                                        <li class="search-option" value="fullname"><a href="#">Nom</a></li>
-                                        <li class="search-option" value="group"><a href="#">D&eacute;l&eacute;gation</a></li>
+                                        <li class="search-option{{ session('type') == 'account' ? ' option-selected' : '' }}" value="account"><a href="#">Compte</a></li>
+                                        <li class="search-option{{ session('type') == 'fullname' ? ' option-selected' : '' }}" value="fullname"><a href="#">Nom</a></li>
+                                        <li class="search-option{{ session('type') == 'group' ? ' option-selected' : '' }}" value="group"><a href="#">D&eacute;l&eacute;gation</a></li>
                                     </ul>
                                 </div>
-                                <span class="search-box hidden">
-                                    <input id="search" class="form-control" name="search" value="" placeholder="Jokers * et %">
+                                <span class="search-box{{ session('results') ? '' : ' hidden' }}">
+                                    <input id="search" class="form-control" name="search" value="{{ session('search') }}" placeholder="Jokers * et %">
                                 </span>
-                                <div id="search-button" class="search-button">
+                                <div id="search-button" class="search-button{{ session('results') ? ' input-group-btn' : '' }}">
                                     <a href="#" class="btn btn-default" role="button">
                                         <i class="fa fa-search"></i>
                                     </a>
@@ -82,6 +82,10 @@
                     $("#search-option").text($(this).text());
                     $("#search-type").val($(this).attr('value'));
                 });
+                if ($(".option-selected").size()) {
+                    $("#search-option").text($(".option-selected").text());
+                    $("#search-type").val($(".option-selected").attr('value'));
+                }
             });
         </script>
 
@@ -157,5 +161,7 @@
     <div class="text-center">
         {{ $accounts->links() }}
     </div>
+
+{{ session()->forget(['results', 'search', 'type']) }}
 
 @endsection

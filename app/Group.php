@@ -7,6 +7,10 @@ use App\Account;
 
 class Group extends Model
 {
+    const SEARCH_CRITERIA = [
+        'group' => ['name'],
+    ];
+
     /**
      * The attributes that are mass assignable.
      *

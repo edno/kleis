@@ -22,7 +22,7 @@ class Account extends Model
         0 => [  'text' => "bénéficiare en recherche d'emploi",
                 'icon' => 'fa-binoculars',
                 'unicon' => '&#xf1e5;'],
-        1 => [  'text' => 'bénéficiare avec emploi',
+        1 => [  'text' => 'bénéficiaire avec emploi',
                 'icon' => 'fa-institution',
                 'unicon' => '&#xf19c;' ],
         2 => [  'text' => 'étudiant',
@@ -36,7 +36,7 @@ class Account extends Model
                 'unicon' => '&#xf1cd;' ],
     ];
 
-    const ACCOUNT_SEARCH = [
+    const SEARCH_CRITERIA = [
         'account' => ['netlogin'],
         'fullname' => ['firstname', 'lastname'],
         'group' => [['group' => 'name']],

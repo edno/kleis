@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Routing\UrlGenerator as Url;
 
 use App\Http\Requests;
 use App\Account;
@@ -30,9 +31,11 @@ class AccountController extends Controller
     {
         $accounts = Account::orderBy('netlogin', 'asc');
         $group = null;
+
         if (Auth::user()->level == 1) {
             $group = Auth::user()->group;
-            $accounts = $accounts->where('group_id', Auth::user()->group_id);
+            $group_id = $group->id;
+            $accounts = $accounts->where('group_id', $group_id);
         }
 
         if (false === is_null($category)) {
@@ -42,28 +45,45 @@ class AccountController extends Controller
         $search = '%';
         $type = $request->input('type');
 
-        if (isset(Account::ACCOUNT_SEARCH[$type]) && !empty($request->input('search'))) {
+        if (isset(Account::SEARCH_CRITERIA[$type]) && !empty($request->input('search'))) {
             $search = str_replace('*', '%', $request->input('search'));
             $criteria = explode(' ', $search);
-            $columns = Account::ACCOUNT_SEARCH[$type];
-            
-            foreach ($columns as $idx => $column) {
-                if (is_array($column)) {
-                    $relation = $column;
-                    foreach($relation as $table => $column)
-                    $accounts = $accounts->whereHas($table, function($query) use ($column, $criteria) {
-                        foreach($criteria as $value) {
-                            $query->orWhere($column, 'LIKE', $value);
+            $columns = Account::SEARCH_CRITERIA[$type];
+
+
+            $accounts = $accounts->where( function($q) use ($columns, $criteria) {
+                foreach ($columns as $column) {
+                    if (is_array($column)) {
+                        $relation = $column;
+                        foreach($relation as $table => $column) {
+                            $q->whereHas($table,
+                                function($query) use ($column, $criteria) {
+                                    foreach($criteria as $value) {
+                                        $query->orWhere($column, 'LIKE', $value);
+                                    }
+                                }
+                            );
                         }
-                    });
-                } else {
-                    foreach($criteria as $value) {
-                        $accounts = $accounts->orWhere($column, 'LIKE', $value);
+                    } else {
+                        $q->orWhere(
+                            function($query) use ($column, $criteria) {
+                                foreach($criteria as $value) {
+                                    $query->orWhere($column, 'LIKE', $value);
+                                }
+                            }
+                        );
                     }
                 }
-            }
+            });
+            
+            $results = count($accounts->get());
+            $request->session()->flash('results', "{$results} résultats trouvés");
+            $request->session()->flash('search', $request->input('search'));
+            $request->session()->flash('type', $request->input('type'));
         }
-        return view('account/accounts', ['accounts' => $accounts->paginate(20), 'group' => $group]);
+        return view('account/accounts',
+            ['accounts' => $accounts->paginate(20), 'group' => $group]
+        );
     }
 
     /**
@@ -169,7 +189,7 @@ class AccountController extends Controller
     {
         $account = Account::findOrFail($id);
         $account->enable();
-        return redirect('accounts')->with('status', "Compte '{$account->netlogin}' est maintenant actif et expirera le {$account->expire}.");
+        return redirect()->back()->with('status', "Compte '{$account->netlogin}' est maintenant actif et expirera le {$account->expire}.");
     }
 
     /**
@@ -182,7 +202,7 @@ class AccountController extends Controller
     {
         $account = Account::findOrFail($id);
         $account->disable();
-        return redirect('accounts')->with('status', "Compte '{$account->netlogin}' a été désactivé.");
+        return redirect()->back()->with('status', "Compte '{$account->netlogin}' a été désactivé.");
     }
 
     /**
@@ -196,6 +216,6 @@ class AccountController extends Controller
         $account = Account::findOrFail($id);
         $netlogin = $account->netlogin;
         $account->delete();
-        return redirect('accounts')->with('status', "Compte '{$netlogin}' a été supprimé.");
+        return redirect()->back()->with('status', "Compte '{$netlogin}' a été supprimé.");
     }
 }

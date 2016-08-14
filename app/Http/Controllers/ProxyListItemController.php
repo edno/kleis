@@ -19,10 +19,41 @@ class ProxyListItemController extends Controller
         $this->middleware('auth');
     }
 
-    protected function showList($type)
+    protected function showList(Request $request, $type)
     {
-        $items = ProxyListItem::where('type', $type)->orderBy('value', 'asc')->paginate(20);
-        return view("proxy/proxylist", ['items' => $items, 'type' => $type]);
+        $items = ProxyListItem::where('type', $type)->orderBy('value', 'asc');
+        $search = '%';
+        $crit = 'value';
+
+        if (isset(ProxyListItem::SEARCH_CRITERIA[$crit]) && !empty($request->input('search'))) {
+            $search = str_replace('*', '%', $request->input('search'));
+            $criterion = explode(' ', $search);
+            $columns = ProxyListItem::SEARCH_CRITERIA[$crit];
+
+            foreach ($columns as $idx => $column) {
+                if (is_array($column)) {
+                    $relation = $column;
+                    foreach($relation as $table => $column)
+                    $items = $items->whereHas($table, function($query) use ($column, $criterion) {
+                        foreach($criterion as $value) {
+                            $query->orWhere($column, 'LIKE', $value);
+                        }
+                    });
+                } else {
+                    $items = $items->where(function($query) use ($column, $criterion) {
+                        foreach($criterion as $value) {
+                            $query->orWhere($column, 'LIKE', $value);
+                        }
+                    });
+                }
+            }
+
+            $results = count($items->get());
+            $request->session()->flash('results', "{$results} résultats trouvés");
+            $request->session()->flash('search', $request->input('search'));
+        }
+
+        return view("proxy/proxylist", ['items' => $items->paginate(20), 'type' => $type]);
     }
 
     public function addItem(Request $request, $type)
