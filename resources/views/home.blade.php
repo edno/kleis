@@ -8,7 +8,7 @@
         <div class="panel-body">
             Vous &ecirc;tes <strong>{{ Auth::user()->getLevel()['text'] }}</strong>
             @if (Auth::user()->level == 1)
-                de la d&eacute;l&eacute;gation <strong>{{ empty(Auth::user()->getGroup()) ? '' : Auth::user()->getGroup()->name }}</strong>
+                de la d&eacute;l&eacute;gation <strong>{{ Auth::user()->group ? Auth::user()->group->name : '' }}</strong>
             @endif
             .
         </div>

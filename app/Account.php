@@ -49,9 +49,14 @@ class Account extends Model
      */
     protected $fillable = ['firstname', 'lastname', 'netlogin', 'netpass', 'expire', 'status', 'group_id', 'category', 'created_by'];
 
-    public function getCreator()
+    public function creator()
     {
-        return User::findOrFail($this->created_by);
+        return $this->hasOne('App\User', 'created_by');
+    }
+
+    public function group()
+    {
+        return $this->hasOne('App\Group');
     }
 
     public function getStatus()

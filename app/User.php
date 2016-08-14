@@ -63,13 +63,13 @@ class User extends Authenticatable
         }
     }
 
-    public function getCreator()
+    public function creator()
     {
-        return User::find($this->created_by);
+        return $this->hasOne('App\User', 'created_by');
     }
 
-    public function getGroup()
+    public function group()
     {
-        return Group::find($this->group_id);
+        return $this->hasOne('App\Group', 'id', 'group_id');
     }
 }

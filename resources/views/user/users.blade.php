@@ -56,7 +56,7 @@
                                     <div><div><i class="fa {{ $user->getLevel()['icon'] }}" title="{{ $user->getLevel()['text'] }}"></i></div></div>
                                 </td>
                                 <td class="table-text">
-                                    <div>{{ $user->getGroup() ? $user->getGroup()->name : '&#9679;' }}</div>
+                                    <div>{{ $user->group ? $user->group->name : '&#9679;' }}</div>
                                 </td>
                                 <td class="table-text">
                                     <div>{{ $user->email }}</div>

@@ -243,7 +243,7 @@
                 </div>
             </div>
             <div class="panel-body">
-                <li>Cr&eacute;e par : {{ empty($account->getCreator()) ? 'inconnu' : $account->getCreator()->firstname.' '.$account->getCreator()->lastname }}</li>
+                <li>Cr&eacute;e par : {{ empty($account->creator) ? 'inconnu' : $account->creator->firstname.' '.$account->creator->lastname }}</li>
                 <li>Cr&eacute;e le : {{ $account->created_at }}</li>
                 <li>Mis &agrave; jour le : {{ $account->updated_at }}</li>
             </div>

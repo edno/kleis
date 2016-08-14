@@ -198,7 +198,7 @@
             <div class="form-group">
                 <label for="level" class="col-md-4 control-label">D&eacute;l&eacute;gation</label>
                 <div class="col-md-6">
-                    <input class="form-control" value="{{ $user->getGroup() ? $user->getGroup()->name : '&#9679;' }}" disabled="true">
+                    <input class="form-control" value="{{ $user->group ? $user->group->name : '&#9679;' }}" disabled="true">
                 </div>
             </div>
             @endif
@@ -249,7 +249,7 @@
                 </div>
             </div>
             <div class="panel-body">
-                <li>Cr&eacute;er par : {{ empty($user->getCreator()) ? 'inconnu' : $user->getCreator()->firstname.' '.$user->getCreator()->lastname }}</li>
+                <li>Cr&eacute;er par : {{ empty($user->creator) ? 'inconnu' : $user->creator->firstname.' '.$user->creator->lastname }}</li>
                 <li>Cr&eacute;er le : {{ $user->created_at }}</li>
                 <li>Mis &agrave; jour le : {{ $user->updated_at }}</li>
             </div>
