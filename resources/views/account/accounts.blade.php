@@ -18,9 +18,9 @@
 
     <!-- Current Accounts -->
     <ul class="nav nav-tabs">
-        <li{{ Request::is("accounts/category/*") ? '' : ' class=active' }}><a href="{{ url('/accounts') }}"><i class="fa fa-asterisk"></i> Tous</a></li>
+        <li{{ Request::is("*/category/*") ? '' : ' class=active' }}><a href="{{ preg_replace('/(.*\/?accounts)(?:\/category.*)?/', '$1', Request::url()) }}"><i class="fa fa-asterisk"></i> Tous</a></li>
         @foreach (App\Account::ACCOUNT_CATEGORY as $id => $category)
-            <li{{ Request::is("accounts/category/$id") ? ' class=active' : '' }}><a href="{{ url('/accounts/category') . '/' . $id }}"><i class="fa {{ $category['icon'] }}"></i> {{ mb_strtoupper(mb_substr($category['text'], 0, 1)).mb_substr($category['text'], 1) }}</a></li>
+            <li{{ Request::is("*/category/$id") ? ' class=active' : '' }}><a href="{{ preg_replace('/(.*\/?accounts)(?:\/category.*)?/', '$1/category/', Request::url()) . $id }}"><i class="fa {{ $category['icon'] }}"></i> {{ mb_strtoupper(mb_substr($category['text'], 0, 1)).mb_substr($category['text'], 1) }}</a></li>
         @endforeach
     </ul>
     <div class="panel panel-default">
@@ -49,7 +49,7 @@
                                     </ul>
                                 </div>
                                 <span class="search-box hidden">
-                                    <input id="search" class="form-control" name="search" value="" placeholder="Jokers: * et %">
+                                    <input id="search" class="form-control" name="search" value="" placeholder="Jokers * et %">
                                 </span>
                                 <div id="search-button" class="search-button">
                                     <a href="#" class="btn btn-default" role="button">
