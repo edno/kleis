@@ -35,10 +35,10 @@ Route::get('/accounts/category/{category}', 'AccountController@showAccounts');
 Route::get('/groups', 'GroupController@showGroups');
 Route::post('/groups', 'GroupController@addGroup');
 Route::get('/group/{id}/delete', 'GroupController@removeGroup');
-Route::get('/group/{id}/accounts', 'GroupController@showAccounts');
 Route::get('/group/{id}/purge', 'GroupController@purgeAccounts');
 Route::get('/group/{id}/disable', 'GroupController@disableAccounts');
-Route::get('/group/{id}/accounts/category/{category}', 'GroupController@showAccounts');
+Route::get('/group/{group_id}/accounts', 'AccountController@showAccounts');
+Route::get('/group/{group_id}/accounts/category/{category}', 'AccountController@showAccounts');
 
 // Users (app administrators)
 Route::get('/administrators', 'AdminController@showUsers');

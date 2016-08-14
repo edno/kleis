@@ -92,17 +92,6 @@ class GroupController extends Controller
         return redirect()->back()->with('status', "Délégation '{$name}' a été supprimée.");
     }
 
-    public function showAccounts($id, $category = null)
-    {
-        $group = Group::findOrFail($id);
-        if (false === empty($category)) {
-            $accounts = Group::find($id)->accounts()->where('category', $category)->paginate(20);
-        } else {
-            $accounts = Group::find($id)->accounts()->paginate(20);
-        }
-        return view('account/accounts', ['accounts' => $accounts, 'group' => $group]);
-    }
-
     public function purgeAccounts($id)
     {
         $group = Group::findOrFail($id);

@@ -27,14 +27,17 @@ class AccountController extends Controller
      *
      * @return Response
      */
-    public function showAccounts(Request $request, $category = null)
+    public function showAccounts(Request $request, $group_id = null, $category = null)
     {
         $accounts = Account::orderBy('netlogin', 'asc');
         $group = null;
 
         if (Auth::user()->level == 1) {
-            $group = Auth::user()->group;
-            $group_id = $group->id;
+            $group_id = Auth::user()->group->id;
+        }
+
+        if (false === is_null($group_id)) {
+            $group = Group::find($group_id);
             $accounts = $accounts->where('group_id', $group_id);
         }
 
@@ -75,12 +78,12 @@ class AccountController extends Controller
                     }
                 }
             });
-            
             $results = count($accounts->get());
             $request->session()->flash('results', "{$results} résultats trouvés");
             $request->session()->flash('search', $request->input('search'));
             $request->session()->flash('type', $request->input('type'));
         }
+
         return view('account/accounts',
             ['accounts' => $accounts->paginate(20), 'group' => $group]
         );
