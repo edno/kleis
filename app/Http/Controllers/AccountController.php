@@ -41,10 +41,8 @@ class AccountController extends Controller
 
             $search = '%';
             $type = $request->input('type');
-            if (isset(Account::ACCOUNT_SEARCH[$type])) {
-                if (false === is_null($request->input('search'))) {
-                    $search = str_replace('*', '%', $request->input('search'));
-                }
+            if (isset(Account::ACCOUNT_SEARCH[$type]) && !empty($request->input('search'))) {
+                $search = str_replace('*', '%', $request->input('search'));
                 $criteria = explode(' ', $search);
                 $columns = Account::ACCOUNT_SEARCH[$type];
                 foreach ($columns as $idx => $column) {
