@@ -65,7 +65,12 @@
                                     <input id="search" class="form-control" name="search" value="{{ session('search') }}" placeholder="Jokers * et %">
                                 </span>
                                 <div id="search-button" class="search-button{{ session('results') ? ' input-group-btn' : '' }}">
-                                    <a href="#" class="btn btn-default" role="button">
+                                    <a href="#"
+                                        class="btn btn-default has-tooltip"
+                                        data-toggle="tooltip"
+                                        data-placement="bottom"
+                                        title="Rechercher"
+                                        role="button">
                                         <i class="fa fa-search"></i>
                                     </a>
                                 </div>
@@ -118,8 +123,17 @@
                                 <td class="align-right col-xs-2">
                                     <div class="btn-toolbar">
                                         <div class="btn-group">
-                                            <a href="#" class="btn btn-default edit-link" id="edit{{ $item->id }}"><i class="fa fa-pencil"></i></a>
-                                            <a href="/whitelist/{{ $type }}/{{ $item->id }}/delete" class="btn btn-default"><i class="fa fa-trash"></i></a>
+                                            <a href="#"
+                                                class="btn btn-default edit-link has-tooltip"
+                                                data-toggle="tooltip"
+                                                data-placement="bottom"
+                                                title="Editer"
+                                                id="edit{{ $item->id }}"><i class="fa fa-pencil"></i></a>
+                                            <a href="/whitelist/{{ $type }}/{{ $item->id }}/delete"
+                                                class="btn btn-default has-tooltip"
+                                                data-toggle="tooltip"
+                                                data-placement="bottom"
+                                                title="Supprimer"><i class="fa fa-trash"></i></a>
                                         </div>
                                     </div>
                                 </td>
@@ -156,6 +170,7 @@
                 $('#button-save').addClass('hidden');
                 $('#button-add').removeClass('hidden');
             });
+            $('.has-tooltip').tooltip();
         });
     </script>
 

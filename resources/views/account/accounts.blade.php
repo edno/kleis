@@ -51,8 +51,14 @@
                                 <span class="search-box{{ session('results') ? '' : ' hidden' }}">
                                     <input id="search" class="form-control" name="search" value="{{ session('search') }}" placeholder="Jokers * et %">
                                 </span>
-                                <div id="search-button" class="search-button{{ session('results') ? ' input-group-btn' : '' }}">
-                                    <a href="#" class="btn btn-default" role="button">
+                                <div id="search-button"
+                                    class="search-button{{ session('results') ? ' input-group-btn' : '' }}">
+                                    <a href="#"
+                                        class="btn btn-default has-tooltip"
+                                        role="button"
+                                        data-toggle="tooltip"
+                                        data-placement="bottom"
+                                        title="Rechercher">
                                         <i class="fa fa-search"></i>
                                     </a>
                                 </div>
@@ -117,7 +123,10 @@
                                 <tr class="text-muted">
                             @endif
                                 <td class="table-text">
-                                    <div><i class="fa {{ $account->getCategory()['icon'] }}" title="{{ ucfirst($account->getCategory()['text']) }}"></i></div>
+                                    <div><i class="fa {{ $account->getCategory()['icon'] }} has-tooltip"
+                                        data-toggle="tooltip"
+                                        data-placement="bottom"
+                                        title="{{ mb_strtoupper(mb_substr($account->getCategory()['text'], 0, 1)).mb_substr($account->getCategory()['text'], 1) }}"></i></div>
                                 </td>
                                 <td class="table-text">
                                     <div>{{ $account->firstname }} {{ $account->lastname }}</div>
@@ -129,21 +138,40 @@
                                     <div>{{ $account->expire }}</div>
                                 </td>
                                 <td class="table-text">
-                                    <div><i class="fa {{ $account->getStatus()['icon'] }}" title="{{ $account->getStatus()['text'] }}"></i></div>
+                                    <div><i class="fa {{ $account->getStatus()['icon'] }} has-tooltip"
+                                        data-toggle="tooltip"
+                                        data-placement="bottom"
+                                        title="{{ ucfirst($account->getStatus()['text']) }}"></i></div>
                                 </td>
                                 <td class="align-right col-xs-2">
                                     <div class="btn-toolbar">
                                         <div class="btn-group">
-                                            <a href="/account/{{ $account->id }}" class="btn btn-default"><i class="fa fa-pencil"></i></a>
+                                            <a href="/account/{{ $account->id }}"
+                                                class="btn btn-default has-tooltip"
+                                                data-toggle="tooltip"
+                                                data-placement="bottom"
+                                                title="Editer"><i class="fa fa-pencil"></i></a>
                                             @if ($account->status == 1)
-                                                <a href="/account/{{ $account->id }}/disable" class="btn btn-default"><i class="fa fa-ban"></i></a>
+                                                <a href="/account/{{ $account->id }}/disable"
+                                                    class="btn btn-default has-tooltip"
+                                                    data-toggle="tooltip"
+                                                    data-placement="bottom"
+                                                    title="Désactiver"><i class="fa fa-ban"></i></a>
                                             @else
-                                                <a href="/account/{{ $account->id }}/enable" class="btn btn-default"><i class="fa fa-globe"></i></a>
+                                                <a href="/account/{{ $account->id }}/enable"
+                                                    class="btn btn-default has-tooltip"
+                                                    data-toggle="tooltip"
+                                                    data-placement="bottom"
+                                                    title="Activer"><i class="fa fa-globe"></i></a>
                                             @endif
                                             @if ($account->status == 1)
                                                 <a href="#" class="btn btn-default disabled" disabled="true"><i class="fa fa-trash"></i></a>
                                             @else
-                                                <a href="/account/{{ $account->id }}/delete" class="btn btn-default"><i class="fa fa-trash"></i></a>
+                                                <a href="/account/{{ $account->id }}/delete"
+                                                    class="btn btn-default has-tooltip"
+                                                    data-toggle="tooltip"
+                                                    data-placement="bottom"
+                                                    title="Supprimer"><i class="fa fa-trash"></i></a>
                                             @endif
                                         </div>
                                     </div>
@@ -161,6 +189,12 @@
     <div class="text-center">
         {{ $accounts->links() }}
     </div>
+
+    <script type="text/javascript" language="javascript">
+        document.addEventListener("DOMContentLoaded", function() {
+            $('.has-tooltip').tooltip();
+        });
+    </script>
 
 {{ session()->forget(['results', 'search', 'type']) }}
 

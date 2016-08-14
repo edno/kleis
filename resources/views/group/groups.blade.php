@@ -61,7 +61,11 @@
                             <input id="search" class="form-control" name="search" value="{{ session('search') }}" placeholder="Jokers * et %">
                         </span>
                         <div id="search-button" class="search-button{{ session('results') ? ' input-group-btn' : '' }}">
-                            <a href="#" class="btn btn-default" role="button">
+                            <a href="#" class="btn btn-default has-tooltip"
+                                data-toggle="tooltip"
+                                data-placement="bottom"
+                                title="Rechercher"
+                                role="button">
                                 <i class="fa fa-search"></i>
                             </a>
                         </div>
@@ -120,22 +124,46 @@
                                 <td class="align-right col-xs-3">
                                     <div class="btn-toolbar">
                                         <div class="btn-group">
-                                            <a href="#" class="btn btn-default edit-link" id="edit{{ $group->id }}"><i class="fa fa-pencil"></i></a>
-                                            <a href="/group/{{ $group->id }}/accounts" class="btn btn-default"><i class="fa fa-list-alt"></i></a>
+                                            <a href="#" class="btn btn-default has-tooltip edit-group"
+                                                data-toggle="tooltip"
+                                                data-placement="bottom"
+                                                title="Editer"
+                                                id="edit{{ $group->id }}"><i class="fa fa-pencil"></i></a>
+                                            @if ($group->countAccounts() > 0)
+                                            <a href="/group/{{ $group->id }}/accounts"
+                                                class="btn btn-default has-tooltip"
+                                                data-toggle="tooltip"
+                                                data-placement="bottom"
+                                                title="Afficher tous les comptes"><i class="fa fa-list-alt"></i></a>
+                                            @else
+                                                <a href="#" class="btn btn-default disabled" disabled="true"><i class="fa fa-list-alt"></i></a>
+                                            @endif
                                             @if ($group->countAccounts(1) > 0)
-                                                <a href="/group/{{ $group->id }}/disable" class="btn btn-default"><i class="fa fa-ban"></i></a>
+                                                <a href="/group/{{ $group->id }}/disable"
+                                                    class="btn btn-default has-tooltip"
+                                                    data-toggle="tooltip"
+                                                    data-placement="bottom"
+                                                    title="Désactiver tous les comptes"><i class="fa fa-ban"></i></a>
                                             @else
                                                 <a href="#" class="btn btn-default disabled" disabled="true"><i class="fa fa-ban"></i></a>
                                             @endif
                                             @if ($group->countAccounts(0) > 0)
-                                                <a href="/group/{{ $group->id }}/purge" class="btn btn-default"><i class="fa fa-recycle"></i></a>
+                                                <a href="/group/{{ $group->id }}/purge"
+                                                    class="btn btn-default has-tooltip"
+                                                    data-toggle="tooltip"
+                                                    data-placement="bottom"
+                                                    title="Supprimer tous les comptes désactivés"><i class="fa fa-recycle"></i></a>
                                             @else
                                                 <a href="#" class="btn btn-default disabled" disabled="true"><i class="fa fa-recycle"></i></a>
                                             @endif
                                             @if ($group->countAccounts() + $group->countUsers() > 0)
                                                 <a href="#" class="btn btn-default disabled" disabled="true"><i class="fa fa-trash"></i></a>
                                             @else
-                                                <a href="/group/{{ $group->id }}/delete" class="btn btn-default"><i class="fa fa-trash"></i></a>
+                                                <a href="/group/{{ $group->id }}/delete"
+                                                    class="btn btn-default has-tooltip"
+                                                    data-toggle="tooltip"
+                                                    data-placement="bottom"
+                                                    title="Supprimer"><i class="fa fa-trash"></i></a>
                                             @endif
                                         </div>
                                     </div>
@@ -156,7 +184,7 @@
 
     <script type="text/javascript" language="javascript">
         document.addEventListener("DOMContentLoaded", function(event) {
-            $('.edit-link').click(function () {
+            $('.edit-group').click(function () {
                 var groupid = $(this).attr('id').substr(4);
                 var groupname = document.getElementById( 'group' + groupid ).innerText;
                 $('#groupid').val(groupid);
@@ -173,6 +201,7 @@
                 $('#button-save').addClass('hidden');
                 $('#button-add').removeClass('hidden');
             });
+            $('.has-tooltip').tooltip();
         });
     </script>
 

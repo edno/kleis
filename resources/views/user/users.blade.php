@@ -42,7 +42,11 @@
                                     <input id="search" class="form-control" name="search" value="{{ session('search') }}" placeholder="Jokers * et %">
                                 </span>
                                 <div id="search-button" class="search-button{{ session('results') ? ' input-group-btn' : '' }}">
-                                    <a href="#" class="btn btn-default" role="button">
+                                    <a href="#" class="btn btn-default has-tooltip"
+                                        data-toggle="tooltip"
+                                        data-placement="bottom"
+                                        title="Rechercher"
+                                        role="button">
                                         <i class="fa fa-search"></i>
                                     </a>
                                 </div>
@@ -102,7 +106,10 @@
                                     <div>{{ $user->firstname }} {{ $user->lastname }}</div>
                                 </td>
                                 <td class="table-text">
-                                    <div><div><i class="fa {{ $user->getLevel()['icon'] }}" title="{{ $user->getLevel()['text'] }}"></i></div></div>
+                                    <div><i class="fa {{ $user->getLevel()['icon'] }} has-tooltip"
+                                        data-toggle="tooltip"
+                                        data-placement="bottom"
+                                        title="{{ ucfirst($user->getLevel()['text']) }}"></i></div>
                                 </td>
                                 <td class="table-text">
                                     <div>{{ $user->group ? $user->group->name : '&#9679;' }}</div>
@@ -116,18 +123,34 @@
                                 <td class="align-right col-xs-2">
                                     <div class="btn-toolbar">
                                         <div class="btn-group">
-                                            <a href="/user/{{ $user->id }}" class="btn btn-default"><i class="fa fa-pencil"></i></a>
+                                            <a href="/user/{{ $user->id }}"
+                                                class="btn btn-default has-tooltip"
+                                                data-toggle="tooltip"
+                                                data-placement="bottom"
+                                                title="Editer"><i class="fa fa-pencil"></i></a>
                                             @if($user->id == Auth::user()->id)
                                                 <a href="#" class="btn btn-default disabled" disabled="true"><i class="fa fa-ban"></i></a>
                                             @elseif ($user->status == 1)
-                                                <a href="/user/{{ $user->id }}/disable" class="btn btn-default"><i class="fa fa-ban"></i></a>
+                                                <a href="/user/{{ $user->id }}/disable"
+                                                    class="btn btn-default has-tooltip"
+                                                    data-toggle="tooltip"
+                                                    data-placement="bottom"
+                                                    title="Désactiver"><i class="fa fa-ban"></i></a>
                                             @else
-                                                <a href="/user/{{ $user->id }}/enable" class="btn btn-default"><i class="fa fa-check"></i></a>
+                                                <a href="/user/{{ $user->id }}/enable"
+                                                    class="btn btn-default has-tooltip"
+                                                    data-toggle="tooltip"
+                                                    data-placement="bottom"
+                                                    title="Activer"><i class="fa fa-check"></i></a>
                                             @endif
                                             @if ($user->status == 1 || $user->id == Auth::user()->id)
                                                 <a href="#" class="btn btn-default disabled" disabled="true"><i class="fa fa-trash"></i></a>
                                             @else
-                                                <a href="/user/{{ $user->id }}/delete" class="btn btn-default"><i class="fa fa-trash"></i></a>
+                                                <a href="/user/{{ $user->id }}/delete"
+                                                    class="btn btn-default has-tooltip"
+                                                    data-toggle="tooltip"
+                                                    data-placement="bottom"
+                                                    title="Supprimer"><i class="fa fa-trash"></i></a>
                                             @endif
                                         </div>
                                     </div>
@@ -145,6 +168,12 @@
     <div class="text-center">
         {{ $users->links() }}
     </div>
+
+    <script type="text/javascript" language="javascript">
+        document.addEventListener("DOMContentLoaded", function() {
+            $('.has-tooltip').tooltip();
+        });
+    </script>
 
 {{ session()->forget(['results', 'search', 'type']) }}
 
