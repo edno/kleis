@@ -25,7 +25,7 @@ class GroupController extends Controller
         $search = '%';
         $type = $request->input('type');
 
-        if (isset(Group::SEARCH_CRITERIA[$type]) && !empty($request->input('search'))) {
+        if (array_key_exists($type, Group::SEARCH_CRITERIA) && !empty($request->input('search'))) {
             $search = str_replace('*', '%', $request->input('search'));
             $criteria = explode(' ', $search);
             $columns = Group::SEARCH_CRITERIA[$type];

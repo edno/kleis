@@ -27,7 +27,7 @@ class AdminController extends Controller
         $search = '%';
         $crit = $request->input('type');
 
-        if (isset(User::SEARCH_CRITERIA[$crit]) && !empty($request->input('search'))) {
+        if (array_key_exists($crit, User::SEARCH_CRITERIA) && !empty($request->input('search'))) {
             $search = str_replace('*', '%', $request->input('search'));
             $criterion = explode(' ', $search);
             $columns = User::SEARCH_CRITERIA[$crit];

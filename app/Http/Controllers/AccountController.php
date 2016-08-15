@@ -48,7 +48,7 @@ class AccountController extends Controller
         $search = '%';
         $type = $request->input('type');
 
-        if (isset(Account::SEARCH_CRITERIA[$type]) && !empty($request->input('search'))) {
+        if (array_key_exists($type, Account::SEARCH_CRITERIA) && !empty($request->input('search'))) {
             $search = str_replace('*', '%', $request->input('search'));
             $criteria = explode(' ', $search);
             $columns = Account::SEARCH_CRITERIA[$type];

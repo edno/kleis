@@ -25,7 +25,7 @@ class ProxyListItemController extends Controller
         $search = '%';
         $crit = 'value';
 
-        if (isset(ProxyListItem::SEARCH_CRITERIA[$crit]) && !empty($request->input('search'))) {
+        if (array_key_exists($crit, ProxyListItem::SEARCH_CRITERIA) && !empty($request->input('search'))) {
             $search = str_replace('*', '%', $request->input('search'));
             $criterion = explode(' ', $search);
             $columns = ProxyListItem::SEARCH_CRITERIA[$crit];
