@@ -18,9 +18,22 @@
 
     <!-- Current Accounts -->
     <ul class="nav nav-tabs">
-        <li{{ Request::is("*/category/*") ? '' : ' class=active' }}><a href="{{ preg_replace('/(.*\/?accounts)(?:\/category.*)?/', '$1', Request::url()) }}"><i class="fa fa-asterisk"></i> Tous</a></li>
+        <li class="{{ Request::is("*/category/*") ? 'has-tooltip' : 'active' }}"
+            data-toggle="tooltip"
+            data-placement="bottom"
+            title="Tous">
+        <a href="{{ preg_replace('/(.*\/?accounts)(?:\/category.*)?/', '$1', Request::url()) }}">
+            <i class="fa fa-asterisk"></i>
+            {{ Request::is("*/category/*") ? '' : ' Tous' }}
+        </a></li>
         @foreach (App\Account::ACCOUNT_CATEGORY as $id => $category)
-            <li{{ Request::is("*/category/$id") ? ' class=active' : '' }}><a href="{{ preg_replace('/(.*\/?accounts)(?:\/category.*)?/', '$1/category/', Request::url()) . $id }}"><i class="fa {{ $category['icon'] }}"></i> {{ mb_strtoupper(mb_substr($category['text'], 0, 1)).mb_substr($category['text'], 1) }}</a></li>
+            <li class="{{ Request::is("*/category/$id") ? 'active' : 'has-tooltip' }}"
+            data-toggle="tooltip"
+            data-placement="bottom"
+            title="{{ mb_strtoupper(mb_substr($category['text'], 0, 1)).mb_substr($category['text'], 1) }}">
+            <a href="{{ preg_replace('/(.*\/?accounts)(?:\/category.*)?/', '$1/category/', Request::url()) . $id }}">
+                <i class="fa {{ $category['icon'] }}"></i>
+                {{ Request::is("*/category/$id") ? ' '.mb_strtoupper(mb_substr($category['text'], 0, 1)).mb_substr($category['text'], 1) : '' }}</a></li>
         @endforeach
     </ul>
     <div class="panel panel-default">
