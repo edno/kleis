@@ -53,7 +53,7 @@ class User extends Authenticatable
 
     public function getStatus()
     {
-        if (isset(self::USER_STATUS[$this->status])) {
+        if (array_key_exists(self::USER_STATUS, $this->status)) {
             return self::USER_STATUS[$this->status];
         } else {
             return null;
@@ -62,7 +62,7 @@ class User extends Authenticatable
 
     public function getLevel()
     {
-        if (isset(self::USER_LEVEL[$this->level])) {
+        if (array_key_exists(self::USER_LEVEL, $this->level)) {
             return self::USER_LEVEL[$this->level];
         } else {
             return null;
