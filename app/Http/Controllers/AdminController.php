@@ -11,6 +11,8 @@ use Auth;
 
 class AdminController extends Controller
 {
+    use searchTrait;
+
     /**
      * Create a new controller instance.
      *
@@ -24,44 +26,15 @@ class AdminController extends Controller
     public function showUsers(Request $request)
     {
         $users = User::orderBy('firstname', 'asc')->orderBy('lastname', 'asc');
-        $search = '%';
-        $crit = $request->input('type');
 
-        if (array_key_exists($crit, User::SEARCH_CRITERIA) && !empty($request->input('search'))) {
-            $search = str_replace('*', '%', $request->input('search'));
-            $criterion = explode(' ', $search);
-            $columns = User::SEARCH_CRITERIA[$crit];
+        $results = $this->search($users, $request->input('type'), $request->input('search'));
 
-            $users = $users->where( function($q) use ($columns, $criteria) {
-                foreach ($columns as $column) {
-                    if (is_array($column)) {
-                        $relation = $column;
-                        foreach($relation as $table => $column) {
-                            $q->whereHas($table,
-                                function($query) use ($column, $criteria) {
-                                    foreach($criteria as $value) {
-                                        $query->orWhere($column, 'LIKE', $value);
-                                    }
-                                }
-                            );
-                        }
-                    } else {
-                        $q->orWhere(
-                            function($query) use ($column, $criteria) {
-                                foreach($criteria as $value) {
-                                    $query->orWhere($column, 'LIKE', $value);
-                                }
-                            }
-                        );
-                    }
-                }
-            });
-
-            $results = count($users->get());
+        if (false === is_null($results)) {
             $request->session()->flash('results', "{$results} résultats trouvés");
             $request->session()->flash('search', $request->input('search'));
             $request->session()->flash('type', $request->input('type'));
         }
+
         return view('user/users', ['users' => $users->paginate(20)]);
     }
 

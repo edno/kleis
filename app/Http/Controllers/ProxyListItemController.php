@@ -9,6 +9,8 @@ use App\ProxyListItem;
 
 class ProxyListItemController extends Controller
 {
+    use searchTrait;
+
     /**
      * Create a new controller instance.
      *
@@ -22,35 +24,13 @@ class ProxyListItemController extends Controller
     protected function showList(Request $request, $type)
     {
         $items = ProxyListItem::where('type', $type)->orderBy('value', 'asc');
-        $search = '%';
-        $crit = 'value';
 
-        if (array_key_exists($crit, ProxyListItem::SEARCH_CRITERIA) && !empty($request->input('search'))) {
-            $search = str_replace('*', '%', $request->input('search'));
-            $criterion = explode(' ', $search);
-            $columns = ProxyListItem::SEARCH_CRITERIA[$crit];
+        $results = $this->search($items, 'value', $request->input('search'));
 
-            foreach ($columns as $idx => $column) {
-                if (is_array($column)) {
-                    $relation = $column;
-                    foreach($relation as $table => $column)
-                    $items = $items->whereHas($table, function($query) use ($column, $criterion) {
-                        foreach($criterion as $value) {
-                            $query->orWhere($column, 'LIKE', $value);
-                        }
-                    });
-                } else {
-                    $items = $items->where(function($query) use ($column, $criterion) {
-                        foreach($criterion as $value) {
-                            $query->orWhere($column, 'LIKE', $value);
-                        }
-                    });
-                }
-            }
-
-            $results = count($items->get());
+        if (false === is_null($results)) {
             $request->session()->flash('results', "{$results} résultats trouvés");
             $request->session()->flash('search', $request->input('search'));
+            $request->session()->flash('type', $request->input('type'));
         }
 
         return view("proxy/proxylist", ['items' => $items->paginate(20), 'type' => $type]);

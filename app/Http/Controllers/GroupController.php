@@ -9,6 +9,8 @@ use App\Group;
 
 class GroupController extends Controller
 {
+    use searchTrait;
+
     /**
      * Create a new controller instance.
      *
@@ -22,33 +24,13 @@ class GroupController extends Controller
     public function showGroups(Request $request)
     {
         $groups = Group::orderBy('name', 'asc');
-        $search = '%';
-        $type = $request->input('type');
 
-        if (array_key_exists($type, Group::SEARCH_CRITERIA) && !empty($request->input('search'))) {
-            $search = str_replace('*', '%', $request->input('search'));
-            $criteria = explode(' ', $search);
-            $columns = Group::SEARCH_CRITERIA[$type];
+        $results = $this->search($groups, $request->input('type'), $request->input('search'));
 
-            foreach ($columns as $idx => $column) {
-                if (is_array($column)) {
-                    $relation = $column;
-                    foreach($relation as $table => $column)
-                    $groups = $groups->whereHas($table, function($query) use ($column, $criteria) {
-                        foreach($criteria as $value) {
-                            $query->orWhere($column, 'LIKE', $value);
-                        }
-                    });
-                } else {
-                    foreach($criteria as $value) {
-                        $groups = $groups->orWhere($column, 'LIKE', $value);
-                    }
-                }
-            }
-
-            $results = count($groups->get());
+        if (false === is_null($results)) {
             $request->session()->flash('results', "{$results} résultats trouvés");
             $request->session()->flash('search', $request->input('search'));
+            $request->session()->flash('type', $request->input('type'));
         }
 
         return view('group/groups', ['groups' => $groups->paginate(20)]);

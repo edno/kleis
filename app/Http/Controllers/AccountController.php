@@ -12,6 +12,8 @@ use Auth;
 
 class AccountController extends Controller
 {
+    use searchTrait;
+
     /**
      * Create a new controller instance.
      *
@@ -45,40 +47,9 @@ class AccountController extends Controller
             $accounts = $accounts->where('category', $category);
         }
 
-        $search = '%';
-        $type = $request->input('type');
+        $results = $this->search($accounts, $request->input('type'), $request->input('search'));
 
-        if (array_key_exists($type, Account::SEARCH_CRITERIA) && !empty($request->input('search'))) {
-            $search = str_replace('*', '%', $request->input('search'));
-            $criteria = explode(' ', $search);
-            $columns = Account::SEARCH_CRITERIA[$type];
-
-
-            $accounts = $accounts->where( function($q) use ($columns, $criteria) {
-                foreach ($columns as $column) {
-                    if (is_array($column)) {
-                        $relation = $column;
-                        foreach($relation as $table => $column) {
-                            $q->whereHas($table,
-                                function($query) use ($column, $criteria) {
-                                    foreach($criteria as $value) {
-                                        $query->orWhere($column, 'LIKE', $value);
-                                    }
-                                }
-                            );
-                        }
-                    } else {
-                        $q->orWhere(
-                            function($query) use ($column, $criteria) {
-                                foreach($criteria as $value) {
-                                    $query->orWhere($column, 'LIKE', $value);
-                                }
-                            }
-                        );
-                    }
-                }
-            });
-            $results = count($accounts->get());
+        if (false === is_null($results)) {
             $request->session()->flash('results', "{$results} résultats trouvés");
             $request->session()->flash('search', $request->input('search'));
             $request->session()->flash('type', $request->input('type'));
