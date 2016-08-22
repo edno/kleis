@@ -64,6 +64,9 @@
                         <li><a href="{{ url('/accounts') }}">Comptes</a></li>
                         @if (Auth::user()->level > 1)
                             <li><a href="{{ url('/groups') }}">D&eacute;l&eacute;gations</a></li>
+                            @if (Auth::user()->level == 9)
+                                <li><a href="{{ url('/categories') }}">Cat&eacute;gories</a></li>
+                            @endif
                             <li class="dropdown">
                               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Listes Blanches <span class="caret"></span></a>
                               <ul class="dropdown-menu">

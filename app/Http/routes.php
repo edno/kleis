@@ -40,6 +40,13 @@ Route::get('/group/{id}/disable', 'GroupController@disableAccounts');
 Route::get('/group/{group_id}/accounts', 'AccountController@showAccounts');
 Route::get('/group/{group_id}/accounts/category/{category}', 'AccountController@showAccounts');
 
+// Categories (accounts)
+Route::get('/categories', 'CategoryController@showCategories');
+Route::post('/categories', 'CategoryController@addCategory');
+Route::get('/category/{id}/delete', 'CategoryController@removeCategory');
+Route::get('/category/{id}/purge', 'CategoryController@purgeAccounts');
+Route::get('/category/{id}/disable', 'CategoryController@disableAccounts');
+
 // Users (app administrators)
 Route::get('/administrators', 'AdminController@showUsers');
 Route::get('/user', 'AdminController@newUser');
