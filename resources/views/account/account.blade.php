@@ -2,7 +2,7 @@
 
 @section('content')
 
-@if (count($groups) > 0)
+@if (count($groups) > 0 && count($categories) > 0)
 <script type="text/javascript" language="javascript">
     var kleisAccount = new KleisAccount();
     var kleisPassword = new KleisPassword();
@@ -155,11 +155,9 @@
                 <label for="category" class="col-md-4 control-label">Cat&eacute;gorie</label>
                 <div class="col-md-6">
                     <select id="category" class="form-control" name="category" style="font-family:'FontAwesome', Arial;">
-                        <option value="0" {{ ($account->category == 0) ? 'selected="true"' : null }}>&#xf1e5; B&eacute;n&eacute;ficiaire en recherche d&apos;emploi</option>
-                        <option value="1" {{ ($account->category == 1) ? 'selected="true"' : null }}>&#xf19c; B&eacute;n&eacute;ficiaire avec emploi</option>
-                        <option value="2" {{ ($account->category == 2) ? 'selected="true"' : null }}>&#xf19d; Etudiant</option>
-                        <option value="10" {{ ($account->category == 10) ? 'selected="true"' : null }}>&#xf004; B&eacute;n&eacute;vole</option>
-                        <option value="11" {{ ($account->category == 11) ? 'selected="true"' : null }}>&#xf1cd; Salari&eacute;</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}" {{ ($account->category_id == $category->id) ? 'selected="true"' : null }}>{{ $category->name }}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>
@@ -250,9 +248,14 @@
         </div>
     @endif
 
-@else
+@elseif (count($groups) == 0 )
     <div class="alert alert-warning">
         <strong>Aucune d&eacute;l&eacute;gation disponible !</strong> Veuillez cr&eacute;er une d&eacute;l&eacute;gation avant de continuer.
+    </div>
+
+@elseif (count($categories) == 0 )
+    <div class="alert alert-warning">
+        <strong>Aucune cat&eacute;gorie disponible !</strong> Veuillez cr&eacute;er une cat&eacute;gorie avant de continuer.
     </div>
 
 @endif

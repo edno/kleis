@@ -24,12 +24,12 @@ Route::get('/home', 'HomeController@index');
 Route::get('/accounts', 'AccountController@showAccounts');
 Route::post('/account', 'AccountController@addAccount');
 Route::get('/account/{id}', 'AccountController@editAccount');
-Route::get('/account', 'AccountController@newAccount');
+Route::get('/account', 'AccountController@editAccount');
 Route::post('/account/{id}', 'AccountController@updateAccount');
 Route::get('/account/{id}/enable', 'AccountController@enableAccount');
 Route::get('/account/{id}/disable', 'AccountController@disableAccount');
 Route::get('/account/{id}/delete', 'AccountController@removeAccount');
-Route::get('/accounts/category/{category}', 'AccountController@showAccounts');
+Route::get('/accounts/category/{category_id}', 'AccountController@showAccounts');
 
 // Groups (accounts)
 Route::get('/groups', 'GroupController@showGroups');
@@ -38,7 +38,7 @@ Route::get('/group/{id}/delete', 'GroupController@removeGroup');
 Route::get('/group/{id}/purge', 'GroupController@purgeAccounts');
 Route::get('/group/{id}/disable', 'GroupController@disableAccounts');
 Route::get('/group/{group_id}/accounts', 'AccountController@showAccounts');
-Route::get('/group/{group_id}/accounts/category/{category}', 'AccountController@showAccounts');
+Route::get('/group/{group_id}/accounts/category/{category_id}', 'AccountController@showAccounts');
 
 // Categories (accounts)
 Route::get('/categories', 'CategoryController@showCategories');

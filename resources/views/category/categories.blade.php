@@ -23,8 +23,44 @@
                 {{ csrf_field() }}
                 <div class="col-lg-12">
                     <div class="input-group">
+                        <span class="input-group-btn">
+                            <button
+                                class="btn btn-default has-tooltip"
+                                id="iconpicker"
+                                name="icon"
+                                data-iconset="fontawesome"
+                                data-icon="fa-question"
+                                role="iconpicker"
+                                data-toggle="tooltip"
+                                data-placement="bottom"
+                                title="Pictogramme"></button>
+                        </span>
                         <input type="text" class="form-control" name="name" id="categoryname" placeholder="Nom de la cat&eacute;gorie">
                         <span class="input-group-btn">
+                            <button
+                                type="button"
+                                class="btn btn-default dropdown-toggle"
+                                data-toggle="dropdown"
+                                data-placement="bottom"
+                                aria-haspopup="true"
+                                aria-expanded="false">
+                              <span id="validity-option">90 jours</span>&nbsp;<span class="caret"></span>
+                            </button>
+                            <div class="dropdown-menu">
+                                <div class="row">
+                                    <div class="input-group col-lg-8 col-lg-offset-2">
+                                    <input
+                                        name="validity"
+                                        id="categoryvalidity"
+                                        type="number"
+                                        class="form-control has-tooltip"
+                                        data-placement="bottom"
+                                        title="Validit&eacute;"
+                                        value="90"/>
+                                    <span class="input-group-addon">jours</span>
+                                    </div>
+                                </div>
+                            </div>
                             <button type="submit" class="btn btn-default hidden" type="button" id="button-save">
                                 <i class="fa fa-save"></i> Enregister
                             </button>
@@ -36,9 +72,9 @@
                             </button>
                         </span>
                     </div>
-                    @if ($errors->has('name'))
+                    @if ($errors)
                         <span class="help-block">
-                            <strong>{{ $errors->first('name') }}</strong>
+                            <strong>{{ $errors->first() }}</strong>
                         </span>
                     @endif
                 </div>
@@ -46,6 +82,14 @@
             </form>
         </div>
     </div>
+    <script type="text/javascript" language="javascript">
+        document.addEventListener("DOMContentLoaded", function() {
+            $('#iconpicker').iconpicker({iconset: 'fontawesome'});
+            $('#categoryvalidity').change(function() {
+                $("#validity-option ").text($(this).val() + ' jours');
+            });
+        });
+    </script>
 
     <!-- Current Categories -->
     <div class="panel panel-default">
@@ -55,12 +99,12 @@
             </div>
             <div class="panel-title pull-right">
                 <form class="form-inline pull-right" role="form">
-                    <div class="input-category">
+                    <div class="input-group">
                         <input id="search-type" type="hidden" name="type" value="category">
                         <span class="search-box{{ session('results') ? '' : ' hidden' }}">
                             <input id="search" class="form-control" name="search" value="{{ session('search') }}" placeholder="Jokers * et %">
                         </span>
-                        <div id="search-button" class="search-button{{ session('results') ? ' input-category-btn' : '' }}">
+                        <div id="search-button" class="search-button{{ session('results') ? ' input-group-btn' : '' }}">
                             <a href="#" class="btn btn-default has-tooltip"
                                 data-toggle="tooltip"
                                 data-placement="bottom"
@@ -98,6 +142,7 @@
 
                     <!-- Table Headings -->
                     <thead>
+                        <th>&nbsp;</th>
                         <th>Cat&eacute;gorie</th>
                         <th>Comptes actifs</th>
                         <th>Comptes inactifs</th>
@@ -109,6 +154,9 @@
                     <tbody>
                         @foreach ($categories as $category)
                             <tr>
+                                <td class="table-text">
+                                    <div id="icon{{ $category->id }}"><i class="fa {{ $category->icon }}"></i></div>
+                                </td>
                                 <td class="table-text col-xs-3">
                                     <div id="category{{ $category->id }}">{{ $category->name }}</div>
                                 </td>
@@ -119,11 +167,11 @@
                                     <div><span class="badge">{{ $category->countAccounts(0) }}</span></div>
                                 </td>
                                 <td class="table-text">
-                                    <div><span class="badge">{{ $category->maxValidity }} jours</span></div>
+                                    <div id="validity{{ $category->id }}"><span class="badge">{{ $category->validity }} jours</span></div>
                                 </td>
                                 <td class="align-right col-xs-3">
                                     <div class="btn-toolbar">
-                                        <div class="btn-category">
+                                        <div class="btn-group">
                                             <a href="#" class="btn btn-default has-tooltip edit-category"
                                                 data-toggle="tooltip"
                                                 data-placement="bottom"
@@ -186,9 +234,15 @@
         document.addEventListener("DOMContentLoaded", function(event) {
             $('.edit-category').click(function () {
                 var categoryid = $(this).attr('id').substr(4);
-                var categoryname = document.getElementById( 'category' + categoryid ).innerText;
+                var categoryname = $('#category' + categoryid ).text();
+                var validity = $('#validity' + categoryid ).text();
+                var icon = $('#icon' + categoryid + ' i').attr('class').substr(3);
+                console.log(icon);
                 $('#categoryid').val(categoryid);
                 $('#categoryname').val(categoryname);
+                $('#categoryvalidity').val(parseInt(validity));
+                $('#validity-option').text(validity);
+                $('#iconpicker').iconpicker('setIcon', icon);
                 $('#button-cancel').removeClass('hidden');
                 $('#button-save').removeClass('hidden');
                 $('#button-add').addClass('hidden');
@@ -197,6 +251,9 @@
             $('#button-cancel').click(function () {
                 $('#categoryid').val('');
                 $('#categoryname').val('');
+                $('#categoryvalidity').val(90);
+                $('#validity-option').text($('#categoryvalidity').val() + ' jours');
+                $('#iconpicker').iconpicker('setIcon', 'fa-question');
                 $('#button-cancel').addClass('hidden');
                 $('#button-save').addClass('hidden');
                 $('#button-add').removeClass('hidden');

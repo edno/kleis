@@ -14,7 +14,8 @@
                 , vous pouvez :
                 <ul>
                     <li>Gerer les <strong>comptes</strong> utilisateurs</li>
-                    <li>Gerer la liste des <strong>delegations</strong></li>
+                    <li>Gerer la liste des <strong>d&eacute;l&eacute;gations</strong></li>
+                    <li>Gerer la liste des <strong>cat&eacute;gories</strong> utilisateur</li>
                     <li>Gerer les <strong>listes blanches</strong> internet</li>
                     @if (Auth::user()->level == 9)
                     <li>Gerer la liste des <strong>administrateurs</strong> Kleis</li>

@@ -9,6 +9,7 @@ use App\Account;
 use App\Group;
 use App\ProxyListItem;
 use App\User;
+use App\Category;
 
 class HomeController extends Controller
 {
@@ -42,12 +43,13 @@ class HomeController extends Controller
     private function accountSummary()
     {
         $list = [ 'total' => 0, 'summary' => []];
-        foreach (Account::ACCOUNT_CATEGORY as $id => $category) {
-            $count = Account::where('category', $id)->count();
+        $categories = Category::orderBy('name', 'asc')->get();
+        foreach ($categories as $category) {
+            $count = Account::where('category_id', $category->id)->count();
             if ($count) {
                 $list['summary'][]= [
                     'count' => $count,
-                    'text' => $category['text']
+                    'text' => $category->name
                 ];
             }
         }
@@ -58,7 +60,7 @@ class HomeController extends Controller
     private function groupSummary()
     {
         $list = [ 'total' => 0, 'summary' => []];
-        $groups = Group::get();
+        $groups = Group::orderBy('name', 'asc')->get();
         foreach ($groups as $group) {
             $count = Account::where('group_id', $group->id)->count();
             $list['summary'][]= [
@@ -67,6 +69,21 @@ class HomeController extends Controller
             ];
         }
         $list['total'] = count($groups);
+        return $list;
+    }
+
+    private function categorySummary()
+    {
+        $list = [ 'total' => 0, 'summary' => []];
+        $categories = Category::get();
+        foreach ($categories as $category) {
+            $count = Account::where('category_id', $category->id)->count();
+            $list['summary'][]= [
+                'count' => $count,
+                'text' => $category->name
+            ];
+        }
+        $list['total'] = count($category);
         return $list;
     }
 

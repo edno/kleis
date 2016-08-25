@@ -26,15 +26,17 @@
             <i class="fa fa-asterisk"></i>
             {{ Request::is("*/category/*") ? '' : ' Tous' }}
         </a></li>
-        @foreach (App\Account::ACCOUNT_CATEGORY as $id => $category)
-            <li class="{{ Request::is("*/category/$id") ? 'active' : 'has-tooltip' }}"
-            data-toggle="tooltip"
-            data-placement="bottom"
-            title="{{ mb_strtoupper(mb_substr($category['text'], 0, 1)).mb_substr($category['text'], 1) }}">
-            <a href="{{ preg_replace('/(.*\/?accounts)(?:\/category.*)?/', '$1/category/', Request::url()) . $id }}">
-                <i class="fa {{ $category['icon'] }}"></i>
-                {{ Request::is("*/category/$id") ? ' '.mb_strtoupper(mb_substr($category['text'], 0, 1)).mb_substr($category['text'], 1) : '' }}</a></li>
-        @endforeach
+        @if (isset($categories))
+            @foreach ($categories as $category)
+                <li class="{{ Request::is('*/category/'.$category->id) ? 'active' : 'has-tooltip' }}"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                title="{{ $category->name }}">
+                <a href="{{ preg_replace('/(.*\/?accounts)(?:\/category.*)?/', '$1/category/', Request::url()) . $category->id }}">
+                    <i class="fa {{ $category->icon }}"></i>
+                    {{ Request::is('*/category/'.$category->id) ? ' ' . $category->name : '' }}</a></li>
+            @endforeach
+        @endif
     </ul>
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -136,10 +138,10 @@
                                 <tr class="text-muted">
                             @endif
                                 <td class="table-text">
-                                    <div><i class="fa {{ $account->getCategory()['icon'] }} has-tooltip"
+                                    <div><i class="fa {{ $account->category->icon }} has-tooltip"
                                         data-toggle="tooltip"
                                         data-placement="bottom"
-                                        title="{{ mb_strtoupper(mb_substr($account->getCategory()['text'], 0, 1)).mb_substr($account->getCategory()['text'], 1) }}"></i></div>
+                                        title="{{ $account->category->name }}"></i></div>
                                 </td>
                                 <td class="table-text">
                                     <div>{{ $account->firstname }} {{ $account->lastname }}</div>

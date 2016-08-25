@@ -16,6 +16,7 @@ class Kernel extends ConsoleKernel
         Commands\ExportAccounts::class,
         Commands\ExportGroups::class,
         Commands\ExportWhitelists::class,
+        Commands\ExportCategories::class,
     ];
 
     /**

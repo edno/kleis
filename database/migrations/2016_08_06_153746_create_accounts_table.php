@@ -20,7 +20,7 @@ class CreateAccountsTable extends Migration
             $table->string('netpass');
             $table->string('firstname');
             $table->string('lastname');
-            $table->integer('category')->default(0);
+            $table->integer('category_id')->index();
             $table->date('expire')->nullable();
             $table->boolean('status')->default(1);
             $table->timestamps();

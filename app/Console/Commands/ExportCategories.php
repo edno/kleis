@@ -4,10 +4,10 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Account;
-use App\Group;
+use App\Category;
 use Storage;
 
-class ExportGroups extends Command
+class ExportCategories extends Command
 {
     use StringNormalizeTrait;
 
@@ -16,14 +16,14 @@ class ExportGroups extends Command
      *
      * @var string
      */
-    protected $signature = 'export:groups';
+    protected $signature = 'export:categories';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Export proxy groups (category) of accounts';
+    protected $description = 'Export proxy categories of accounts';
 
     /**
      * Create a new command instance.
@@ -42,11 +42,11 @@ class ExportGroups extends Command
      */
      public function handle()
      {
-         $groups = Group::get();
-         foreach ($groups as $group){
-             $name = static::stringNormalise($group->name);
-             $filename = 'export/groups/' . $name . '.txt';
-             $accounts = Account::where('status', 1)->where('group_id', $group->id)->orderBy('netlogin', 'desc')->get();
+         $categories = Category::get();
+         foreach ($categories as $category){
+             $name = static::stringNormalise($category->name);
+             $filename = 'export/categories/' . $name . '.txt';
+             $accounts = Account::where('status', 1)->where('category_id', $category->id)->orderBy('netlogin', 'desc')->get();
              Storage::put($filename, '');
              $count = count($accounts);
              $bar = $this->output->createProgressBar($count);
@@ -55,7 +55,7 @@ class ExportGroups extends Command
                  $bar->advance();
              }
              $bar->finish();
-             $this->info("\n{$count} accounts '{$group->name}' exported into file 'storage/app/{$filename}'");
+             $this->info("\n{$count} accounts '{$category->name}' exported into file 'storage/app/{$filename}'");
          }
      }
 }

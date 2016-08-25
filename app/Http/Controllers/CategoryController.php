@@ -33,15 +33,18 @@ class CategoryController extends Controller
 
     public function addCategory(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required|max:100|unique:groups,name',
-        ]);
-
         if (false === empty($request->id)) {
             return $this->updateCategory($request, $request->id);
         } else {
+            $this->validate($request, [
+                'name' => 'required|max:100|unique:categories,name',
+                'icon' => 'required',
+                'validity' => 'required|integer|min:1|max:1000',
+            ]);
             $category = new Category;
-            $category->name = $request->name;
+            $category->name = mb_strtoupper(mb_substr($request->name, 0, 1)).mb_substr($request->name, 1);
+            $category->icon = $request->icon;
+            $category->validity = $request->validity;
             $category->created_by = $request->user()->id;
             $category->save();
             return redirect('categories')->with('status', "Catégorie '{$category->name}' ajoutée avec succès.");
@@ -51,14 +54,18 @@ class CategoryController extends Controller
     public function updateCategory(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required|max:100|unique:groups,name',
+            'name' => 'required|max:100',
+            'icon' => 'required',
+            'validity' => 'required|digits_between:1,1000',
         ]);
 
         $category = Category::findOrFail($id);
         $name = $category->name;
-        $category->name = $request->name;
+        $category->name = mb_strtoupper(mb_substr($request->name, 0, 1)).mb_substr($request->name, 1);
+        $category->icon = $request->icon;
+        $category->validity = $request->validity;
         $category->update();
-        return redirect()->back()->with('status', "Catégorie '{$name}' renommée en '{$category->name}'.");
+        return redirect()->back()->with('status', "Catégorie '{$category->name}' mise à jour.");
     }
 
     public function removeCategory($id)
@@ -71,7 +78,7 @@ class CategoryController extends Controller
 
     public function purgeAccounts($id)
     {
-        // $category = Category::findOrFail($id);
+        $category = Category::findOrFail($id);
         $accounts = $category->accounts()->where('status', 0);
         if (count($accounts) > 0 ) {
             $accounts->delete();
@@ -81,7 +88,7 @@ class CategoryController extends Controller
 
     public function disableAccounts($id)
     {
-        // $category = Category::findOrFail($id);
+        $category = Category::findOrFail($id);
         $accounts = $category->accounts()->where('status', 1)->get();
         foreach ($accounts as $account) {
             $account->disable();

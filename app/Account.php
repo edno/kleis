@@ -64,9 +64,9 @@ class Account extends Model
         return self::ACCOUNT_STATUS[$this->status];
     }
 
-    public function getCategory()
+    public function category()
     {
-        return self::ACCOUNT_CATEGORY[$this->category];
+        return $this->hasOne('App\Category', 'id', 'category_id');
     }
 
     public static function generateHash($password)

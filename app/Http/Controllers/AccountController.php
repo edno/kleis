@@ -8,6 +8,7 @@ use Illuminate\Routing\UrlGenerator as Url;
 use App\Http\Requests;
 use App\Account;
 use App\Group;
+use App\Category;
 use Auth;
 
 class AccountController extends Controller
@@ -29,26 +30,36 @@ class AccountController extends Controller
      *
      * @return Response
      */
-    public function showAccounts(Request $request, $group_id = null, $category = null)
+    public function showAccounts(Request $request, $group_id = null, $category_id = null)
     {
         $accounts = Account::orderBy('netlogin', 'asc');
         $group = null;
 
+        // because request routing is not smart
+        if ($request->is('accounts/category/*')) {
+            $category_id = $group_id;
+            $group_id = null;
+        }
+
+        // case when admin can only manager its own group§
         if (Auth::user()->level == 1) {
             $group_id = Auth::user()->group->id;
         }
 
+        // if a group filter is set
         if (false === is_null($group_id)) {
             $group = Group::find($group_id);
             $accounts = $accounts->where('group_id', $group_id);
         }
 
-        if (false === is_null($category)) {
-            $accounts = $accounts->where('category', $category);
+        // if a category filter is set
+        if (false === is_null($category_id)) {
+            $accounts = $accounts->where('category_id', $category_id);
         }
 
         $results = $this->search($accounts, $request->input('type'), $request->input('search'));
 
+        // store search criteria
         if (false === is_null($results)) {
             $request->session()->flash('results', "{$results} résultats trouvés");
             $request->session()->flash('search', $request->input('search'));
@@ -56,7 +67,11 @@ class AccountController extends Controller
         }
 
         return view('account/accounts',
-            ['accounts' => $accounts->paginate(20), 'group' => $group]
+            [
+                'accounts' => $accounts->paginate(20),
+                'group' => $group,
+                'categories' => Category::orderBy('name', 'asc')->get()
+            ]
         );
     }
 
@@ -66,25 +81,20 @@ class AccountController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function editAccount($id)
+    public function editAccount($id = null)
     {
-        $account = Account::findOrFail($id);
-        $groups = Group::orderBy('name', 'asc')->get();
+        // if no ID then new account
+        if (empty($id)) {
+            $account = new Account;
+        } else {
+            $account = Account::findOrFail($id);
+        }
         return view('account/account',
-            ['account' => $account, 'groups' => $groups]
-        );
-    }
-
-    /**
-     * Open a new account.
-     *
-     * @return Response
-     */
-    public function newAccount()
-    {
-        $groups = Group::orderBy('name', 'asc')->get();
-        return view('account/account',
-            ['account' => new Account, 'groups' => $groups]
+            [
+                'account' => $account,
+                'groups' => Group::orderBy('name', 'asc')->get(),
+                'categories' => Category::orderBy('name', 'asc')->get()
+            ]
         );
     }
 
@@ -101,7 +111,7 @@ class AccountController extends Controller
             'netlogin' => 'required|unique:accounts,netlogin',
             'netpass' => 'required|min:8|different:netlogin',
             'expirydate' => 'required_if:status,1|date|after:today',
-            'category' => 'required',
+            'category' => 'required|exists:categories,id',
             'status' => 'required|boolean',
             'group' => 'required|exists:groups,id'
         ]);
@@ -111,7 +121,7 @@ class AccountController extends Controller
         $account->netpass = Account::generateHash($request->netpass);
         $account->firstname = ucwords($request->firstname);
         $account->lastname = ucwords($request->lastname);
-        $account->category = $request->category;
+        $account->category_id = $request->category;
         if (empty($account->expire)) {
             $account->expire = date_create('+90 day')->format('Y-m-d');
         }
@@ -134,7 +144,7 @@ class AccountController extends Controller
         $this->validate($request, [
             'netlogin' => 'required|exists:accounts,netlogin',
             'expirydate' => 'required_if:status,1|date|after:today',
-            'category' => 'required',
+            'category' => 'required|exists:categories,id',
             'status' => 'required|boolean',
             'group' => 'required|exists:groups,id'
         ]);
@@ -143,10 +153,10 @@ class AccountController extends Controller
         if (false === empty($request->netpass)) {
             $account->netpass = Account::generateHash($request->netpass);
         }
-        $account->category = $request->category;
         if (false === empty($request->expirydate)) {
             $account->expire = $request->expirydate;
         }
+        $account->category_id = $request->category;
         $account->status = $request->status;
         $account->group_id = $request->group;
         $account->update();
