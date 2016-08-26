@@ -16,10 +16,13 @@ class User extends Authenticatable
     ];
 
     const USER_LEVEL = [
-        1 => [  'text' => 'gestionnaire',
+        1 => [  'text' => 'gestionnaire local',
                 'icon' => 'fa-support',
                 'unicon' => '&#xf1cd;' ],
-        2 => [  'text' => 'administrateur',
+        3 => [  'text' => 'gestionnaire global',
+                'icon' => 'fa-globe',
+                'unicon' => '&#xf0ac;' ],
+        5 => [  'text' => 'administrateur',
                 'icon' => 'fa-shield',
                 'unicon' => '&#xf132;' ],
         9 => [  'text' => 'super administrateur',

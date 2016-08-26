@@ -137,11 +137,11 @@
                 <label for="level" class="col-md-4 control-label">Niveau</label>
                 <div class="col-md-6">
                     <select id="level" class="form-control" name="level" style="font-family:'FontAwesome', Arial;">
-                        <option value="1" {{ ($user->level == 1 || old('level') == 1) ? 'selected="true"' : null }}>&#xf1cd; Gestionnaire</option>
-                        <option value="2" {{ ($user->level == 2 || old('level') == 2) ? 'selected="true"' : null }}>&#xf132; Administrateur</option>
-                        @if (Auth::user()->level == 9)
-                            <option value="9" {{ ($user->level == 9 || old('level') == 9) ? 'selected="true"' : null }}>&#xf135; Super Administrateur</option>
-                        @endif
+                        @foreach(App\User::USER_LEVEL as $key => $level)
+                            @if (Auth::user()->level >= $key)
+                                <option value="{{ $key }}" {{ ($user->level == $key || old('level') == $key) ? 'selected="true"' : null }}>{{ ucfirst($level['unicon']) }} {{ ucfirst($level['text']) }}</option>
+                            @endif
+                        @endforeach
                     </select>
                     @if ($errors->has('level'))
                         <span class="help-block">
@@ -157,10 +157,8 @@
                             case '1':
                                 $('#divgroup').removeClass('hidden');
                                 break;
-                            case '2':
-                                $('#divgroup').addClass('hidden');
-                                $('#group').val(0)
-                                break;
+                            case '3':
+                            case '5':
                             case '9':
                                 $('#divgroup').addClass('hidden');
                                 $('#group').val(0)

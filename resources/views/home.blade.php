@@ -10,13 +10,19 @@
             @if (Auth::user()->level == 1)
                 de la d&eacute;l&eacute;gation <strong>{{ Auth::user()->group ? Auth::user()->group->name : '' }}</strong>
                 , vous pouvez g&eacute;rer les <strong>comptes</strong> utilisateurs de la d&eacute;l&eacute;gation.
+            @elseif (Auth::user()->level == 3)
+                , vous pouvez g&eacute;rer les <strong>comptes</strong> utilisateurs de l&apos;ensemble des d&eacute;l&eacute;gations.
             @else
                 , vous pouvez :
                 <ul>
                     <li>Gerer les <strong>comptes</strong> utilisateurs</li>
+                    @if (Auth::user()->level >= 5)
                     <li>Gerer la liste des <strong>d&eacute;l&eacute;gations</strong></li>
+                    @if (Auth::user()->level == 9)
                     <li>Gerer la liste des <strong>cat&eacute;gories</strong> utilisateur</li>
+                    @endif
                     <li>Gerer les <strong>listes blanches</strong> internet</li>
+                    @endif
                     @if (Auth::user()->level == 9)
                     <li>Gerer la liste des <strong>administrateurs</strong> Kleis</li>
                     @endif

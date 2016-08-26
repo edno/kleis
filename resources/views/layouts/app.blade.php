@@ -44,7 +44,7 @@
                     @if (Auth::user())
                         <li><a href="{{ url('/home') }}">Accueil</a></li>
                         <li><a href="{{ url('/accounts') }}">Comptes</a></li>
-                        @if (Auth::user()->level > 1)
+                        @if (Auth::user()->level >= 5)
                             <li><a href="{{ url('/groups') }}">D&eacute;l&eacute;gations</a></li>
                             @if (Auth::user()->level == 9)
                                 <li><a href="{{ url('/categories') }}">Cat&eacute;gories</a></li>
