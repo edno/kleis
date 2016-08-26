@@ -18,8 +18,6 @@ elixir(function(mix) {
     mix.scripts([
         'jquery/dist/jquery.js',
         'bootstrap/dist/js/bootstrap.js',
-        'bootstrap-iconpicker/bootstrap-iconpicker/js/bootstrap-iconpicker.js',
-        'bootstrap-iconpicker/bootstrap-iconpicker/js/iconset/iconset-all.min.js'
     ], 'public/js/vendor.js', 'resources/assets/bower');
 
     mix.scripts([
@@ -30,7 +28,7 @@ elixir(function(mix) {
     ], 'public/js/app.js');
 
     mix.copy([
-        'resources/assets/bower/font-awesome/fonts',
+        'resources/assets/bower/bootstrap-iconpicker/icon-fonts/font-awesone-4.2.0/fonts',
         'resources/assets/bower/lato/font',
         'resources/assets/bower/bootstrap/fonts'
     ], 'public/fonts');
@@ -41,6 +39,12 @@ elixir(function(mix) {
     ], 'public/css');
 
     mix.copy([
-        'resources/assets/bower/bootstrap-iconpicker/bootstrap-iconpicker/css/bootstrap-iconpicker.min.css'
+        'resources/assets/bower/bootstrap-iconpicker/bootstrap-iconpicker/css/bootstrap-iconpicker.min.css',
+        //'resources/assets/bower/bootstrap-iconpicker/icon-fonts/font-awesome-4.2.0/css/font-awesome.min.css'
     ], 'public/css/vendor');
+
+    mix.copy([
+        'resources/assets/bower/bootstrap-iconpicker/bootstrap-iconpicker/js/bootstrap-iconpicker.min.js',
+        'resources/assets/bower/bootstrap-iconpicker/bootstrap-iconpicker/js/iconset/iconset-fontawesome-4.2.0.min.js'
+    ], 'public/js/vendor');
 });

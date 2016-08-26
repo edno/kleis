@@ -12,6 +12,8 @@
 
     <!-- JavaScripts -->
     <script src="/js/vendor.js" type="text/javascript" language="javascript"></script>
+    <script src="/js/vendor/iconset-fontawesome-4.2.0.min.js" type="text/javascript" language="javascript"></script>
+    <script src="/js/vendor/bootstrap-iconpicker.min.js" type="text/javascript" language="javascript"></script>
     <script src="/js/app.js" type="text/javascript" language="javascript"></script>
 </head>
 <body id="app-layout">
