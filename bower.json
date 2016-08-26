@@ -1,0 +1,10 @@
+{
+  "name": "kleis",
+  "dependencies": {
+    "jquery": "^3.1.0",
+    "bootstrap": "^3.3.7",
+    "font-awesome": "fontawesome#^4.6.3",
+    "bootstrap-iconpicker": "^1.7.0",
+    "lato": "^0.3.0"
+  }
+}

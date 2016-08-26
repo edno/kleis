@@ -7,7 +7,6 @@
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "5.2.*",
-        /*"twbs/bootstrap": "^3.3",*/
         "whitehat101/apr1-md5": "~1.0"
     },
     "require-dev": {
@@ -40,12 +39,10 @@
         ],
         "post-install-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postInstall",
-            /*"php artisan vendor:publish --tag=public --force",*/
             "php artisan optimize"
         ],
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
-            /*"php artisan vendor:publish --tag=public --force",*/
             "php artisan optimize"
         ]
     },
