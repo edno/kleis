@@ -40,7 +40,6 @@ elixir(function(mix) {
 
     mix.copy([
         'resources/assets/bower/bootstrap-iconpicker/bootstrap-iconpicker/css/bootstrap-iconpicker.min.css',
-        //'resources/assets/bower/bootstrap-iconpicker/icon-fonts/font-awesome-4.2.0/css/font-awesome.min.css'
     ], 'public/css/vendor');
 
     mix.copy([
