@@ -19,7 +19,7 @@ elixir(function(mix) {
         'jquery/dist/jquery.js',
         'bootstrap/dist/js/bootstrap.js',
         'bootstrap-iconpicker/bootstrap-iconpicker/js/bootstrap-iconpicker.js',
-        'bootstrap-iconpicker/bootstrap-iconpicker/js/iconset/iconset-fontawesome-4.2.0.min.js'
+        'bootstrap-iconpicker/bootstrap-iconpicker/js/iconset/iconset-all.min.js'
     ], 'public/js/vendor.js', 'resources/assets/bower');
 
     mix.scripts([
@@ -43,14 +43,4 @@ elixir(function(mix) {
     mix.copy([
         'resources/assets/bower/bootstrap-iconpicker/bootstrap-iconpicker/css/bootstrap-iconpicker.min.css'
     ], 'public/css/vendor');
-
-
-    mix.version([
-        'public/css/app.css',
-        'public/css/welcome.css',
-        'public/css/kleis.css',
-        'public/css/vendor/bootstrap-iconpicker.min.css',
-        'public/js/vendor.js',
-        'public/js/app.js'
-    ]);
 });

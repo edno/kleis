@@ -7,12 +7,12 @@
 
     <title>Kleis</title>
     <!-- Styles -->
-    <link href="{{ elixir('css/app.css') }}" rel="stylesheet">
-    <link href="{{ elixir('css/vendor/bootstrap-iconpicker.min.css') }}" rel="stylesheet">
+    <link href="/css/app.css" rel="stylesheet">
+    <link href="/css/vendor/bootstrap-iconpicker.min.css" rel="stylesheet">
 
     <!-- JavaScripts -->
-    <script src="{{ elixir('js/vendor.js') }}" type="text/javascript" language="javascript"></script>
-    <script src="{{ elixir('js/app.js') }}" type="text/javascript" language="javascript"></script>
+    <script src="/js/vendor.js" type="text/javascript" language="javascript"></script>
+    <script src="/js/app.js" type="text/javascript" language="javascript"></script>
 </head>
 <body id="app-layout">
     <nav class="navbar navbar-default"></nav>
