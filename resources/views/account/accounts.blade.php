@@ -17,7 +17,7 @@
 @endif
 
     <!-- Current Accounts -->
-    <ul class="nav nav-tabs">
+    <ul class="nav nav-tabs" style="border-bottom: 0px;">
         <li class="{{ Request::is("*/category/*") ? 'has-tooltip' : 'active' }}"
             data-toggle="tooltip"
             data-placement="bottom"
