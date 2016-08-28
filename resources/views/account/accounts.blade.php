@@ -60,7 +60,9 @@
                                     <ul class="dropdown-menu">
                                         <li class="search-option{{ session('type') == 'account' ? ' option-selected' : '' }}" value="account"><a href="#">Compte</a></li>
                                         <li class="search-option{{ session('type') == 'fullname' ? ' option-selected' : '' }}" value="fullname"><a href="#">Nom</a></li>
+                                    @if (Auth::user()->level >= 3)
                                         <li class="search-option{{ session('type') == 'group' ? ' option-selected' : '' }}" value="group"><a href="#">D&eacute;l&eacute;gation</a></li>
+                                    @endif
                                     </ul>
                                 </div>
                                 <span class="search-box{{ session('results') ? '' : ' hidden' }}">
