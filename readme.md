@@ -89,6 +89,10 @@ Extraire l'archive `kleis` dans le répertoire `/var/www/`:
 ```shell
 tar -xzf kleis-*.tar.gz --directory /var/www/
 ```
+Renommer le repertoire ainsi créé en `kleis` 
+```shell
+mv /var/www/kleis* /var/www/kleis
+```
 
 #### 2- GitLab
 Cloner le projet `kleis` depuis **GitLab**:
