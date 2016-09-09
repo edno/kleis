@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('level')->default(0);
             $table->boolean('status')->default(1);
-            $table->integer('group_id')->index();
+            $table->integer('group_id')->index()->default(0);
             $table->integer('created_by')->index();
             $table->rememberToken();
             $table->timestamps();
