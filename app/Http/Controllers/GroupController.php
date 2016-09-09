@@ -9,7 +9,7 @@ use App\Group;
 
 class GroupController extends Controller
 {
-    use searchTrait;
+    use SearchTrait;
 
     /**
      * Create a new controller instance.

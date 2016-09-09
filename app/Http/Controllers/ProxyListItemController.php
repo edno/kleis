@@ -9,7 +9,7 @@ use App\ProxyListItem;
 
 class ProxyListItemController extends Controller
 {
-    use searchTrait;
+    use SearchTrait;
 
     /**
      * Create a new controller instance.

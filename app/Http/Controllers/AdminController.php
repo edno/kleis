@@ -11,7 +11,7 @@ use Auth;
 
 class AdminController extends Controller
 {
-    use searchTrait;
+    use SearchTrait;
 
     /**
      * Create a new controller instance.
