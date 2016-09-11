@@ -76,10 +76,6 @@
                     $("#search-option").text($(this).text());
                     $("#search-type").val($(this).attr('value'));
                 });
-                if ($(".option-selected").size()) {
-                    $("#search-option").text($(".option-selected").text());
-                    $("#search-type").val($(".option-selected").attr('value'));
-                }
             });
         </script>
 
