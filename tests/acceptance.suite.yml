@@ -7,6 +7,10 @@
 class_name: AcceptanceTester
 modules:
     enabled:
-        - PhpBrowser:
-            url: http://localhost/myapp
-        - \Helper\Acceptance
+        - Helper\Page
+        - Asserts
+        - Laravel5:
+            environment_file: .env.testing
+            cleanup: false
+            run_database_migration: false
+            url: http://kleis.app:8000
