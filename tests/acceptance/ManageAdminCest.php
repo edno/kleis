@@ -2,20 +2,31 @@
 
 use Page\WelcomePage;
 
-class SuperAdminCest
+class ManageAdminCest
 {
     protected $email = 'admin@kleis.app';
     protected $password = 'admin';
     protected $name = 'Super Admin';
 
-    public function canDisplayAdministrators(\AcceptanceTester $I)
+    protected $page;
+
+    public function _before(\AcceptanceTester $I)
     {
         $I->amOnPage('/');
-        $page = new WelcomePage($I);
-        $page = $page->openApplication()
+        $this->page = new WelcomePage($I);
+        $this->page = $this->page
+                ->openApplication()
                 ->login($this->email, $this->password)
                 ->navigateTo('Administrateurs');
-        $list = $page->getAdministratorsList();
+    }
+
+    /**
+     * @group superadmin
+     */
+    public function canDisplayAdministrators(\AcceptanceTester $I)
+    {
+
+        $list = $this->page->getAdministratorsList();
         $I->assertContains([
                 'nom' => $this->name,
                 'niveau' => 'Super administrateur',
@@ -26,24 +37,22 @@ class SuperAdminCest
             $list);
     }
 
+    /**
+     * @group superadmin
+     */
     public function canAddNewAdministrator(\AcceptanceTester $I)
     {
-        $I->amOnPage('/');
-        $page = new WelcomePage($I);
-        $page = $page->openApplication()
-                ->login($this->email, $this->password)
-                ->navigateTo('Administrateurs')
+        $this->page = $this->page
                 ->newAdministrator()
                 ->cancel();
     }
 
+    /**
+     * @group superadmin
+     */
     public function canCreateAdministrator(\AcceptanceTester $I)
     {
-        $I->amOnPage('/');
-        $page = new WelcomePage($I);
-        $page = $page->openApplication()
-                ->login($this->email, $this->password)
-                ->navigateTo('Administrateurs')
+        $this->page = $this->page
                 ->newAdministrator()
                 ->setDetails([
                     'email' => 'codecept@kleis.app',
@@ -56,7 +65,7 @@ class SuperAdminCest
                     'status' => 'Actif',
                 ])
                 ->save();
-        $list = $page->getAdministratorsList();
+        $list = $this->page->getAdministratorsList();
         $I->assertContains([
                 'nom' => 'Codecept Test',
                 'niveau' => 'Gestionnaire local',
@@ -67,15 +76,14 @@ class SuperAdminCest
             $list);
     }
 
+    /**
+     * @group superadmin
+     */
     public function canDisableAdministrator(\AcceptanceTester $I)
     {
-        $I->amOnPage('/');
-        $page = new WelcomePage($I);
-        $page = $page->openApplication()
-                ->login($this->email, $this->password)
-                ->navigateTo('Administrateurs')
+        $this->page = $this->page
                 ->disableAdministrator('codecept@kleis.app');
-        $list = $page->getAdministratorsList();
+        $list = $this->page->getAdministratorsList();
         codecept_debug($list);
         $I->assertContains([
                 'nom' => 'Codecept Test',
@@ -87,15 +95,14 @@ class SuperAdminCest
             $list);
     }
 
+    /**
+     * @group superadmin
+     */
     public function canEnableAdministrator(\AcceptanceTester $I)
     {
-        $I->amOnPage('/');
-        $page = new WelcomePage($I);
-        $page = $page->openApplication()
-                ->login($this->email, $this->password)
-                ->navigateTo('Administrateurs')
+        $this->page = $this->page
                 ->enableAdministrator('codecept@kleis.app');
-        $list = $page->getAdministratorsList();
+        $list = $this->page->getAdministratorsList();
         codecept_debug($list);
         $I->assertContains([
                 'nom' => 'Codecept Test',
@@ -107,14 +114,12 @@ class SuperAdminCest
             $list);
     }
 
+    /**
+     * @group superadmin
+     */
     public function canEditAdministator(\AcceptanceTester $I)
     {
-        $I->amOnPage('/');
-        $page = new WelcomePage($I);
-        $page = $page->openApplication()
-                ->login($this->email, $this->password)
-                ->navigateTo('Administrateurs');
-        $list = $page->getAdministratorsList();
+        $list = $this->page->getAdministratorsList();
         $I->assertContains([
                 'nom' => 'Codecept Test',
                 'niveau' => 'Gestionnaire local',
@@ -123,13 +128,13 @@ class SuperAdminCest
                 'actif' => 'actif'
             ],
             $list);
-        $page = $page->editAdministrator('codecept@kleis.app')
+        $this->page = $this->page->editAdministrator('codecept@kleis.app')
                 ->setDetails([
                     'level' => 'Gestionnaire global',
                     'status' => 'Inactif'
                 ])
                 ->save();
-        $list = $page->getAdministratorsList();
+        $list = $this->page->getAdministratorsList();
         $I->assertContains([
                 'nom' => 'Codecept Test',
                 'niveau' => 'Gestionnaire global',
@@ -140,29 +145,26 @@ class SuperAdminCest
             $list);
     }
 
+    /**
+     * @group superadmin
+     */
     public function canDeleteAdministrator(\AcceptanceTester $I)
     {
-        $I->amOnPage('/');
-        $page = new WelcomePage($I);
-        $page = $page->openApplication()
-                ->login($this->email, $this->password)
-                ->navigateTo('Administrateurs');
-        $list = $page->getAdministratorsList();
+        $list = $this->page->getAdministratorsList();
         $I->assertContains([
                 'nom' => 'Codecept Test',
-                'niveau' => 'Gestionnaire local',
-                'délégation' => 'Montreal',
+                'niveau' => 'Gestionnaire global',
+                'délégation' => '',
                 'email' => 'codecept@kleis.app',
-                'actif' => 'actif'
+                'actif' => 'inactif'
             ],
             $list);
-        $page = $page->disableAdministrator('codecept@kleis.app')
-                    ->deleteAdministrator('codecept@kleis.app');
-        $list = $page->getAdministratorsList();
+        $this->page = $this->page->deleteAdministrator('codecept@kleis.app');
+        $list = $this->page->getAdministratorsList();
         $I->assertNotContains([
                 'nom' => 'Codecept Test',
-                'niveau' => 'Gestionnaire local',
-                'délégation' => 'Montreal',
+                'niveau' => 'Gestionnaire global',
+                'délégation' => '',
                 'email' => 'codecept@kleis.app',
                 'actif' => 'inactif'
             ],
