@@ -5,7 +5,7 @@ class WhitelistPage extends KleisPage
 {
     protected $url = '/whitelist';
 
-    protected static $objectsMap = [
+    public static $objectsMap = [
         'tableItems'    => '//table',
         'buttonAdd'     => 'Ajouter',
         'buttonCancel'  => 'Annuler',
@@ -58,6 +58,12 @@ class WhitelistPage extends KleisPage
     public function cancelChanges()
     {
         $this->tester->click(static::$objectsMap['buttonCancel']);
+        return $this;
+    }
+
+    public function dropItems()
+    {
+        $this->tester->click(static::$objectsMap['buttonDrop']);
         return $this;
     }
 }
