@@ -36,8 +36,8 @@ class ManageProxyListCest
      */
     public function canDisplayDomainsWhitelist(\AcceptanceTester $I)
     {
-
-        //$list = $this->page->getDomainsList();
+        $list = $this->page->getListItems();
+        $I->assertEmpty($list);
     }
 
     /**
@@ -46,7 +46,8 @@ class ManageProxyListCest
      */
     public function canDisplayUrlsWhitelist(\AcceptanceTester $I)
     {
-        //$list = $this->page->getDomainsList();
+        $list = $this->page->getListItems();
+        $I->assertEmpty($list);
     }
 
     /**
@@ -55,6 +56,12 @@ class ManageProxyListCest
      */
     public function canAddDomainToWhitelist(\AcceptanceTester $I)
     {
+        $this->page = $this->page->addItem('kleis.app');
+        $list = $this->page->getListItems();
+        $I->assertContains([
+                'domain' => 'kleis.app'
+            ],
+            $list);
     }
 
     /**
@@ -69,15 +76,39 @@ class ManageProxyListCest
      * @group superadmin
      * @before openDomains
      */
-    public function canUpdateDomainInWhitelist(\AcceptanceTester $I)
+    public function canRenameDomainInWhitelist(\AcceptanceTester $I)
     {
+        $list = $this->page->getListItems();
+        $I->assertContains([
+                'domain' => 'kleis.app'
+            ],
+            $list);
+        $this->page = $this->page
+            ->renameItem('kleis.app', 'kleis.local.app')
+            ->cancelChanges();
+        $list = $this->page->getListItems();
+        $I->assertContains([
+                'domain' => 'kleis.app'
+            ],
+            $list);
+        $this->page = $this->page
+            ->renameItem('kleis.app', 'kleis.local.app')
+            ->saveChanges();
+        $I->assertContains([
+                'domain' => 'kleis.local.app'
+            ],
+            $list);
+        $I->assertNotContains([
+                'domain' => 'kleis.app'
+            ],
+            $list);
     }
 
     /**
      * @group superadmin
      * @before openUrls
      */
-    public function canUpdateUrlInWhitelist(\AcceptanceTester $I)
+    public function canRenameUrlInWhitelist(\AcceptanceTester $I)
     {
     }
 
@@ -85,15 +116,21 @@ class ManageProxyListCest
      * @group superadmin
      * @before openDomains
      */
-    public function canRemovDomainFromWhitelist(\AcceptanceTester $I)
+    public function canRemoveDomainFromWhitelist(\AcceptanceTester $I)
     {
+        $this->page = $this->page->deleteItem('kleis.local.app');
+        $list = $this->page->getListItems();
+        $I->assertNotContains([
+                'domain' => 'kleis.local.app'
+            ],
+            $list);
     }
 
     /**
      * @group superadmin
      * @before openUrls
      */
-    public function canRemovUrlFromWhitelist(\AcceptanceTester $I)
+    public function canRemoveUrlFromWhitelist(\AcceptanceTester $I)
     {
     }
 }

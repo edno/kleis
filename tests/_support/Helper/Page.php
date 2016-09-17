@@ -44,7 +44,7 @@ class Page extends \Codeception\Module
             }
             return $table;
         } else {
-            throw new Exception("More that one element match to the expression '$target'");
+            throw new \Exception("No element or more than one element match to the expression '$target'");
         }
     }
 }
