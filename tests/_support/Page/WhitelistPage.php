@@ -5,15 +5,15 @@ class WhitelistPage extends KleisPage
 {
     protected $url = '/whitelist';
 
-    protected static $objectsMap = [
-        'tableItems'    => '//table',
-        'buttonAdd'     => 'Ajouter',
-        'buttonCancel'  => 'Annuler',
-        'buttonSave'    => 'Enregistrer',
-        'buttonDrop'    => 'Vider la liste',
-        'fieldName'     => '//input[@id="itemname"]',
-        'toolbarItem' => [
-            'edit' => "//td/*[text()='ITEMNAME']/ancestor::tr/descendant::a[@title='Editer']",
+    public static $objectsMap = [
+        'tableItems'   => '//table',
+        'buttonAdd'    => 'Ajouter',
+        'buttonCancel' => 'Annuler',
+        'buttonSave'   => 'Enregistrer',
+        'buttonDrop'   => 'Vider la liste',
+        'fieldName'    => "//input[@id='itemname']",
+        'toolbarItem'  => [
+            'edit'   => "//td/*[text()='ITEMNAME']/ancestor::tr/descendant::a[@title='Editer']",
             'delete' => "//td/*[text()='ITEMNAME']/ancestor::tr/descendant::a[@title='Supprimer']"
         ]
     ];
@@ -58,6 +58,12 @@ class WhitelistPage extends KleisPage
     public function cancelChanges()
     {
         $this->tester->click(static::$objectsMap['buttonCancel']);
+        return $this;
+    }
+
+    public function dropItems()
+    {
+        $this->tester->click(static::$objectsMap['buttonDrop']);
         return $this;
     }
 }

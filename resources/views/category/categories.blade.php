@@ -62,7 +62,7 @@
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-default hidden" type="button" id="button-save">
-                                <i class="fa fa-save"></i> Enregister
+                                <i class="fa fa-save"></i> Enregistrer
                             </button>
                             <a href="#" class="btn btn-default hidden" type="button" id="button-cancel">
                                 <i class="fa fa-undo"></i> Annuler
