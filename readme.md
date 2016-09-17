@@ -1,6 +1,17 @@
 # Kleis
 
-Kleis est un gestionnaire simplifié pour proxy.
+Kleis est un gestionnaire d'utilisateurs et groupes pour proxy dde type Squid. Il permet aussi de gérer une liste blanche pour le filtre SquidGuard.
+Kleis maintient à jour la liste de vos utilisateurs et leur appartenance à un groupe, dans une base de données. Il est ensuite possible d'exporter ces informations sous forme de fichiers plats pour être intégrés à la configuration de Squid et de SquidGuard.
+
+Ainsi, pour une gestion évoluée d'un ensemble d'utilisateurs de votre proxy, vous n'avez pas la nécessité d'utiliser un anuaire LDAP.
+
+Kleis exporte les fichiers suivants :
+- Fichier de mot de passe, de type htaccess, tel qu'utilisé par Squid dans ce mode d'authentification
+- Fichiers de groupes (par exemple, mineur, majeur, salarié, professeur...), pour être utilisé dans SquidGuard
+- Fichiers d'entité administrative (par exemple Paris, Lyon, Rennes), pouvant également être utilisé dans SquidGuard
+- Fichiers de liste blanche (domaines complets ou URLs), destiné à être ajouté aux listes que vous utilisez avec SquidGuard
+
+Il n'est pas nécessaire de disposer de Squid et SquidGuard sur le même serveur que Kleis. Peu importe votre mise en oeuvre, il vous faudra à un moment positionner les fichiers générés par Kleis aux bons endroits. Un exemple d'intégration est donné dans la documentation de Kleis.
 
 ## Pré-requis
 
@@ -172,7 +183,7 @@ Redémarrer le service `apache2`
 service apache2 restart
 ```
 
-## Fin
+## Accès à Kleis
 
 **Kleis** est maintenant installé et accessible :
 - `http://localhost`
@@ -182,3 +193,9 @@ service apache2 restart
 La première connexion se fait avec le compte super administrateur par défaut :
 - email : `admin@kleis.app`
 - mot de passe : `admin`
+
+## Intégration avec Squid et SquidGuard
+
+Ce qui suit suppose que vous disposez d'une installation Squid, couplée à SquidGuard fonctionnelle. Vous devriez avoir quelque chose comme
+`auth_param basic program /usr/lib/squid3/basic_ncsa_auth /etc/squid3/passwords``
+dans votre fichier squid.conf
