@@ -16,9 +16,19 @@ class KleisPage
 
     public function navigateTo(String $menu)
     {
-        $this->tester->click($menu);
-        $page = $this->tester->grabFromCurrentUrl('~/([A-z]*)/?.*~');
-        $class = 'Page\\'.ucFirst($page).'Page';
+        $items = explode('/', $menu);
+        foreach ($items as $item) {
+            $this->tester->click($item);
+        }
+
+        $url = $this->tester->grabFromCurrentUrl('~/([A-z]+/?[A-z]*)/?.*~');
+        $page = array_reduce(
+            explode('/', $url),
+            function($page, $item) {
+                return $page . ucFirst($item);
+            });
+        $class = "Page\\{$page}Page";
+
         if (class_exists($class)) {
             return new $class($this->tester);
         } else {

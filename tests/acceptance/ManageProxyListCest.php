@@ -21,13 +21,13 @@ class ManageProxyListCest
     protected function openDomains()
     {
         $this->page = $this->page
-                ->navigateTo('Listes Blanches\Domaines');
+                ->navigateTo('Listes Blanches/Domaines');
     }
 
     protected function openUrls()
     {
         $this->page = $this->page
-                ->navigateTo('Listes Blanches\Urls');
+                ->navigateTo('Listes Blanches/URLs');
     }
 
     /**
