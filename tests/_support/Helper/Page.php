@@ -6,7 +6,7 @@ class Page extends \Codeception\Module
 {
     public function findElements($target)
     {
-        return $this->getModule('Laravel5')->_findElements($target);
+        return $this->getModule('PhpBrowser')->_findElements($target);
     }
 
     public function htmlTableToArray($target)
@@ -14,12 +14,12 @@ class Page extends \Codeception\Module
         $tables = $this->findElements($target);
         if (sizeof($tables) == 1) {
             /* Retrieve table headers */
-            $rows = $tables->getNode(0)->getElementsByTagName('th');
-            foreach($rows as $key => $row) {
+            $cells = $tables->getNode(0)->getElementsByTagName('th');
+            foreach($cells as $key => $cell) {
                 // dirty hack for removing non-printable characters
-                $text = preg_replace('/^[^A-z0-9].*[^A-z0-9]$/', '', $row->nodeValue);
+                $text = preg_replace('/^[^A-z0-9].*[^A-z0-9]$/', '', $cell->nodeValue);
                 if (!empty($text)) {
-                    $headers[$key] = mb_strtolower($text);
+                    $headers[$key] = $this->cleanString($text);
                 }
             }
             /* Retrieve table data rows */
@@ -35,7 +35,18 @@ class Page extends \Codeception\Module
                         $text = trim($cell->nodeValue);
                         if (empty($text)) {
                             // if cell text is empty then get it from the tooltip title of the fontawesome icon
-                            $text = $cell->getElementsByTagName('i')->item(0)->attributes->getNamedItem('title')->value;
+                            if (false === is_null($cell->getElementsByTagName('i')->item(0))) {
+                                $text = $cell->getElementsByTagName('i')
+                                            ->item(0)
+                                            ->attributes
+                                            ->getNamedItem('title')
+                                            ->value;
+                            // if cell text is empty then get it from the badge
+                            } elseif (false === is_null($cell->getElementsByTagName('span')->item(0))) {
+                                $text = $cell->getElementsByTagName('span')
+                                            ->item(0)
+                                            ->nodeValue;
+                            }
                         }
                         $data = array_merge($data, [ $headers[$key] => $text ]);
                     }
@@ -46,5 +57,18 @@ class Page extends \Codeception\Module
         } else {
             throw new \Exception("No element or more than one element match to the expression '$target'");
         }
+    }
+
+    private function cleanString($string)
+    {
+        return mb_strtolower( html_entity_decode(
+            preg_replace(
+                '~&([a-z]{1,2})(?:acute|cedil|circ|grave|lig|orn|ring|slash|tilde|uml);~i',
+                '$1',
+                htmlentities($string)
+            ),
+            ENT_QUOTES,
+            'UTF-8'
+        ));
     }
 }

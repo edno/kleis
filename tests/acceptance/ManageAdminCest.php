@@ -30,7 +30,7 @@ class ManageAdminCest
         $I->assertContains([
                 'nom' => $this->name,
                 'niveau' => 'Super administrateur',
-                'délégation' => '',
+                'delegation' => '',
                 'email' => $this->email,
                 'actif' => 'actif'
             ],
@@ -69,7 +69,7 @@ class ManageAdminCest
         $I->assertContains([
                 'nom' => 'Codecept Test',
                 'niveau' => 'Gestionnaire local',
-                'délégation' => 'Montreal',
+                'delegation' => 'Montreal',
                 'email' => 'codecept@kleis.app',
                 'actif' => 'actif'
             ],
@@ -88,7 +88,7 @@ class ManageAdminCest
         $I->assertContains([
                 'nom' => 'Codecept Test',
                 'niveau' => 'Gestionnaire local',
-                'délégation' => 'Montreal',
+                'delegation' => 'Montreal',
                 'email' => 'codecept@kleis.app',
                 'actif' => 'inactif'
             ],
@@ -107,7 +107,7 @@ class ManageAdminCest
         $I->assertContains([
                 'nom' => 'Codecept Test',
                 'niveau' => 'Gestionnaire local',
-                'délégation' => 'Montreal',
+                'delegation' => 'Montreal',
                 'email' => 'codecept@kleis.app',
                 'actif' => 'actif'
             ],
@@ -123,7 +123,7 @@ class ManageAdminCest
         $I->assertContains([
                 'nom' => 'Codecept Test',
                 'niveau' => 'Gestionnaire local',
-                'délégation' => 'Montreal',
+                'delegation' => 'Montreal',
                 'email' => 'codecept@kleis.app',
                 'actif' => 'actif'
             ],
@@ -138,7 +138,7 @@ class ManageAdminCest
         $I->assertContains([
                 'nom' => 'Codecept Test',
                 'niveau' => 'Gestionnaire global',
-                'délégation' => '',
+                'delegation' => '',
                 'email' => 'codecept@kleis.app',
                 'actif' => 'inactif'
             ],
@@ -154,7 +154,7 @@ class ManageAdminCest
         $I->assertContains([
                 'nom' => 'Codecept Test',
                 'niveau' => 'Gestionnaire global',
-                'délégation' => '',
+                'delegation' => '',
                 'email' => 'codecept@kleis.app',
                 'actif' => 'inactif'
             ],
@@ -164,7 +164,7 @@ class ManageAdminCest
         $I->assertNotContains([
                 'nom' => 'Codecept Test',
                 'niveau' => 'Gestionnaire global',
-                'délégation' => '',
+                'delegation' => '',
                 'email' => 'codecept@kleis.app',
                 'actif' => 'inactif'
             ],

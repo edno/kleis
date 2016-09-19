@@ -3,7 +3,7 @@ namespace Page;
 
 class CategoriesPage extends KleisPage
 {
-    protected $url = '/whitelist';
+    protected $url = '/categories';
 
     public static $objectsMap = [
         'tableItems'   => '//table',
@@ -21,7 +21,7 @@ class CategoriesPage extends KleisPage
         ]
     ];
 
-    public function getListCategories()
+    public function getCategoriesList()
     {
         try {
             return $this->tester->htmlTableToArray(static::$objectsMap['tableItems']);
