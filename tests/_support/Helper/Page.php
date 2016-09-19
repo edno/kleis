@@ -6,52 +6,47 @@ class Page extends \Codeception\Module
 {
     public function findElements($target)
     {
-        return $this->getModule('PhpBrowser')->_findElements($target);
+        return $this->getModule('WebDriver')->_findElements($target);
     }
 
-    public function htmlTableToArray($target)
+    public function convertHtmlTableToArray($target)
     {
         $tables = $this->findElements($target);
         if (sizeof($tables) == 1) {
             /* Retrieve table headers */
-            $cells = $tables->getNode(0)->getElementsByTagName('th');
+            $cells = $tables[0]->findElements(\WebDriverBy::xpath('//th'));
             foreach($cells as $key => $cell) {
                 // dirty hack for removing non-printable characters
-                $text = preg_replace('/^[^A-z0-9].*[^A-z0-9]$/', '', $cell->nodeValue);
+                $text = trim(preg_replace('/^[^A-z0-9].*[^A-z0-9]$/', '', $cell->getText()));
                 if (!empty($text)) {
                     $headers[$key] = $this->cleanString($text);
                 }
             }
+
             /* Retrieve table data rows */
             $table = [];
-            $rows = $tables->getNode(0)->getElementsByTagName('tr');
+            $rows = $tables[0]->findElements(\WebDriverBy::tagName('tr'));
             foreach($rows as $row) {
                 /* Retrieve rows cells */
                 $data = [];
-                $cells = $row->getElementsByTagName('td');
+                $cells = $row->findElements(\WebDriverBy::tagName('td'));
                 foreach ($cells as $key => $cell) {
                     /* select cell with a valid column (with header) */
                     if (array_key_exists($key, $headers)) {
-                        $text = trim($cell->nodeValue);
-                        if (empty($text)) {
+                        $text = trim($cell->getText());
+                        if ($text == '') {
                             // if cell text is empty then get it from the tooltip title of the fontawesome icon
-                            if (false === is_null($cell->getElementsByTagName('i')->item(0))) {
-                                $text = $cell->getElementsByTagName('i')
-                                            ->item(0)
-                                            ->attributes
-                                            ->getNamedItem('title')
-                                            ->value;
-                            // if cell text is empty then get it from the badge
-                            } elseif (false === is_null($cell->getElementsByTagName('span')->item(0))) {
-                                $text = $cell->getElementsByTagName('span')
-                                            ->item(0)
-                                            ->nodeValue;
+                            if (false === is_null($cell->findElement(\WebDriverBy::tagName('i')))) {
+                                $text = $cell->findElement(\WebDriverBy::tagName('i'))
+                                            ->getAttribute('data-original-title');
                             }
                         }
                         $data = array_merge($data, [ $headers[$key] => $text ]);
                     }
                 }
-                $table[] = $data;
+                if (false === empty($data)) {
+                    $table[] = $data;
+                }
             }
             return $table;
         } else {

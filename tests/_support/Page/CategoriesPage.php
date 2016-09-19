@@ -24,7 +24,7 @@ class CategoriesPage extends KleisPage
     public function getCategoriesList()
     {
         try {
-            return $this->tester->htmlTableToArray(static::$objectsMap['tableItems']);
+            return $this->tester->convertHtmlTableToArray(static::$objectsMap['tableItems']);
         } catch (\Exception $e) {
             return [];
         }

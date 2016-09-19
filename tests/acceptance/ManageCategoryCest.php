@@ -42,7 +42,10 @@ class ManageCategoryCest
         $this->page = $this->page->addCategory('Kleis');
         $list = $this->page->getCategoriesList();
         $I->assertContains([
-                'categorie' => 'Kleis'
+                'categorie' => 'Kleis',
+                'comptes actifs'   => '0',
+                'comptes inactifs' => '0',
+                'validite'         => '90 jours'
             ],
             $list);
     }

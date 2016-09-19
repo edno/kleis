@@ -13,15 +13,15 @@ class WhitelistPage extends KleisPage
         'buttonDrop'   => 'Vider la liste',
         'fieldName'    => "//input[@id='itemname']",
         'toolbarItem'  => [
-            'edit'   => "//td/*[text()='ITEMNAME']/ancestor::tr/descendant::a[@title='Editer']",
-            'delete' => "//td/*[text()='ITEMNAME']/ancestor::tr/descendant::a[@title='Supprimer']"
+            'edit'   => "//td/*[text()='ITEMNAME']/ancestor::tr/descendant::a[@data-original-title='Editer']",
+            'delete' => "//td/*[text()='ITEMNAME']/ancestor::tr/descendant::a[@data-original-title='Supprimer']"
         ]
     ];
 
     public function getListItems()
     {
         try {
-            return $this->tester->htmlTableToArray(static::$objectsMap['tableItems']);
+            return $this->tester->convertHtmlTableToArray(static::$objectsMap['tableItems']);
         } catch (\Exception $e) {
             return [];
         }

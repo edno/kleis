@@ -5,15 +5,15 @@ class AdministratorsPage extends KleisPage
 {
     protected $url = '/administrators';
     protected $toolbar = [
-        'edit' => "//td/*[text()='USEREMAIL']/ancestor::tr/descendant::a[@title='Editer']",
-        'disable' => "//td/*[text()='USEREMAIL']/ancestor::tr/descendant::*[@title='Désactiver']",
-        'enable' => "//td/*[text()='USEREMAIL']/ancestor::tr/descendant::a[@title='Activer']",
-        'delete' => "//td/*[text()='USEREMAIL']/ancestor::tr/descendant::a[@title='Supprimer']"
+        'edit' => "//td/*[text()='USEREMAIL']/ancestor::tr/descendant::a[@data-original-title='Editer']",
+        'disable' => "//td/*[text()='USEREMAIL']/ancestor::tr/descendant::*[@data-original-title='Désactiver']",
+        'enable' => "//td/*[text()='USEREMAIL']/ancestor::tr/descendant::a[@data-original-title='Activer']",
+        'delete' => "//td/*[text()='USEREMAIL']/ancestor::tr/descendant::a[@data-original-title='Supprimer']"
     ];
 
     public function getAdministratorsList()
     {
-        $data = $this->tester->htmlTableToArray('//table');
+        $data = $this->tester->convertHtmlTableToArray('//table');
         // hack for removing '●' that signify 'none' in GUI
         array_walk($data, function(&$row) {
             array_walk($row, function(&$item) {

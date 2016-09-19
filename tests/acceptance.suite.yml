@@ -9,8 +9,7 @@ modules:
     enabled:
         - Helper\Page
         - Asserts
-        - Laravel5:
-            environment_file: .env.testing
-            cleanup: false
-            run_database_migration: false
+        - WebDriver:
             url: http://kleis.app:8000
+            browser: phantomjs
+            window_size: maximize
