@@ -84,7 +84,6 @@ class ManageAdminCest
         $this->page = $this->page
                 ->disableAdministrator('codecept@kleis.app');
         $list = $this->page->getAdministratorsList();
-        codecept_debug($list);
         $I->assertContains([
                 'nom' => 'Codecept Test',
                 'niveau' => 'Gestionnaire local',
@@ -103,7 +102,6 @@ class ManageAdminCest
         $this->page = $this->page
                 ->enableAdministrator('codecept@kleis.app');
         $list = $this->page->getAdministratorsList();
-        codecept_debug($list);
         $I->assertContains([
                 'nom' => 'Codecept Test',
                 'niveau' => 'Gestionnaire local',
@@ -117,7 +115,7 @@ class ManageAdminCest
     /**
      * @group superadmin
      */
-    public function canEditAdministator(\AcceptanceTester $I)
+    public function canEditAdministrator(\AcceptanceTester $I)
     {
         $list = $this->page->getAdministratorsList();
         $I->assertContains([

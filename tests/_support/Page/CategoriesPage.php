@@ -14,10 +14,10 @@ class CategoriesPage extends KleisPage
         'buttonDays'   => '',
         'fieldName'    => "//input[@id='categoryname']",
         'toolbarItem'  => [
-            'edit'    => "//td/*[text()='ITEMNAME']/ancestor::tr/descendant::a[@title='Editer']",
-            'delete'  => "//td/*[text()='ITEMNAME']/ancestor::tr/descendant::a[@title='Supprimer']",
-            'disable' => "//td/*[text()='ITEMNAME']/ancestor::tr/descendant::a[@title='Désactiver tous les comptes']",
-            'drop'    => "//td/*[text()='ITEMNAME']/ancestor::tr/descendant::a[@title='Supprimer tous les comptes']"
+            'edit'    => "//td/*[text()='ITEMNAME']/ancestor::tr/descendant::a[@data-original-title='Editer']",
+            'delete'  => "//td/*[text()='ITEMNAME']/ancestor::tr/descendant::a[@data-original-title='Supprimer']",
+            'disable' => "//td/*[text()='ITEMNAME']/ancestor::tr/descendant::a[@data-original-title='Désactiver tous les comptes']",
+            'drop'    => "//td/*[text()='ITEMNAME']/ancestor::tr/descendant::a[@data-original-title='Supprimer tous les comptes']"
         ]
     ];
 

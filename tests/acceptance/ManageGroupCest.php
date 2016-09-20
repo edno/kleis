@@ -2,7 +2,7 @@
 
 use Page\WelcomePage;
 
-class ManageCategoryCest
+class ManageGroupCest
 {
     protected $email = 'admin@kleis.app';
     protected $password = 'admin';
@@ -16,84 +16,88 @@ class ManageCategoryCest
         $this->page = $this->page
                 ->openApplication()
                 ->login($this->email, $this->password)
-                ->navigateTo('Catégories');
+                ->navigateTo('Délégations');
         $I->see('Catégories');
     }
 
     /**
+     * @group admin
      * @group superadmin
      */
-    public function canDisplayCategories(\AcceptanceTester $I)
+    public function canDisplayGroups(\AcceptanceTester $I)
     {
-        $list = $this->page->getCategoriesList();
+        $list = $this->page->getGroupsList();
         $I->assertContains([
-            'categorie'        => 'Guest',
+            'delegation'       => 'Montreal',
             'comptes actifs'   => '1',
             'comptes inactifs' => '0',
-            'validite'         => '60 jours'
+            'gestionnaires'    => '0'
         ], $list);
     }
 
     /**
+     * @group admin
      * @group superadmin
      */
-    public function canAddCategory(\AcceptanceTester $I)
+    public function canAddGroup(\AcceptanceTester $I)
     {
-        $this->page = $this->page->addCategory('Kleis');
-        $list = $this->page->getCategoriesList();
+        $this->page = $this->page->addGroup('Kleis');
+        $list = $this->page->getGroupsList();
         $I->assertContains([
-                'categorie'        => 'Kleis',
+                'delegation'       => 'Kleis',
                 'comptes actifs'   => '0',
                 'comptes inactifs' => '0',
-                'validite'         => '90 jours'
+                'gestionnaires'    => '0'
             ],
             $list);
     }
 
     /**
+     * @group admin
      * @group superadmin
      */
-    public function canRenameCategory(\AcceptanceTester $I)
+    public function canRenameGroup(\AcceptanceTester $I)
     {
-        $this->page = $this->page->updateCategory('Kleis', 'Codecept')
+        $this->page = $this->page->updateGroup('Kleis', 'Codecept')
                                 ->saveChanges();
-        $list = $this->page->getCategoriesList();
+        $list = $this->page->getGroupsList();
         $I->assertNotContains([
-                'categorie'        => 'Kleis',
+                'delegation'       => 'Kleis',
                 'comptes actifs'   => '0',
                 'comptes inactifs' => '0',
-                'validite'         => '90 jours'
+                'gestionnaires'    => '0'
             ],
             $list);
         $I->assertContains([
-                'categorie'        => 'Codecept',
+                'delegation'       => 'Codecept',
                 'comptes actifs'   => '0',
                 'comptes inactifs' => '0',
-                'validite'         => '90 jours'
+                'gestionnaires'    => '0'
             ],
             $list);
     }
 
     /**
+     * @group admin
      * @group superadmin
      */
-    public function canDeleteCategory(\AcceptanceTester $I)
+    public function canDeleteGroup(\AcceptanceTester $I)
     {
-        $list = $this->page->getCategoriesList();
+        $list = $this->page->getGroupsList();
         $I->assertContains([
-                'categorie'        => 'Codecept',
+                'delegation'       => 'Codecept',
                 'comptes actifs'   => '0',
                 'comptes inactifs' => '0',
-                'validite'         => '90 jours'
+                'gestionnaires'    => '0'
             ],
             $list);
-        $this->page = $this->page->deleteCategory('Codecept');
-        $list = $this->page->getCategoriesList();
+        $this->page = $this->page->deleteGroup('Codecept');
+        $list = $this->page->getGroupsList();
         $I->assertNotContains([
-                'categorie'        => 'Codecept',
+                'delegation'       => 'Codecept',
                 'comptes actifs'   => '0',
                 'comptes inactifs' => '0',
-                'validite'         => '90 jours'
+                'gestionnaires'    => '0'
             ],
             $list);
     }
