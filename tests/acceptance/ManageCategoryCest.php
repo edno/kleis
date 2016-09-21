@@ -27,15 +27,24 @@ class ManageCategoryCest
     {
         $list = $this->page->getCategoriesList();
         $I->assertContains([
-            'categorie'        => 'Guest',
-            'comptes actifs'   => '1',
-            'comptes inactifs' => '0',
-            'validite'         => '60 jours'
-        ], $list);
+                'categorie'        => 'Tester',
+                'comptes actifs'   => '1',
+                'comptes inactifs' => '0',
+                'validite'         => '1 jours'
+            ], $list
+        );
+        $I->assertContains([
+                'categorie'        => 'Developer',
+                'comptes actifs'   => '0',
+                'comptes inactifs' => '1',
+                'validite'         => '900 jours'
+            ], $list
+        );
     }
 
     /**
      * @group superadmin
+     * @depens canDisplayCategories
      */
     public function canAddCategory(\AcceptanceTester $I)
     {
@@ -47,11 +56,13 @@ class ManageCategoryCest
                 'comptes inactifs' => '0',
                 'validite'         => '90 jours'
             ],
-            $list);
+            $list
+        );
     }
 
     /**
      * @group superadmin
+     * @depens canAddCategory
      */
     public function canRenameCategory(\AcceptanceTester $I)
     {
@@ -64,18 +75,21 @@ class ManageCategoryCest
                 'comptes inactifs' => '0',
                 'validite'         => '90 jours'
             ],
-            $list);
+            $list
+        );
         $I->assertContains([
                 'categorie'        => 'Codecept',
                 'comptes actifs'   => '0',
                 'comptes inactifs' => '0',
                 'validite'         => '90 jours'
             ],
-            $list);
+            $list
+        );
     }
 
     /**
      * @group superadmin
+     * @depens canRenameCategory
      */
     public function canDeleteCategory(\AcceptanceTester $I)
     {
@@ -86,7 +100,8 @@ class ManageCategoryCest
                 'comptes inactifs' => '0',
                 'validite'         => '90 jours'
             ],
-            $list);
+            $list
+        );
         $this->page = $this->page->deleteCategory('Codecept');
         $list = $this->page->getCategoriesList();
         $I->assertNotContains([
@@ -95,6 +110,21 @@ class ManageCategoryCest
                 'comptes inactifs' => '0',
                 'validite'         => '90 jours'
             ],
-            $list);
+            $list
+        );
+        $I->assertContains([
+                'categorie'        => 'Tester',
+                'comptes actifs'   => '1',
+                'comptes inactifs' => '0',
+                'validite'         => '1 jours'
+            ], $list
+        );
+        $I->assertContains([
+                'categorie'        => 'Developer',
+                'comptes actifs'   => '0',
+                'comptes inactifs' => '1',
+                'validite'         => '900 jours'
+            ], $list
+        );
     }
 }

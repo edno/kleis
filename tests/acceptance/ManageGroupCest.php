@@ -31,13 +31,14 @@ class ManageGroupCest
             'delegation'       => 'Montreal',
             'comptes actifs'   => '1',
             'comptes inactifs' => '0',
-            'gestionnaires'    => '0'
+            'gestionnaires'    => '1'
         ], $list);
     }
 
     /**
      * @group admin
      * @group superadmin
+     * @depends canDisplayGroups
      */
     public function canAddGroup(\AcceptanceTester $I)
     {
@@ -55,6 +56,7 @@ class ManageGroupCest
     /**
      * @group admin
      * @group superadmin
+     * @depends canAddGroup
      */
     public function canRenameGroup(\AcceptanceTester $I)
     {
@@ -80,6 +82,7 @@ class ManageGroupCest
     /**
      * @group admin
      * @group superadmin
+     * @depends canRenameGroup
      */
     public function canDeleteGroup(\AcceptanceTester $I)
     {
@@ -100,5 +103,11 @@ class ManageGroupCest
                 'gestionnaires'    => '0'
             ],
             $list);
+        $I->assertContains([
+                'delegation'       => 'Montreal',
+                'comptes actifs'   => '1',
+                'comptes inactifs' => '0',
+                'gestionnaires'    => '1'
+            ], $list);
     }
 }

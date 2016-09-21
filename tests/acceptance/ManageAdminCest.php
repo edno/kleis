@@ -12,6 +12,7 @@ class ManageAdminCest
 
     public function _before(\AcceptanceTester $I)
     {
+        //application setup
         $I->amOnPage('/');
         $this->page = new WelcomePage($I);
         $this->page = $this->page
@@ -49,6 +50,7 @@ class ManageAdminCest
 
     /**
      * @group superadmin
+     * @depends canAddNewAdministrator
      */
     public function canCreateAdministrator(\AcceptanceTester $I)
     {
@@ -78,6 +80,7 @@ class ManageAdminCest
 
     /**
      * @group superadmin
+     * @depends canCreateAdministrator
      */
     public function canDisableAdministrator(\AcceptanceTester $I)
     {
@@ -96,6 +99,7 @@ class ManageAdminCest
 
     /**
      * @group superadmin
+     * @depends canDisableAdministrator
      */
     public function canEnableAdministrator(\AcceptanceTester $I)
     {
@@ -114,6 +118,7 @@ class ManageAdminCest
 
     /**
      * @group superadmin
+     * @depends canCreateAdministrator
      */
     public function canEditAdministrator(\AcceptanceTester $I)
     {
@@ -145,6 +150,7 @@ class ManageAdminCest
 
     /**
      * @group superadmin
+     * @depends canEditAdministrator
      */
     public function canDeleteAdministrator(\AcceptanceTester $I)
     {

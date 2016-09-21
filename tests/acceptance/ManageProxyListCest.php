@@ -20,6 +20,11 @@ class ManageProxyListCest
 
     protected function openDomains(\AcceptanceTester $I)
     {
+        $I->haveInDatabase('proxylistitems', [
+            'type' => 'domain',
+            'value' => 'minus-cortex.dev',
+            'created_by' => 1
+        ]);
         $this->page = $this->page
                 ->navigateTo('Listes Blanches/Domaines');
         $I->see('Domains en Liste Blanche');
@@ -27,6 +32,11 @@ class ManageProxyListCest
 
     protected function openUrls(\AcceptanceTester $I)
     {
+        $I->haveInDatabase('proxylistitems', [
+            'type' => 'url',
+            'value' => 'https://minus.dev/cortex/test',
+            'created_by' => 1
+        ]);
         $this->page = $this->page
                 ->navigateTo('Listes Blanches/URLs');
         $I->see('URLs en Liste Blanche');
@@ -38,7 +48,14 @@ class ManageProxyListCest
      */
     public function canDropDomainsWhitelist(\AcceptanceTester $I)
     {
+        $list = $this->page->getListItems();
+        $I->assertContains([
+                'domain' => 'minus-cortex.dev'
+            ],
+            $list);
         $this->page = $this->page->dropItems();
+        $list = $this->page->getListItems();
+        $I->assertEmpty($list);
         $I->see('Aucun domain.');
     }
 
@@ -48,7 +65,14 @@ class ManageProxyListCest
      */
     public function canDropUrlsWhitelist(\AcceptanceTester $I)
     {
+        $list = $this->page->getListItems();
+        $I->assertContains([
+                'url' => 'https://minus.dev/cortex/test'
+            ],
+            $list);
         $this->page = $this->page->dropItems();
+        $list = $this->page->getListItems();
+        $I->assertEmpty($list);
         $I->see('Aucun url.');
     }
 
@@ -59,7 +83,10 @@ class ManageProxyListCest
     public function canDisplayDomainsWhitelist(\AcceptanceTester $I)
     {
         $list = $this->page->getListItems();
-        $I->assertEmpty($list);
+        $I->assertContains([
+                'domain' => 'minus-cortex.dev'
+            ],
+            $list);
     }
 
     /**
@@ -69,7 +96,10 @@ class ManageProxyListCest
     public function canDisplayUrlsWhitelist(\AcceptanceTester $I)
     {
         $list = $this->page->getListItems();
-        $I->assertEmpty($list);
+        $I->assertContains([
+                'url' => 'https://minus.dev/cortex/test'
+            ],
+            $list);
     }
 
     /**
@@ -103,6 +133,7 @@ class ManageProxyListCest
     /**
      * @group superadmin
      * @before openDomains
+     * @depends canAddDomainToWhitelist
      */
     public function canRenameDomainInWhitelist(\AcceptanceTester $I)
     {
@@ -137,6 +168,7 @@ class ManageProxyListCest
     /**
      * @group superadmin
      * @before openUrls
+     * @depends canAddUrlToWhitelist
      */
     public function canRenameUrlInWhitelist(\AcceptanceTester $I)
     {
@@ -171,6 +203,7 @@ class ManageProxyListCest
     /**
      * @group superadmin
      * @before openDomains
+     * @depends canRenameDomainInWhitelist
      */
     public function canRemoveDomainFromWhitelist(\AcceptanceTester $I)
     {
@@ -185,6 +218,7 @@ class ManageProxyListCest
     /**
      * @group superadmin
      * @before openUrls
+     * @depends canRenameUrlInWhitelist
      */
     public function canRemoveUrlFromWhitelist(\AcceptanceTester $I)
     {

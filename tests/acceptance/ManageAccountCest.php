@@ -32,14 +32,21 @@ class ManageAccountCest
     public function canDisplayAccounts(\AcceptanceTester $I)
     {
 
-        // $list = $this->page->getAccountsList();
-        // $I->assertContains([
-        //         'nom' => 'Gregory Heitz',
-        //         'compte' => 'grehei5577',
-        //         'expire' => '2016-12-08',
-        //         'statut' => 'Actif'
-        //     ],
-        //     $list);
+        $list = $this->page->getAccountsList();
+        $I->assertContains([
+                'nom' => 'Minus Test',
+                'compte' => 'test',
+                'expire' => date('Y-m-d', strtotime('+10 days')),
+                'statut' => 'Actif'
+            ],
+            $list);
+        $I->assertContains([
+                'nom' => 'Cortex Test',
+                'compte' => 'dev',
+                'expire' => date('Y-m-d', strtotime('-10 days')),
+                'statut' => 'Inactif'
+            ],
+            $list);
     }
 
     /**
@@ -47,6 +54,7 @@ class ManageAccountCest
      * @group globalmanager
      * @group admin
      * @group superadmin
+     * @depends canDisplayAccounts
      */
     public function canAddNewAccount(\AcceptanceTester $I)
     {
@@ -60,6 +68,7 @@ class ManageAccountCest
      * @group globalmanager
      * @group admin
      * @group superadmin
+     * @depends canAddNewAccount
      */
     public function canCreateAccount(\AcceptanceTester $I)
     {
@@ -67,9 +76,9 @@ class ManageAccountCest
                 ->newAccount()
                 ->setDetails([
                     'firstname' => 'Codecept',
-                    'lastname' => 'Kleis',
-                    'category' => 'Guest',
-                    'group' => 'Montreal'
+                    'lastname'  => 'Kleis',
+                    'category'  => 'Tester',
+                    'group'     => 'Montreal'
                 ]);
         $this->expire = $this->page->getDetails('expire');
         $this->account = $this->page->getDetails('account');
@@ -88,6 +97,7 @@ class ManageAccountCest
      * @group globalmanager
      * @group admin
      * @group superadmin
+     * @depends canCreateAccount
      */
     public function canDisableAccount(\AcceptanceTester $I)
     {
@@ -100,6 +110,20 @@ class ManageAccountCest
                 'expire' => $this->expire,
                 'statut' => 'Inactif'
             ], $list);
+        $I->assertContains([
+                'nom' => 'Minus Test',
+                'compte' => 'test',
+                'expire' => date('Y-m-d', strtotime('+10 days')),
+                'statut' => 'Actif'
+            ],
+            $list);
+        $I->assertContains([
+                'nom' => 'Cortex Test',
+                'compte' => 'dev',
+                'expire' => date('Y-m-d', strtotime('-10 days')),
+                'statut' => 'Inactif'
+            ],
+            $list);
     }
 
     /**
@@ -107,6 +131,7 @@ class ManageAccountCest
      * @group globalmanager
      * @group admin
      * @group superadmin
+     * @depends canDisableAccount
      */
     public function canEnableAccount(\AcceptanceTester $I)
     {
@@ -119,6 +144,20 @@ class ManageAccountCest
                 'expire' => $this->expire,
                 'statut' => 'Actif'
             ], $list);
+        $I->assertContains([
+                'nom' => 'Minus Test',
+                'compte' => 'test',
+                'expire' => date('Y-m-d', strtotime('+10 days')),
+                'statut' => 'Actif'
+            ],
+            $list);
+        $I->assertContains([
+                'nom' => 'Cortex Test',
+                'compte' => 'dev',
+                'expire' => date('Y-m-d', strtotime('-10 days')),
+                'statut' => 'Inactif'
+            ],
+            $list);
     }
 
     /**
@@ -126,6 +165,7 @@ class ManageAccountCest
      * @group globalmanager
      * @group admin
      * @group superadmin
+     * @depends canEnableAccount
      */
     public function canEditAccount(\AcceptanceTester $I)
     {
@@ -139,6 +179,7 @@ class ManageAccountCest
             $list);
         $this->page = $this->page->editAccount($this->account)
                 ->setDetails([
+                    'category'  => 'Developer',
                     'status' => 'Inactif'
                 ])
                 ->save();
@@ -157,6 +198,7 @@ class ManageAccountCest
      * @group globalmanager
      * @group admin
      * @group superadmin
+     * @depends canEditAccount
      */
     public function canDeleteAccount(\AcceptanceTester $I)
     {
@@ -176,5 +218,19 @@ class ManageAccountCest
                 'expire' => $this->expire,
                 'statut' => 'Inactif'
             ], $list);
+        $I->assertContains([
+                'nom' => 'Minus Test',
+                'compte' => 'test',
+                'expire' => date('Y-m-d', strtotime('+10 days')),
+                'statut' => 'Actif'
+            ],
+            $list);
+        $I->assertContains([
+                'nom' => 'Cortex Test',
+                'compte' => 'dev',
+                'expire' => date('Y-m-d', strtotime('-10 days')),
+                'statut' => 'Inactif'
+            ],
+            $list);
     }
 }
