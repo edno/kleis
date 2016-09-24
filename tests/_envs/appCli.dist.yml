@@ -2,5 +2,3 @@ modules:
     enabled:
         - Cli
         - Filesystem
-        - Laravel5:
-            environment_file: .env.testing
