@@ -8,3 +8,5 @@ class_name: AcceptanceTester
 modules:
     enabled:
         - Asserts
+        - Cli
+        - Filesystem
