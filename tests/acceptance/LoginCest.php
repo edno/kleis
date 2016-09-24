@@ -4,16 +4,27 @@ use Page\WelcomePage;
 
 class LoginCest
 {
+    protected $page;
+
+    public function _before(\AcceptanceTester $I, \Codeception\Scenario $scenario)
+    {
+        if (in_array('WebDriver', $scenario->current('modules'))) {
+            $I->amOnPage('/');
+            $this->page = new WelcomePage($I);
+            $this->page = $this->page
+                    ->openApplication();
+        } else {
+            $scenario->skip('WebDriver module not available');
+        }
+    }
+
     /**
      * @env appWeb
      * @env withRecords
      */
     public function loginWithValidCredentials(\AcceptanceTester $I)
     {
-        $I->amOnPage('/');
-        $page = new WelcomePage($I);
-        $page->openApplication()
-            ->login('admin@kleis.app', 'admin');
+        $this->page->login('admin@kleis.app', 'admin');
         $I->see('Bienvenue Super Admin');
     }
 
@@ -24,10 +35,7 @@ class LoginCest
      */
     public function logout(\AcceptanceTester $I)
     {
-        $I->amOnPage('/');
-        $page = new WelcomePage($I);
-        $page = $page->openApplication()
-                ->login('admin@kleis.app', 'admin');
+        $this->page->login('admin@kleis.app', 'admin');
         $I->see('Bienvenue Super Admin');
         $page->logout();
         $I->dontSee('Bienvenue Super Admin');
@@ -44,9 +52,6 @@ class LoginCest
      */
     public function loginWithInvalidCredentials(AcceptanceTester $I, \Codeception\Example $example)
     {
-        $I->amOnPage('/');
-        $I->see('Kleis');
-        $I->click('Cliquer ici pour accéder à l\'application');
         $I->see('Connexion');
         $I->fillField('email', $example['login']);
         $I->fillField('password', $example['pass']);

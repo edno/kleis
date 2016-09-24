@@ -13,14 +13,18 @@ class ManageAccountCest
 
     protected $page;
 
-    public function _before(\AcceptanceTester $I)
+    public function _before(\AcceptanceTester $I, \Codeception\Scenario $scenario)
     {
-        $I->amOnPage('/');
-        $this->page = new WelcomePage($I);
-        $this->page = $this->page
-                ->openApplication()
-                ->login($this->email, $this->password)
-                ->navigateTo('Comptes');
+        if (in_array('WebDriver', $scenario->current('modules'))) {
+            $I->amOnPage('/');
+            $this->page = new WelcomePage($I);
+            $this->page = $this->page
+                    ->openApplication()
+                    ->login($this->email, $this->password)
+                    ->navigateTo('Comptes');
+        } else {
+            $scenario->skip('WebDriver module not available');
+        }
     }
 
     /**
