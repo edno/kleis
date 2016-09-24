@@ -5,32 +5,37 @@ use Page\WelcomePage;
 class LoginCest
 {
     /**
-     * @example { "login": "admin@kleis.app", "pass": "admin" }
+     * @env appWeb
+     * @env withRecords
      */
-    public function loginWithValidCredentials(\AcceptanceTester $I, \Codeception\Example $example)
+    public function loginWithValidCredentials(\AcceptanceTester $I)
     {
         $I->amOnPage('/');
         $page = new WelcomePage($I);
         $page->openApplication()
-            ->login($example['login'], $example['pass']);
+            ->login('admin@kleis.app', 'admin');
         $I->see('Bienvenue Super Admin');
     }
 
     /**
-     * @example { "login": "admin@kleis.app", "pass": "admin" }
+     * @env appWeb
+     * @env withRecords
+     * @depends loginWithValidCredentials
      */
-    public function logout(\AcceptanceTester $I, \Codeception\Example $example)
+    public function logout(\AcceptanceTester $I)
     {
         $I->amOnPage('/');
         $page = new WelcomePage($I);
         $page = $page->openApplication()
-                ->login($example['login'], $example['pass']);
+                ->login('admin@kleis.app', 'admin');
         $I->see('Bienvenue Super Admin');
         $page->logout();
         $I->dontSee('Bienvenue Super Admin');
     }
 
     /**
+     * @env appWeb
+     * @env withRecords
      * @example { "login": "invalid@gmail.com", "pass": "admin", "message": "Ces informations ne correspondent pas à nos enregistrements." }
      * @example { "login": "admin@kleis.app", "pass": "invalid", "message": "Ces informations ne correspondent pas à nos enregistrements." }
      * @example { "login": "admin@kleis.app", "pass": "", "message": "The password field is required." }

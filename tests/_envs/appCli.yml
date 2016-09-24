@@ -1,0 +1,4 @@
+modules:
+    enabled:
+        - Cli
+        - Filesystem

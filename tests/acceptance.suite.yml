@@ -7,17 +7,4 @@
 class_name: AcceptanceTester
 modules:
     enabled:
-        - Helper\Page
         - Asserts
-        - WebDriver:
-            url: http://kleis.app:8000
-            browser: phantomjs
-            window_size: maximize
-        - Db:
-            dsn: 'mysql:host=127.0.0.1;port=33060;dbname=homestead'
-            user: 'homestead'
-            password: 'secret'
-            dump: 'tests/_data/dump.sql'
-            populate: true
-            cleanup: false
-            reconnect: false
