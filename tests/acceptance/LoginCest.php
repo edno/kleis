@@ -19,8 +19,7 @@ class LoginCest
     }
 
     /**
-     * @env appWeb
-     * @env withRecords
+     * @env appWeb,withRecords
      */
     public function loginWithValidCredentials(\AcceptanceTester $I)
     {
@@ -29,8 +28,7 @@ class LoginCest
     }
 
     /**
-     * @env appWeb
-     * @env withRecords
+     * @env appWeb,withRecords
      * @depends loginWithValidCredentials
      */
     public function logout(\AcceptanceTester $I)
@@ -42,8 +40,7 @@ class LoginCest
     }
 
     /**
-     * @env appWeb
-     * @env withRecords
+     * @env appWeb,withRecords
      * @example { "login": "invalid@gmail.com", "pass": "admin", "message": "Ces informations ne correspondent pas à nos enregistrements." }
      * @example { "login": "admin@kleis.app", "pass": "invalid", "message": "Ces informations ne correspondent pas à nos enregistrements." }
      * @example { "login": "admin@kleis.app", "pass": "", "message": "The password field is required." }

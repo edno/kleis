@@ -25,8 +25,7 @@ class ManageCategoryCest
     }
 
     /**
-     * @env appWeb
-     * @env withRecords
+     * @env appWeb,withRecords
      * @group superadmin
      */
     public function canDisplayCategories(\AcceptanceTester $I)
@@ -49,8 +48,7 @@ class ManageCategoryCest
     }
 
     /**
-     * @env appWeb
-     * @env withRecords
+     * @env appWeb,withRecords
      * @group superadmin
      * @depens canDisplayCategories
      */
@@ -69,8 +67,7 @@ class ManageCategoryCest
     }
 
     /**
-     * @env appWeb
-     * @env withRecords
+     * @env appWeb,withRecords
      * @group superadmin
      * @depens canAddCategory
      */
@@ -98,8 +95,7 @@ class ManageCategoryCest
     }
 
     /**
-     * @env appWeb
-     * @env withRecords
+     * @env appWeb,withRecords
      * @group superadmin
      * @depens canRenameCategory
      */

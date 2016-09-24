@@ -25,8 +25,7 @@ class ManageGroupCest
     }
 
     /**
-     * @env appWeb
-     * @env withRecords
+     * @env appWeb,withRecords
      * @group admin
      * @group superadmin
      */
@@ -42,8 +41,7 @@ class ManageGroupCest
     }
 
     /**
-     * @env appWeb
-     * @env withRecords
+     * @env appWeb,withRecords
      * @group admin
      * @group superadmin
      * @depends canDisplayGroups
@@ -62,8 +60,7 @@ class ManageGroupCest
     }
 
     /**
-     * @env appWeb
-     * @env withRecords
+     * @env appWeb,withRecords
      * @group admin
      * @group superadmin
      * @depends canAddGroup
@@ -90,8 +87,7 @@ class ManageGroupCest
     }
 
     /**
-     * @env appWeb
-     * @env withRecords
+     * @env appWeb,withRecords
      * @group admin
      * @group superadmin
      * @depends canRenameGroup

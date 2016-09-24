@@ -47,8 +47,7 @@ class ManageProxyListCest
     }
 
     /**
-     * @env appWeb
-     * @env withRecords
+     * @env appWeb,withRecords
      * @group superadmin
      * @before openDomains
      */
@@ -66,8 +65,7 @@ class ManageProxyListCest
     }
 
     /**
-     * @env appWeb
-     * @env withRecords
+     * @env appWeb,withRecords
      * @group superadmin
      * @before openUrls
      */
@@ -85,8 +83,7 @@ class ManageProxyListCest
     }
 
     /**
-     * @env appWeb
-     * @env withRecords
+     * @env appWeb,withRecords
      * @group superadmin
      * @before openDomains
      */
@@ -100,8 +97,7 @@ class ManageProxyListCest
     }
 
     /**
-     * @env appWeb
-     * @env withRecords
+     * @env appWeb,withRecords
      * @group superadmin
      * @before openUrls
      */
@@ -115,8 +111,7 @@ class ManageProxyListCest
     }
 
     /**
-     * @env appWeb
-     * @env withRecords
+     * @env appWeb,withRecords
      * @group superadmin
      * @before openDomains
      */
@@ -131,8 +126,7 @@ class ManageProxyListCest
     }
 
     /**
-     * @env appWeb
-     * @env withRecords
+     * @env appWeb,withRecords
      * @group superadmin
      * @before openUrls
      */
@@ -147,8 +141,7 @@ class ManageProxyListCest
     }
 
     /**
-     * @env appWeb
-     * @env withRecords
+     * @env appWeb,withRecords
      * @group superadmin
      * @before openDomains
      * @depends canAddDomainToWhitelist
@@ -184,8 +177,7 @@ class ManageProxyListCest
     }
 
     /**
-     * @env appWeb
-     * @env withRecords
+     * @env appWeb,withRecords
      * @group superadmin
      * @before openUrls
      * @depends canAddUrlToWhitelist
@@ -221,8 +213,7 @@ class ManageProxyListCest
     }
 
     /**
-     * @env appWeb
-     * @env withRecords
+     * @env appWeb,withRecords
      * @group superadmin
      * @before openDomains
      * @depends canRenameDomainInWhitelist
@@ -238,8 +229,7 @@ class ManageProxyListCest
     }
 
     /**
-     * @env appWeb
-     * @env withRecords
+     * @env appWeb,withRecords
      * @group superadmin
      * @before openUrls
      * @depends canRenameUrlInWhitelist

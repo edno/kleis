@@ -25,8 +25,7 @@ class ManageAdminCest
     }
 
     /**
-     * @env appWeb
-     * @env withRecords
+     * @env appWeb,withRecords
      * @group superadmin
      */
     public function canDisplayAdministrators(\AcceptanceTester $I)
@@ -44,8 +43,7 @@ class ManageAdminCest
     }
 
     /**
-     * @env appWeb
-     * @env withRecords
+     * @env appWeb,withRecords
      * @group superadmin
      */
     public function canAddNewAdministrator(\AcceptanceTester $I)
@@ -56,8 +54,7 @@ class ManageAdminCest
     }
 
     /**
-     * @env appWeb
-     * @env withRecords
+     * @env appWeb,withRecords
      * @group superadmin
      * @depends canAddNewAdministrator
      */
@@ -88,8 +85,7 @@ class ManageAdminCest
     }
 
     /**
-     * @env appWeb
-     * @env withRecords
+     * @env appWeb,withRecords
      * @group superadmin
      * @depends canCreateAdministrator
      */
@@ -109,8 +105,7 @@ class ManageAdminCest
     }
 
     /**
-     * @env appWeb
-     * @env withRecords
+     * @env appWeb,withRecords
      * @group superadmin
      * @depends canDisableAdministrator
      */
@@ -130,8 +125,7 @@ class ManageAdminCest
     }
 
     /**
-     * @env appWeb
-     * @env withRecords
+     * @env appWeb,withRecords
      * @group superadmin
      * @depends canCreateAdministrator
      */
@@ -164,8 +158,7 @@ class ManageAdminCest
     }
 
     /**
-     * @env appWeb
-     * @env withRecords
+     * @env appWeb,withRecords
      * @group superadmin
      * @depends canEditAdministrator
      */

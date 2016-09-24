@@ -28,8 +28,7 @@ class ManageAccountCest
     }
 
     /**
-     * @env appWeb
-     * @env withRecords
+     * @env appWeb,withRecords
      * @group localmanager
      * @group globalmanager
      * @group admin
@@ -56,8 +55,7 @@ class ManageAccountCest
     }
 
     /**
-     * @env appWeb
-     * @env withRecords
+     * @env appWeb,withRecords
      * @group localmanager
      * @group globalmanager
      * @group admin
@@ -72,8 +70,7 @@ class ManageAccountCest
     }
 
     /**
-     * @env appWeb
-     * @env withRecords
+     * @env appWeb,withRecords
      * @group localmanager
      * @group globalmanager
      * @group admin
@@ -103,8 +100,7 @@ class ManageAccountCest
     }
 
     /**
-     * @env appWeb
-     * @env withRecords
+     * @env appWeb,withRecords
      * @group localmanager
      * @group globalmanager
      * @group admin
@@ -139,8 +135,7 @@ class ManageAccountCest
     }
 
     /**
-     * @env appWeb
-     * @env withRecords
+     * @env appWeb,withRecords
      * @group localmanager
      * @group globalmanager
      * @group admin
@@ -175,8 +170,7 @@ class ManageAccountCest
     }
 
     /**
-     * @env appWeb
-     * @env withRecords
+     * @env appWeb,withRecords
      * @group localmanager
      * @group globalmanager
      * @group admin
@@ -210,8 +204,7 @@ class ManageAccountCest
     }
 
     /**
-     * @env appWeb
-     * @env withRecords
+     * @env appWeb,withRecords
      * @group localmanager
      * @group globalmanager
      * @group admin
