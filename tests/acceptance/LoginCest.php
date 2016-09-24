@@ -8,7 +8,7 @@ class LoginCest
 
     public function _before(\AcceptanceTester $I, \Codeception\Scenario $scenario)
     {
-        if (in_array('WebDriver', $scenario->current('modules'))) {
+        if (array_key_exists('WebDriver', $scenario->current('modules'))) {
             $I->amOnPage('/');
             $this->page = new WelcomePage($I);
             $this->page = $this->page
@@ -37,7 +37,7 @@ class LoginCest
     {
         $this->page->login('admin@kleis.app', 'admin');
         $I->see('Bienvenue Super Admin');
-        $page->logout();
+        $this->page->logout();
         $I->dontSee('Bienvenue Super Admin');
     }
 
