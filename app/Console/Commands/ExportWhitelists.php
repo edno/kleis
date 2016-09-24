@@ -52,7 +52,10 @@ class ExportWhitelists extends Command
 
     private function exportProxyList($type, $isWhiteList)
     {
-        $items = ProxyListItem::where('type', $type)->where('whitelist', $isWhiteList)->orderBy('value', 'desc')->get();
+        $items = ProxyListItem::where('type', $type)
+                    ->where('whitelist', $isWhiteList)
+                    ->orderBy('value', 'desc')
+                    ->get();
         $ext = $isWhiteList ? 'white' : 'black';
         $filename = "export/proxylists/{$type}.{$ext}.txt";
         Storage::put($filename, '');

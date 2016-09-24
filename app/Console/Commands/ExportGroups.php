@@ -23,7 +23,7 @@ class ExportGroups extends Command
      *
      * @var string
      */
-    protected $description = 'Export proxy groups (category) of accounts';
+    protected $description = 'Export proxy groups of accounts';
 
     /**
      * Create a new command instance.
@@ -43,10 +43,19 @@ class ExportGroups extends Command
      public function handle()
      {
          $groups = Group::get();
+
+         if ($groups->isEmpty()) {
+             $this->info("No groups to export");
+             return;
+         }
+
          foreach ($groups as $group){
              $name = static::stringNormalise($group->name);
              $filename = 'export/groups/' . $name . '.txt';
-             $accounts = Account::where('status', 1)->where('group_id', $group->id)->orderBy('netlogin', 'desc')->get();
+             $accounts = Account::where('status', 1)
+                            ->where('group_id', $group->id)
+                            ->orderBy('netlogin', 'desc')
+                            ->get();
              Storage::put($filename, '');
              $count = count($accounts);
              $bar = $this->output->createProgressBar($count);
