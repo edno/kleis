@@ -61,7 +61,11 @@ class Account extends Model
 
     public function getStatus()
     {
-        return self::ACCOUNT_STATUS[$this->status];
+        if (array_key_exists((int)$this->status, self::ACCOUNT_STATUS)) {
+            return self::ACCOUNT_STATUS[(int)$this->status];
+        } else {
+            return null;
+        }
     }
 
     public function category()
