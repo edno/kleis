@@ -156,7 +156,7 @@ class ManageProxyListCest
         $this->page = $this->page
             ->renameItem('kleis.app', 'kleis.local.app')
             ->cancelChanges();
-        $I->dontSeeInField($this->page::$objectsMap['fieldName'], 'kleis.local.app');
+        $I->dontSeeInField(($this->page)::$objectsMap['fieldName'], 'kleis.local.app');
         $list = $this->page->getListItems();
         $I->assertContains([
                 'domain' => 'kleis.app'
