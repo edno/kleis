@@ -1,9 +1,6 @@
 modules:
-    enabled:
+    config:
         - Db:
-            dsn: 'mysql:host=127.0.0.1;port=33060;dbname=homestead'
-            user: 'homestead'
-            password: 'secret'
             populate: true
             cleanup: false
             reconnect: false
