@@ -10,10 +10,5 @@ modules:
         - Asserts
         - Cli
         - Filesystem
-        - Db:
-            dsn: 'mysql:host=127.0.0.1;port=3306;dbname=kleis'
-            user: 'kleis'
-            password: 'secret'
-            populate: false
-            cleanup: false
-            reconnect: false
+        - Laravel5:
+            environment_file: .env.codecept
