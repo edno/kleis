@@ -3,7 +3,7 @@ namespace Helper;
 
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 
-class Laravel5Record extends \Codeception\Module\Laravel5
+class Laravel5ORMExtension extends \Codeception\Module\Laravel5
 {
     public function seeNumRecords($expect, $table, $attributes = [])
     {
