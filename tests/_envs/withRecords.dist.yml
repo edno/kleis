@@ -1,7 +1,0 @@
-modules:
-    config:
-        - Db:
-            populate: true
-            cleanup: false
-            reconnect: false
-            dump: 'tests/_data/dumpWithRecords.sql'
