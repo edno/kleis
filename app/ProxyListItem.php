@@ -17,6 +17,13 @@ class ProxyListItem extends Model
      */
     protected $table = 'proxylistitems';
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['value', 'type', 'created_by'];
+
     public function getCreator()
     {
         return User::findOrFail($this->created_by);

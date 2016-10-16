@@ -47,7 +47,7 @@ class Account extends Model
      *
      * @var array
      */
-    protected $fillable = ['firstname', 'lastname', 'netlogin', 'netpass', 'expire', 'status', 'group_id', 'category', 'created_by'];
+    protected $fillable = ['firstname', 'lastname', 'netlogin', 'netpass', 'expire', 'status', 'group_id', 'category_id', 'created_by'];
 
     public function creator()
     {
