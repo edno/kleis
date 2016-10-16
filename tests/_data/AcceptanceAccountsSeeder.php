@@ -36,7 +36,7 @@ class AcceptanceAccountsSeeder extends Seeder
             'category_id' => Category::where('name', '=', 'Developer')->first()->id,
             'group_id'    => Group::where('name', '=', 'Kobenhavn')->first()->id,
             'status'      => 0,
-            'expire'      => date('Y-m-d', strtotime('+10 days')),
+            'expire'      => date('Y-m-d', strtotime('-10 days')),
             'created_by'  => 1,
         ]);
     }
