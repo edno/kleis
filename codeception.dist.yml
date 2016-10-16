@@ -24,3 +24,4 @@ extensions:
                 - command: ./tests/_bin/phantomjs_stop.sh
                   description: Stop PhantomJS
                   environments: appWeb
+                  ignoreErrors: true

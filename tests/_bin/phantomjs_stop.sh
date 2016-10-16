@@ -1,3 +1,3 @@
 #!/bin/bash
 
-kill `pgrep phantomjs`
+kill `pgrep phantomjs` || true
