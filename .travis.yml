@@ -15,6 +15,7 @@ before_script:
   # install kleis
   - composer self-update
   - composer install --prefer-source --no-interaction
+  - php artisan clear-compiled
   # start Laravel development server
   - php artisan serve >/dev/null 2>&1 &
 
