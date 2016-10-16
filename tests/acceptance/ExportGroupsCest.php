@@ -11,6 +11,7 @@ class ExportGroupsCest
     {
         if (array_key_exists('Filesystem', $scenario->current('modules'))) {
             $I->deleteDir(static::$outPath . '/' . static::$outDir);
+            $I->seedDatabase();
         } else {
             $scenario->skip('Filesystem module not available');
         }
@@ -18,21 +19,19 @@ class ExportGroupsCest
 
     protected function setData(\AcceptanceTester $I)
     {
-        $group = 'London';
-        $I->haveInDatabase('groups', ['name' => $group, 'created_by' => 1]);
-        $groupId = $I->grabFromDatabase('groups',     'id', ['name' => $group]);
-        $cat1Id  = $I->grabFromDatabase('categories', 'id', ['name' => 'Tester']);
-        $cat2Id  = $I->grabFromDatabase('categories', 'id', ['name' => 'Developer']);
+        $group = $I->haveInDatabase('App\Group', ['name' => 'London', 'created_by' => 1]);
+        $cat1  = $I->grabFromDatabase('App\Category', ['name' => 'Tester']);
+        $cat2  = $I->grabFromDatabase('App\Category', ['name' => 'Developer']);
         for($i = 0; $i < 300; $i++)
         {
             $uid = uniqid('kleis');
-            $I->haveInDatabase('accounts', [
+            $I->haveInDatabase('App\Account', [
                 'netlogin'    => $uid,
                 'netpass'     => $uid,
                 'firstname'   => $uid,
                 'lastname'    => $uid,
-                'category_id' => ($i%2) ? $cat1Id : $cat2Id,
-                'group_id'    => $groupId,
+                'category_id' => ($i%2) ? $cat1->id : $cat2->id,
+                'group_id'    => $group->id,
                 'status'      => ($i%3) == 0,
                 'expire'      => date('Y-m-d'),
                 'created_by'  => 1

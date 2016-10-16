@@ -11,6 +11,7 @@ class exportCategoriesCest
     {
         if (array_key_exists('Filesystem', $scenario->current('modules'))) {
             $I->deleteDir(static::$outPath . '/' . static::$outDir);
+            $I->seedDatabase();
         } else {
             $scenario->skip('Filesystem module not available');
         }
@@ -18,26 +19,24 @@ class exportCategoriesCest
 
     protected function setData(\AcceptanceTester $I)
     {
-        $category = 'Dummy';
-        $I->haveInDatabase('categories', [
-            'name' => $category,
+        $cat = $I->haveInDatabase('App\Category', [
+            'name' => 'Dummy',
             'icon' => 'kleis',
             'validity' => 90,
             'created_by' => 1
         ]);
-        $catId = $I->grabFromDatabase('categories',     'id', ['name' => $category]);
-        $group1Id  = $I->grabFromDatabase('categories', 'id', ['name' => 'Tester']);
-        $group2Id  = $I->grabFromDatabase('categories', 'id', ['name' => 'Developer']);
+        $group1  = $I->grabFromDatabase('App\Group', ['name' => 'Montreal']);
+        $group2  = $I->grabFromDatabase('App\Group', ['name' => 'Kobenhavn']);
         for($i = 0; $i < 300; $i++)
         {
             $uid = uniqid('kleis');
-            $I->haveInDatabase('accounts', [
+            $I->haveInDatabase('App\Account', [
                 'netlogin'    => $uid,
                 'netpass'     => $uid,
                 'firstname'   => $uid,
                 'lastname'    => $uid,
-                'category_id' => $catId,
-                'group_id'    => ($i%2) ? $group1Id : $group2Id,
+                'category_id' => $cat->id,
+                'group_id'    => ($i%2) ? $group1->id : $group2->id,
                 'status'      => ($i%3) == 0,
                 'expire'      => date('Y-m-d'),
                 'created_by'  => 1
@@ -72,9 +71,9 @@ class exportCategoriesCest
     /**
      * @env appCli,noRecords
      */
-    public function exportCatgoriesEmpty(\AcceptanceTester $I)
+    public function exportCategoriesEmpty(\AcceptanceTester $I)
     {
-        $I->seeNumRecords(0, 'groups');
+        $I->seeNumRecords(0, 'categories');
         $I->runShellCommand(static::$command);
         $I->seeInShellOutput("No categories to export");
         $I->dontSeeFileFound(static::$outPath . '/' . static::$outDir, static::$outPath);

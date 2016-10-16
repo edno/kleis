@@ -12,6 +12,7 @@ class ExportAccountsCest
     {
         if (array_key_exists('Filesystem', $scenario->current('modules'))) {
             $I->deleteDir(static::$outPath . '/' . static::$outDir);
+            $I->seedDatabase();
         } else {
             $scenario->skip('Filesystem module not available');
         }

@@ -12,6 +12,7 @@ class ExportProxyListsCest
     {
         if (array_key_exists('Filesystem', $scenario->current('modules'))) {
             $I->deleteDir(static::$outPath . '/' . static::$outDir);
+            $I->seedDatabase();
         } else {
             $scenario->skip('Filesystem module not available');
         }
@@ -23,8 +24,8 @@ class ExportProxyListsCest
         for($i = 0; $i < 500; $i++)
         {
             $uid = uniqid('kleis');
-            $I->haveInDatabase('proxylistitems', [
-                'value'        => $uid,
+            $I->haveInDatabase('App\ProxyListItem', [
+                'value'       => $uid,
                 'type'        => $types[($i%2)] ,
                 'created_by'  => 1
             ]);
@@ -40,7 +41,7 @@ class ExportProxyListsCest
         $type = 'domain';
         $file = $type . static::$outFile;
         $path = static::$outFullPath . $file;
-        $activeRecords = $I->grabNumRecords('proxylistitems', ['type' => $type]);
+        $activeRecords = $I->grabNumRecords('App\ProxyListItem', ['type' => $type]);
         $I->runShellCommand(static::$command);
         $I->seeInShellOutput("${activeRecords} ${type}s exported into file '${path}'");
         $I->seeFileFound($file, static::$outPath . '/' . static::$outDir);

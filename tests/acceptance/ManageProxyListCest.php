@@ -22,13 +22,26 @@ class ManageProxyListCest
         }
     }
 
-    protected function openDomains(\AcceptanceTester $I)
+    protected function setDomains(\AcceptanceTester $I)
     {
-        $I->haveInDatabase('proxylistitems', [
+        $I->haveInDatabase('App\ProxyListItem', [
             'type' => 'domain',
             'value' => 'minus-cortex.dev',
             'created_by' => 1
         ]);
+    }
+
+    protected function setUrls(\AcceptanceTester $I)
+    {
+        $I->haveInDatabase('App\ProxyListItem', [
+            'type' => 'url',
+            'value' => 'https://minus.dev/cortex/test',
+            'created_by' => 1
+        ]);
+    }
+
+    protected function openDomains(\AcceptanceTester $I)
+    {
         $this->page = $this->page
                 ->navigateTo('Listes Blanches/Domaines');
         $I->see('Domains en Liste Blanche');
@@ -36,11 +49,6 @@ class ManageProxyListCest
 
     protected function openUrls(\AcceptanceTester $I)
     {
-        $I->haveInDatabase('proxylistitems', [
-            'type' => 'url',
-            'value' => 'https://minus.dev/cortex/test',
-            'created_by' => 1
-        ]);
         $this->page = $this->page
                 ->navigateTo('Listes Blanches/URLs');
         $I->see('URLs en Liste Blanche');
@@ -49,6 +57,7 @@ class ManageProxyListCest
     /**
      * @env appWeb,withRecords
      * @group superadmin
+     * @before setDomains
      * @before openDomains
      */
     public function canDropDomainsWhitelist(\AcceptanceTester $I)
@@ -67,6 +76,7 @@ class ManageProxyListCest
     /**
      * @env appWeb,withRecords
      * @group superadmin
+     * @before setUrls
      * @before openUrls
      */
     public function canDropUrlsWhitelist(\AcceptanceTester $I)
@@ -85,6 +95,7 @@ class ManageProxyListCest
     /**
      * @env appWeb,withRecords
      * @group superadmin
+     * @before setDomains
      * @before openDomains
      */
     public function canDisplayDomainsWhitelist(\AcceptanceTester $I)
@@ -99,6 +110,7 @@ class ManageProxyListCest
     /**
      * @env appWeb,withRecords
      * @group superadmin
+     * @before setUrls
      * @before openUrls
      */
     public function canDisplayUrlsWhitelist(\AcceptanceTester $I)
