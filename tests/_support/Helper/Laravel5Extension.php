@@ -3,21 +3,31 @@ namespace Helper;
 
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 
-class Laravel5Extension extends \Codeception\Module\Laravel5
+class Laravel5Extension extends \Codeception\Module
 {
+    public $console;
+    public $app;
+
     // HOOK: before each suite
     public function _beforeSuite($settings = [])
     {
-        require 'bootstrap/autoload.php';
-        $app = require 'bootstrap/app.php';
-        $app->loadEnvironmentFrom($this->config['environment_file']);
-        $console = $app->make('Illuminate\Contracts\Console\Kernel');
-        $console->call('migrate:refresh', ['--seed' => true]);
-        codecept_debug($console->output());
+        if (!defined('LARAVEL_START')) {
+            require 'bootstrap/autoload.php';
+        }
+            $this->app = require 'bootstrap/app.php';
+            $this->app->loadEnvironmentFrom($this->getModule('Laravel5')->config['environment_file']);
+            $this->console = $this->app->make('Illuminate\Contracts\Console\Kernel');
+            $this->seedDatabase();
+    }
+
+    public function seedDatabase()
+    {
+        $this->console->call('migrate:refresh', ['--seed' => true]);
+        codecept_debug($this->console->output());
         if(array_key_exists('seeders', $this->config)){
             foreach($this->config['seeders'] as $seeder) {
-                codecept_debug("Seed: '$seeder'");
-                $console->call('db:seed', ['--class' => $seeder]);
+                $this->console->call('db:seed', ['--class' => $seeder]);
+                codecept_debug($this->console->output());
             }
         }
     }
@@ -26,9 +36,9 @@ class Laravel5Extension extends \Codeception\Module\Laravel5
     {
         $I = $elements = $this->getModule('Asserts');
         if (class_exists($table)) {
-            $I->assertEquals($count, $this->findModels($table, $attributes)->count());
+            $I->assertEquals($expect, $this->findModels($table, $attributes)->count());
         } else {
-            $I->assertEquals($count, count($this->findRecords($table, $attributes)));
+            $I->assertEquals($expect, count($this->findRecords($table, $attributes)));
         }
     }
 
@@ -43,12 +53,12 @@ class Laravel5Extension extends \Codeception\Module\Laravel5
 
     public function haveInDatabase($table, $attributes = [])
     {
-        $this->haveRecord($table, $attributes = []);
+        return $this->getModule('Laravel5')->haveRecord($table, $attributes);
     }
 
     public function grabFromDatabase($table, $attributes = [])
     {
-        return $this->findRecord($table, $attributes = []);
+        return $this->getModule('Laravel5')->grabRecord($table, $attributes);
     }
 
     protected function findModels($modelClass, $attributes = [])
