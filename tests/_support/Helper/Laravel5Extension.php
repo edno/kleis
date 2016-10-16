@@ -3,8 +3,25 @@ namespace Helper;
 
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 
-class Laravel5 extends \Codeception\Module\Laravel5
+class Laravel5Extension extends \Codeception\Module\Laravel5
 {
+    // HOOK: before each suite
+    public function _beforeSuite($settings = [])
+    {
+        require 'bootstrap/autoload.php';
+        $app = require 'bootstrap/app.php';
+        $app->loadEnvironmentFrom($this->config['environment_file']);
+        $console = $app->make('Illuminate\Contracts\Console\Kernel');
+        $console->call('migrate:refresh', ['--seed' => true]);
+        codecept_debug($console->output());
+        if(array_key_exists('seeders', $this->config)){
+            foreach($this->config['seeders'] as $seeder) {
+                codecept_debug("Seed: '$seeder'");
+                $console->call('db:seed', ['--class' => $seeder]);
+            }
+        }
+    }
+
     public function seeNumRecords($expect, $table, $attributes = [])
     {
         $I = $elements = $this->getModule('Asserts');

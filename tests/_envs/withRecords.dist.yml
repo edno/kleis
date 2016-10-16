@@ -1,0 +1,5 @@
+modules:
+    enabled:
+        - Helper\Laravel5Extension:
+            seeders:
+                - Codeception\Database\Seeder\AcceptanceDataSeeder

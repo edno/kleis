@@ -14,4 +14,4 @@ modules:
             environment_file: .env.codecept
             part: ORM
             cleanup: false
-        - Helper\Laravel5
+        - Helper\Laravel5Extension
