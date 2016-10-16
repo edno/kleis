@@ -13,4 +13,6 @@ modules:
         - Laravel5:
             environment_file: .env.codecept
             part: orm
+            cleanup: false
+            run_database_migrations: false
         - Helper\Laravel5Extension
