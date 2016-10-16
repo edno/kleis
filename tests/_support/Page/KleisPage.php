@@ -14,7 +14,7 @@ class KleisPage
         $this->tester->seeCurrentUrlEquals($this->url);
     }
 
-    public function navigateTo(string $menu)
+    public function navigateTo($menu)
     {
         $items = explode('/', $menu);
         foreach ($items as $item) {
