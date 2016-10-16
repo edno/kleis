@@ -1,9 +1,11 @@
 <?php
 
+namespace Codeception\Database\Seeder;
+
 use Illuminate\Database\Seeder;
 use App\Group;
 
-class GroupsTableSeeder extends Seeder
+class AcceptanceGroupsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,8 +15,13 @@ class GroupsTableSeeder extends Seeder
     public function run()
     {
         Group::create([
+            'name' => 'Montreal',
             'created_by' => 1,
-            'name' => 'Démonstration'
+        ]);
+
+        Group::create([
+            'name' => 'Kobenhavn',
+            'created_by' => 1,
         ]);
     }
 }

@@ -43,10 +43,19 @@ class ExportCategories extends Command
      public function handle()
      {
          $categories = Category::get();
+
+         if ($categories->isEmpty()) {
+             $this->info("No categories to export");
+             return;
+         }
+
          foreach ($categories as $category){
              $name = static::stringNormalise($category->name);
              $filename = 'export/categories/' . $name . '.txt';
-             $accounts = Account::where('status', 1)->where('category_id', $category->id)->orderBy('netlogin', 'desc')->get();
+             $accounts = Account::where('status', 1)
+                            ->where('category_id', $category->id)
+                            ->orderBy('netlogin', 'desc')
+                            ->get();
              Storage::put($filename, '');
              $count = count($accounts);
              $bar = $this->output->createProgressBar($count);

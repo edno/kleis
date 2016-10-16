@@ -1,0 +1,7 @@
+modules:
+    enabled:
+        - Helper\Page
+        - WebDriver:
+            url: %APP_URL%
+            browser: phantomjs
+            window_size: maximize

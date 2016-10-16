@@ -1,0 +1,18 @@
+# Codeception Test Suite Configuration
+#
+# Suite for acceptance tests.
+# Perform tests in browser using the WebDriver or PhpBrowser.
+# If you need both WebDriver and PHPBrowser tests - create a separate suite.
+
+class_name: AcceptanceTester
+modules:
+    enabled:
+        - Asserts
+        - Cli
+        - Filesystem
+        - Laravel5:
+            environment_file: .env.codecept
+            part: orm
+            cleanup: false
+            run_database_migrations: false
+        - Helper\Laravel5Extension

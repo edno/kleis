@@ -1,0 +1,27 @@
+actor: Tester
+paths:
+    tests: tests
+    log: tests/_output
+    data: tests/_data
+    support: tests/_support
+    envs: tests/_envs
+settings:
+    bootstrap: _bootstrap.php
+    colors: true
+    memory_limit: 1024M
+params:
+    - .env.codecept
+extensions:
+    enabled:
+        - Codeception\Extension\EventsScripting
+    config:
+        Codeception\Extension\EventsScripting:
+            BeforeAll:
+                - command: ./tests/_bin/phantomjs_start.sh
+                  description: Start PhantomJS
+                  environments: appWeb
+            AfterAll:
+                - command: ./tests/_bin/phantomjs_stop.sh
+                  description: Stop PhantomJS
+                  environments: appWeb
+                  ignoreErrors: true

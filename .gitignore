@@ -3,7 +3,16 @@
 /public/storage
 Homestead.yaml
 Homestead.json
-.env
+.env*
+!.env.example
+!.env.codecept
 /.vagrant
 /resources/assets/bower
 /.ssh
+
+tests/_output/*
+tests/_support/_generated/*
+codecept
+*.yml
+!*.dist.yml
+!.travis.yml

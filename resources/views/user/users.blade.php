@@ -76,10 +76,6 @@
                     $("#search-option").text($(this).text());
                     $("#search-type").val($(this).attr('value'));
                 });
-                if ($(".option-selected").size()) {
-                    $("#search-option").text($(".option-selected").text());
-                    $("#search-type").val($(".option-selected").attr('value'));
-                }
             });
         </script>
 
@@ -118,7 +114,10 @@
                                     <div>{{ $user->email }}</div>
                                 </td>
                                 <td class="table-text">
-                                    <div><i class="fa {{ $user->getStatus()['icon'] }}" title="{{ $user->getStatus()['text'] }}"></i></div>
+                                    <div><i class="fa {{ $user->getStatus()['icon'] }} has-tooltip"
+                                        data-toggle="tooltip"
+                                        data-placement="bottom"
+                                        title="{{ $user->getStatus()['text'] }}"></i></div>
                                 </td>
                                 <td class="align-right col-xs-2">
                                     <div class="btn-toolbar">

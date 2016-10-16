@@ -128,12 +128,16 @@ class AdminController extends Controller
         if (false === empty($request->level)) {
             $user->level = $request->level;
         }
-        if (false === empty($request->status)) {
-            $user->status = $request->status;
-        }
         if (false === empty($request->group)) {
             $user->group_id = $request->group;
         }
+
+        // if not admin local then no group
+        if ($user->level !== 1) {
+            $user->group_id = 0;
+        }
+
+        $user->status = $request->status;
 
         $user->update();
 

@@ -22,7 +22,7 @@ class Category extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'created_by'];
+    protected $fillable = ['name', 'icon', 'validity', 'created_by'];
 
     public function countAccounts($status = null)
     {
