@@ -168,7 +168,8 @@ class ManageProxyListCest
         $this->page = $this->page
             ->renameItem('kleis.app', 'kleis.local.app')
             ->cancelChanges();
-        $I->dontSeeInField(($this->page)::$objectsMap['fieldName'], 'kleis.local.app');
+        $classname = $this->page;
+        $I->dontSeeInField($classname::$objectsMap['fieldName'], 'kleis.local.app');
         $list = $this->page->getListItems();
         $I->assertContains([
                 'domain' => 'kleis.app'
@@ -204,7 +205,8 @@ class ManageProxyListCest
         $this->page = $this->page
             ->renameItem('http://kleis.app/login', 'http://kleis.local.app/profile')
             ->cancelChanges();
-        $I->dontSeeInField($this->page::$objectsMap['fieldName'], 'http://kleis.local.app/profile');
+        $classname = $this->page;
+        $I->dontSeeInField($classname::$objectsMap['fieldName'], 'http://kleis.local.app/profile');
         $list = $this->page->getListItems();
         $I->assertContains([
                 'url' => 'http://kleis.app/login'
