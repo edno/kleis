@@ -18,7 +18,7 @@ class AcceptanceUsersSeeder extends Seeder
         User::create([
             'firstname' => 'Minus',
             'lastname' => 'Cortex',
-            'email' => 'minus.cortex@kleis.app2',
+            'email' => 'minus.cortex@kleis.app',
             'password' => bcrypt('cortex'),
             'level' => 1,
             'group_id' => Group::where('name', '=', 'Montreal')->first()->id,
