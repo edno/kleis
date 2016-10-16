@@ -1,0 +1,22 @@
+language: php
+
+php:
+  - 5.6
+  - 7.0
+
+branches:
+  only:
+  - master
+  - testing
+
+before_script:
+  # setup database
+  - mysql -e 'create database kleis;'
+  # install kleis
+  - composer self-update
+  - composer install --prefer-source --no-interaction
+  # start Laravel development server
+  - php artisan serve >/dev/null 2>&1 &
+
+script:
+  - vendor/bin/codecept run acceptance --env appWeb,withRecords --env appCli,withRecords --env appCli,noRecords
