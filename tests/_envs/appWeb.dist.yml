@@ -2,6 +2,6 @@ modules:
     enabled:
         - Helper\Page
         - WebDriver:
-            url: http://kleis.app:8000
+            url: %APP_URL%
             browser: phantomjs
             window_size: maximize
