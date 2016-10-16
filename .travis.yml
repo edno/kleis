@@ -20,4 +20,4 @@ before_script:
   - php artisan serve >/dev/null 2>&1 &
 
 script:
-  - vendor/bin/codecept run acceptance --env appWeb,withRecords --env appCli,withRecords --env appCli,noRecords
+  - vendor/bin/codecept run acceptance --env appWeb,withRecords --env appCli,withRecords --env appCli,noRecords -f --debug
