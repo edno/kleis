@@ -18,24 +18,6 @@ class Account extends Model
                 'unicon' => '&#xf0ac;' ]
     ];
 
-    const ACCOUNT_CATEGORY = [
-        0 => [  'text' => "bénéficiare en recherche d'emploi",
-                'icon' => 'fa-binoculars',
-                'unicon' => '&#xf1e5;'],
-        1 => [  'text' => 'bénéficiaire avec emploi',
-                'icon' => 'fa-institution',
-                'unicon' => '&#xf19c;' ],
-        2 => [  'text' => 'étudiant',
-                'icon' => 'fa-graduation-cap',
-                'unicon' => '&#xf19d;' ],
-        10 => [  'text' => 'bénévole',
-                'icon' => 'fa-heart',
-                'unicon' => '&#xf004;' ],
-        11 => [  'text' => 'salarié',
-                'icon' => 'fa-support',
-                'unicon' => '&#xf1cd;' ],
-    ];
-
     const SEARCH_CRITERIA = [
         'account' => ['netlogin'],
         'fullname' => ['firstname', 'lastname'],
