@@ -18,7 +18,7 @@ class UserPage extends KleisPage
         'firstname' => "//input[@id=//label[text()='Prénom']/@for]",
         'lastname' => "//input[@id=//label[text()='Nom']/@for]",
         'level' => "//select[@id=//label[text()='Niveau']/@for]",
-        'group' => "//select[@id=//label[text()='Délégation']/@for]",
+        'group' => "//select[@id=//label[text()='Groupe']/@for]",
         'status' => "//select[@id=//label[text()='Statut']/@for]",
     ];
 
