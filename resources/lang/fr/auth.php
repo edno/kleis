@@ -13,7 +13,12 @@ return [
     |
     */
 
-    'failed' => 'Ces informations ne correspondent pas &agrave; nos enregistrements.',
-    'throttle' => 'Trop de tentative d&#8217;acc&egrave;s. Veuillez r&eacute;essayer dans :seconds secondes.',
+    'login'     => 'Connexion',
+    'email'     => 'Adresse email',
+    'password'  => 'Mot de passe',
+    'remember'  => 'Rester connect&eacute;',
+    'forgotten' => 'Mot de passe oubli&eacute; ?',
+    'failed'    => 'Ces informations ne correspondent pas &agrave; nos enregistrements.',
+    'throttle'  => 'Trop de tentative d&#8217;acc&egrave;s. Veuillez r&eacute;essayer dans :seconds secondes.',
 
 ];

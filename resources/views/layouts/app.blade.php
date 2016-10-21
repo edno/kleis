@@ -24,7 +24,7 @@
 
                 <!-- Collapsed Hamburger -->
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                    <span class="sr-only">Toggle Navigation</span>
+                    <span class="sr-only">@lang('app.toggle-navigation')</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -42,23 +42,23 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
                     @if (Auth::user())
-                        <li><a href="{{ url('/home') }}">Accueil</a></li>
-                        <li><a href="{{ url('/accounts') }}">Comptes</a></li>
+                        <li><a href="{{ url('/home') }}">@lang('app.home')</a></li>
+                        <li><a href="{{ url('/accounts') }}">@lang('app.accounts')</a></li>
                         @if (Auth::user()->level >= 5)
-                            <li><a href="{{ url('/groups') }}">D&eacute;l&eacute;gations</a></li>
+                            <li><a href="{{ url('/groups') }}">@lang('app.groups')</a></li>
                             @if (Auth::user()->level == 9)
-                                <li><a href="{{ url('/categories') }}">Cat&eacute;gories</a></li>
+                                <li><a href="{{ url('/categories') }}">@lang('app.categories')</a></li>
                             @endif
                             <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Listes Blanches <span class="caret"></span></a>
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@lang('app.whitelists') <span class="caret"></span></a>
                               <ul class="dropdown-menu">
-                                <li><a href="{{ url('/whitelist/domains') }}"><i class="fa fa-btn fa-globe"></i>Domaines</a></li>
-                                <li><a href="{{ url('/whitelist/urls') }}"><i class="fa fa-btn fa-link"></i>URLs</a></li>
+                                <li><a href="{{ url('/whitelist/domains') }}"><i class="fa fa-btn fa-globe"></i>@lang('app.domains')</a></li>
+                                <li><a href="{{ url('/whitelist/urls') }}"><i class="fa fa-btn fa-link"></i>@lang('app.urls')</a></li>
                               </ul>
                             </li>
                         @endif
                         @if (Auth::user()->level == 9)
-                            <li><a href="{{ url('/administrators') }}">Administrateurs</a></li>
+                            <li><a href="{{ url('/administrators') }}">@lang('app.administrators')</a></li>
                         @endif
                     @endif
                 </ul>
@@ -73,8 +73,8 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/profile') }}"><i class="fa fa-btn fa-user"></i>Mon compte</a></li>
-                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>D&eacute;connexion</a></li>
+                                <li><a href="{{ url('/profile') }}"><i class="fa fa-btn fa-user"></i>@lang('app.profile')</a></li>
+                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>@lang('app.logout')</a></li>
                             </ul>
                         </li>
                     @endif

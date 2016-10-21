@@ -22,7 +22,7 @@
             @if (!empty($user->id))
                 {{ $user->firstname }} {{ $user->lastname }}
             @else
-                Nouvel administrateur
+                @lang('users.actions.new')
             @endif
         </div>
         @if (isset($user))
@@ -39,7 +39,7 @@
             {{ csrf_field() }}
 
             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                <label for="email" class="col-md-4 control-label">Email</label>
+                <label for="email" class="col-md-4 control-label">@lang('users.email')</label>
                 <div class="col-md-6">
                     <input id="email" type="email" class="form-control" name="email" value="{{ empty($user->email) ? old('email') : $user->email }}"{{ empty($user->id) ?  '' : ' disabled="true"' }}>
                     @if ($errors->has('email'))
@@ -51,15 +51,15 @@
             </div>
 
             <div id="divpass" class="form-group{{ !empty($user->id) ? ' hidden' : ''}}{{ ($errors->has('password') || $errors->has('password_confirmation')) ? ' has-error' : '' }}">
-                <label for="password" class="col-md-4 control-label">Mot de passe</label>
+                <label for="password" class="col-md-4 control-label">@lang('users.password')</label>
                 <div class="col-md-6">
                     <div class="input-group">
                         <input id="password" type="password" class="form-control" name="password" value="">
                         <span class="input-group-btn">
                             <button class="btn btn-default" type="button" id="copy-button"
                                 data-toggle="tooltip" data-placement="button"
-                                title="Copier dans le presse-papier">
-                                Copier
+                                title="@lang('users.tooltip.copy')">
+                                @lang('users.actions.copy')
                             </button>
                         </span>
                     </div>
@@ -69,7 +69,7 @@
                         </span>
                     @endif
                 </div>
-                <label for="password_confirmation" class="col-md-4 control-label">Confirmation</label>
+                <label for="password_confirmation" class="col-md-4 control-label">@lang('users.password_confirmation')</label>
                 <div class="col-md-6">
                     <input id="password_confirmation" type="password" class="form-control" name="password_confirmation" value="">
                     @if ($errors->has('password_confirmation'))
@@ -84,31 +84,31 @@
                 document.addEventListener("DOMContentLoaded", function(event) {
                     $('#copy-button').tooltip();
                     $('#copy-button').bind('click', function() {
-                        var accountinfo = "Utilisateur: " + $('#email').val()
-                            + "\r\n" + "Mot de passe: " + $('#password').val();
+                        var accountinfo = "@lang('users.user'): " + $('#email').val()
+                            + "\r\n" + "@lang('users.password'): " + $('#password').val();
                         try {
                             var success = copyToClipboard(accountinfo);
                             if (success) {
-                                $('#copy-button').trigger('copied', ['Copié']);
+                                $('#copy-button').trigger('copied', ['@lang("users.tooltip.copied")']);
                             } else {
-                                $('#copy-button').trigger('copied', ['Copier avec Ctrl-c']);
+                                $('#copy-button').trigger('copied', ['@lang("users.tooltip.copy-shortcut")']);
                             }
                         } catch (err) {
-                            $('#copy-button').trigger('copied', ['Copier avec Ctrl-c']);
+                            $('#copy-button').trigger('copied', ['@lang("users.tooltip.copy-shortcut")']);
                         }
                     });
                     $('#copy-button').bind('copied', function(event, message) {
                         $(this).attr('title', message)
                             .tooltip('fixTitle')
                             .tooltip('show')
-                            .attr('title', "Copier dans le presse-papier")
+                            .attr('title', "@lang('users.tooltip.copy')")
                             .tooltip('fixTitle');
                     });
                 });
             </script>
 
             <div class="form-group{{ $errors->has('firstname') ? ' has-error' : '' }}">
-                <label for="firstname" class="col-md-4 control-label">Pr&eacute;nom</label>
+                <label for="firstname" class="col-md-4 control-label">@lang('users.firstname')</label>
                 <div class="col-md-6">
                     <input id="firstname" class="form-control" name="firstname" value="{{ empty($user->firstname) ? old('firstname') : $user->firstname }}"{{ empty($user->id) ? '' : ' disabled="true"' }}>
                     @if ($errors->has('firstname'))
@@ -120,7 +120,7 @@
             </div>
 
             <div class="form-group{{ $errors->has('lastname') ? ' has-error' : '' }}">
-                <label for="lastname" class="col-md-4 control-label">Nom</label>
+                <label for="lastname" class="col-md-4 control-label">@lang('users.lastname')</label>
                 <div class="col-md-6">
                     <input id="lastname" class="form-control" name="lastname" value="{{ empty($user->lastname) ? old('lastname') : $user->lastname }}"{{ empty($user->id) ? '' : ' disabled="true"' }}>
                     @if ($errors->has('lastname'))
@@ -134,7 +134,7 @@
 
             @if ( Auth::user()->id != $user->id )
             <div class="form-group">
-                <label for="level" class="col-md-4 control-label">Niveau</label>
+                <label for="level" class="col-md-4 control-label">@lang('users.level')</label>
                 <div class="col-md-6">
                     <select id="level" class="form-control" name="level" style="font-family:'FontAwesome', Arial;">
                         @foreach(App\User::USER_LEVEL as $key => $level)
@@ -169,7 +169,7 @@
             </script>
             @else
             <div class="form-group">
-                <label for="level" class="col-md-4 control-label">Niveau</label>
+                <label for="level" class="col-md-4 control-label">@lang('users.level')</label>
                 <div class="col-md-6">
                     <input class="form-control" value="{{ ucfirst($user->getLevel()['text']) }}" disabled="true">
                 </div>
@@ -178,7 +178,7 @@
 
             @if ( Auth::user()->id != $user->id )
             <div id="divgroup" class="form-group{{ $errors->has('group') ? ' has-error' : '' }}{{ $user->level > 1 ? ' hidden' : '' }}">
-                <label for="group" class="col-md-4 control-label">D&eacute;l&eacute;gation</label>
+                <label for="group" class="col-md-4 control-label">@lang('users.group')</label>
                 <div class="col-md-6">
                     <select id="group" class="form-control" name="group">
                         @foreach ($groups as $group)
@@ -194,7 +194,7 @@
             </div>
             @else
             <div class="form-group">
-                <label for="level" class="col-md-4 control-label">D&eacute;l&eacute;gation</label>
+                <label for="level" class="col-md-4 control-label">@lang('users.group')</label>
                 <div class="col-md-6">
                     <input class="form-control" value="{{ $user->group ? $user->group->name : '&#9679;' }}" disabled="true">
                 </div>
@@ -203,35 +203,28 @@
 
             @if ( Auth::user()->id != $user->id )
             <div class="form-group">
-                <label for="status" class="col-md-4 control-label">Statut</label>
+                <label for="status" class="col-md-4 control-label">@lang('users.status')</label>
                 <div class="col-md-6">
                     <select id="status" class="form-control" name="status">
-                        <option value="1" {{ ($user->status == 1 || empty($user->id) || old('status') == 1) ? 'selected="true"' : null }}>Actif</option>
-                        <option value="0" {{ ($user->status == 0 && empty($user->id) === false) ? 'selected="true"' : null }}>Inactif</option>
+                        <option value="1" {{ ($user->status == 1 || empty($user->id) || old('status') == 1) ? 'selected="true"' : null }}>@lang('users.enabled')</option>
+                        <option value="0" {{ ($user->status == 0 && empty($user->id) === false) ? 'selected="true"' : null }}>@lang('users.disabled')</option>
                     </select>
                 </div>
             </div>
-            <script type="text/javascript" language="javascript">
-                document.addEventListener("DOMContentLoaded", function(event) {
-                    $('#status').change(function() {
-                        $('#expirydate').prop('disabled', ($('#status').val() == 0));
-                    });
-                });
-            </script>
             @endif
 
             <div class="form-group">
                 <div class="col-md-10 col-md-offset-4">
                     <button type="submit" class="btn btn-primary">
-                        <i class="fa fa-btn fa-save"></i> Enregistrer
+                        <i class="fa fa-btn fa-save"></i> @lang('users.actions.save')
                     </button>
                     @if (!empty($user->id))
                         <a href="#" class="btn" onclick="$('#divpass').removeClass('hidden');">
-                            <i class="fa fa-btn fa-key"></i> Changer mot de passe
+                            <i class="fa fa-btn fa-key"></i> @lang('users.actions.reset')
                         </a>
                     @endif
                     <a href="{{ (Auth::user()->id == $user->id  && Request::url() == url('/profile')) ? '/home' : '/administrators' }}" class="btn" type="button">
-                        <i class="fa fa-btn fa-undo"></i> Annuler
+                        <i class="fa fa-btn fa-undo"></i> @lang('users.actions.cancel')
                     </a>
                 </div>
             </div>
@@ -243,13 +236,13 @@
         <div class="panel panel-default hidden-print">
             <div class="panel-heading">
                 <div class="panel-title">
-                    Historique
+                    @lang('users.history')
                 </div>
             </div>
             <div class="panel-body">
-                <li>Cr&eacute;er par : {{ empty($user->creator) ? 'inconnu' : $user->creator->firstname.' '.$user->creator->lastname }}</li>
-                <li>Cr&eacute;er le : {{ $user->created_at }}</li>
-                <li>Mis &agrave; jour le : {{ $user->updated_at }}</li>
+                <li>@lang('users.created-by'): {{ empty($user->creator) ? trans("users.unknown") : $user->creator->firstname.' '.$user->creator->lastname }}</li>
+                <li>@lang('users.created-at'): {{ $user->created_at }}</li>
+                <li>@lang('users.updated-at'): {{ $user->updated_at }}</li>
             </div>
         </div>
     @endif

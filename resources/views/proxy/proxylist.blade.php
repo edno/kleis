@@ -25,16 +25,16 @@
                     <div class="input-group">
                         <input type="text" class="form-control" name="value"
                             id="itemname"
-                            placeholder="{{ ($type == 'url') ? 'http://serveur/url/precise/et/complete' : 'domaine.ext ou sousdomaine.domaine.ext' }}">
+                            placeholder="@lang('proxylist.tooltip.' . $type)">
                         <span class="input-group-btn">
                             <button type="submit" class="btn btn-default hidden" type="button" id="button-save">
-                                <i class="fa fa-save"></i> Enregistrer
+                                <i class="fa fa-save"></i> @lang('proxylist.actions.save')
                             </button>
                             <a href="#" class="btn btn-default hidden" type="button" id="button-cancel">
-                                <i class="fa fa-undo"></i> Annuler
+                                <i class="fa fa-undo"></i> @lang('proxylist.actions.cancel')
                             </a>
                             <button type="submit" class="btn btn-default" type="button" id="button-add">
-                                <i class="fa fa-plus"></i> Ajouter
+                                <i class="fa fa-plus"></i> @lang('proxylist.actions.add')
                             </button>
                         </span>
                     </div>
@@ -53,23 +53,22 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <div class="panel-title pull-left">
-                {{ ucfirst($type) }}s en Liste Blanche
+                {{ trans('proxylist.in-whitelist', ['type' => trans_choice('proxylist.'.$type, 2)]) }}
             </div>
             <div class="panel-title pull-right">
                 <div class="btn-toolbar pull-right" style="float: right;">
                     <form class="form-inline pull-right" role="form">
-                        <!--<input id="search-type" type="hidden" name="type" value="value">-->
                         <div class="btn-toolbar">
                             <div class="input-group">
                                 <span class="search-box{{ session('results') ? '' : ' hidden' }}">
-                                    <input id="search" class="form-control" name="search" value="{{ session('search') }}" placeholder="Jokers * et %">
+                                    <input id="search" class="form-control" name="search" value="{{ session('search') }}" placeholder="@lang('proxylist.tooltip.search')">
                                 </span>
                                 <div id="search-button" class="search-button{{ session('results') ? ' input-group-btn' : '' }}">
                                     <a href="#"
                                         class="btn btn-default has-tooltip"
                                         data-toggle="tooltip"
                                         data-placement="bottom"
-                                        title="Rechercher"
+                                        title="@lang('proxylist.actions.search')"
                                         role="button">
                                         <i class="fa fa-search"></i>
                                     </a>
@@ -77,7 +76,7 @@
                             </div>
 
                             <a href="{{ Request::url() }}/clear" class="btn btn-default" style="float: right;">
-                                <i class="fa fa-recycle"></i> Vider la liste
+                                <i class="fa fa-recycle"></i> @lang('proxylist.actions.drop')
                             </a>
                         </div>
                     </form>
@@ -109,7 +108,7 @@
 
                     <!-- Table Headings -->
                     <thead>
-                        <th>{{ ucfirst($type) }}</th>
+                        <th>{{ trans_choice('proxylist.'.$type, 1) }}</th>
                         <th>&nbsp;</th>
                     </thead>
 
@@ -127,13 +126,13 @@
                                                 class="btn btn-default edit-link has-tooltip"
                                                 data-toggle="tooltip"
                                                 data-placement="bottom"
-                                                title="Editer"
+                                                title="@lang('proxylist.actions.edit')"
                                                 id="edit{{ $item->id }}"><i class="fa fa-pencil"></i></a>
                                             <a href="/whitelist/{{ $type }}/{{ $item->id }}/delete"
                                                 class="btn btn-default has-tooltip"
                                                 data-toggle="tooltip"
                                                 data-placement="bottom"
-                                                title="Supprimer"><i class="fa fa-trash"></i></a>
+                                                title="@lang('proxylist.actions.delete')"><i class="fa fa-trash"></i></a>
                                         </div>
                                     </div>
                                 </td>
@@ -142,7 +141,7 @@
                     </tbody>
                 </table>
             @else
-                Aucun {{ $type }}.
+                @lang('proxylist.message.empty.'.$type).
             @endif
         </div>
     </div>

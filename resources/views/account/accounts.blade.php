@@ -21,10 +21,10 @@
         <li class="{{ Request::is("*/category/*") ? 'has-tooltip' : 'active' }}"
             data-toggle="tooltip"
             data-placement="bottom"
-            title="Tous">
+            title="@lang('accounts.all')">
         <a href="{{ preg_replace('/(.*\/?accounts)(?:\/category.*)?/', '$1', Request::url()) }}">
             <i class="fa fa-asterisk"></i>
-            {{ Request::is("*/category/*") ? '' : ' Tous' }}
+            {{ Request::is("*/category/*") ? '' : ' ' . trans('accounts.all') }}
         </a></li>
         @if (isset($categories))
             @foreach ($categories as $category)
@@ -44,7 +44,7 @@
                 @if (isset($group))
                     {{ $group->name }}
                 @else
-                    Comptes
+                    {{ trans_choice('accounts.accounts', 2) }}
                 @endif
             </div>
             <div class="panel-title pull-right">
@@ -55,18 +55,18 @@
                             <div class="input-group">
                                 <div class="search-box input-group-btn{{ session('results') ? '' : ' hidden' }}">
                                     <button id="search-option-button" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <span id="search-option">Compte</span>&nbsp;<span class="caret"></span>
+                                        <span id="search-option">{{ trans_choice('accounts.accounts', 1) }}</span>&nbsp;<span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu">
-                                        <li class="search-option{{ session('type') == 'account' ? ' option-selected' : '' }}" value="account"><a href="#">Compte</a></li>
-                                        <li class="search-option{{ session('type') == 'fullname' ? ' option-selected' : '' }}" value="fullname"><a href="#">Nom</a></li>
+                                        <li class="search-option{{ session('type') == 'account' ? ' option-selected' : '' }}" value="account"><a href="#">{{ trans_choice('accounts.accounts', 1) }}</a></li>
+                                        <li class="search-option{{ session('type') == 'fullname' ? ' option-selected' : '' }}" value="fullname"><a href="#">@lang('accounts.fullname')</a></li>
                                     @if (Auth::user()->level >= 3)
-                                        <li class="search-option{{ session('type') == 'group' ? ' option-selected' : '' }}" value="group"><a href="#">D&eacute;l&eacute;gation</a></li>
+                                        <li class="search-option{{ session('type') == 'group' ? ' option-selected' : '' }}" value="group"><a href="#">@lang('accounts.group')</a></li>
                                     @endif
                                     </ul>
                                 </div>
                                 <span class="search-box{{ session('results') ? '' : ' hidden' }}">
-                                    <input id="search" class="form-control" name="search" value="{{ session('search') }}" placeholder="Jokers * et %">
+                                    <input id="search" class="form-control" name="search" value="{{ session('search') }}" placeholder="@lang('accounts.tooltip.search')">
                                 </span>
                                 <div id="search-button"
                                     class="search-button{{ session('results') ? ' input-group-btn' : '' }}">
@@ -75,14 +75,14 @@
                                         role="button"
                                         data-toggle="tooltip"
                                         data-placement="bottom"
-                                        title="Rechercher">
+                                        title="@lang('accounts.actions.search')">
                                         <i class="fa fa-search"></i>
                                     </a>
                                 </div>
                             </div>
 
                             <a href="{{ url('/account') }}" class="btn btn-default" role="button">
-                                <i class="fa fa-plus"></i> Cr&eacute;er un compte
+                                <i class="fa fa-plus"></i> @lang('accounts.actions.add')
                             </a>
                         </div>
                     </form>
@@ -116,10 +116,10 @@
                     <!-- Table Headings -->
                     <thead>
                         <th>&nbsp;</th>
-                        <th>Nom</th>
-                        <th>Compte</th>
-                        <th>Expire</th>
-                        <th>Statut</th>
+                        <th>@lang('accounts.fullname')</th>
+                        <th>{{ trans_choice('accounts.accounts', 1) }}</th>
+                        <th>@lang('accounts.expire')</th>
+                        <th>@lang('accounts.status')</th>
                         <th>&nbsp;</th>
                     </thead>
 
@@ -163,19 +163,19 @@
                                                 class="btn btn-default has-tooltip"
                                                 data-toggle="tooltip"
                                                 data-placement="bottom"
-                                                title="Editer"><i class="fa fa-pencil"></i></a>
+                                                title="@lang('accounts.actions.edit')"><i class="fa fa-pencil"></i></a>
                                             @if ($account->status == 1)
                                                 <a href="/account/{{ $account->id }}/disable"
                                                     class="btn btn-default has-tooltip"
                                                     data-toggle="tooltip"
                                                     data-placement="bottom"
-                                                    title="Désactiver"><i class="fa fa-ban"></i></a>
+                                                    title="@lang('accounts.actions.disable')"><i class="fa fa-ban"></i></a>
                                             @else
                                                 <a href="/account/{{ $account->id }}/enable"
                                                     class="btn btn-default has-tooltip"
                                                     data-toggle="tooltip"
                                                     data-placement="bottom"
-                                                    title="Activer"><i class="fa fa-globe"></i></a>
+                                                    title="@lang('accounts.actions.enable')"><i class="fa fa-globe"></i></a>
                                             @endif
                                             @if ($account->status == 1)
                                                 <a href="#" class="btn btn-default disabled" disabled="true"><i class="fa fa-trash"></i></a>
@@ -184,7 +184,7 @@
                                                     class="btn btn-default has-tooltip"
                                                     data-toggle="tooltip"
                                                     data-placement="bottom"
-                                                    title="Supprimer"><i class="fa fa-trash"></i></a>
+                                                    title="@lang('accounts.actions.delete')"><i class="fa fa-trash"></i></a>
                                             @endif
                                         </div>
                                     </div>
@@ -194,7 +194,7 @@
                     </tbody>
                 </table>
             @else
-                Aucun compte utilisateur.
+                @lang('accounts.message.empty.accounts').
             @endif
         </div>
     </div>

@@ -33,9 +33,9 @@
                                 role="iconpicker"
                                 data-toggle="tooltip"
                                 data-placement="bottom"
-                                title="Pictogramme"></button>
+                                title="@lang('categories.tooltip.icon')"></button>
                         </span>
-                        <input type="text" class="form-control" name="name" id="categoryname" placeholder="Nom de la cat&eacute;gorie">
+                        <input type="text" class="form-control" name="name" id="categoryname" placeholder="@lang('categories.tooltip.category')">
                         <span class="input-group-btn">
                             <button
                                 type="button"
@@ -44,7 +44,7 @@
                                 data-placement="bottom"
                                 aria-haspopup="true"
                                 aria-expanded="false">
-                              <span id="validity-option">90 jours</span>&nbsp;<span class="caret"></span>
+                              <span id="validity-option">{{ trans_choice('categories.days', 90, ['number' => 90]) }}</span>&nbsp;<span class="caret"></span>
                             </button>
                             <div class="dropdown-menu">
                                 <div class="row">
@@ -55,20 +55,20 @@
                                         type="number"
                                         class="form-control has-tooltip"
                                         data-placement="bottom"
-                                        title="Validit&eacute;"
+                                        title="@lang('categories.validity')"
                                         value="90"/>
-                                    <span class="input-group-addon">jours</span>
+                                    <span class="input-group-addon">{{ trans_choice('categories.days', 90, ['number' => 90]) }}</span>
                                     </div>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-default hidden" type="button" id="button-save">
-                                <i class="fa fa-save"></i> Enregistrer
+                                <i class="fa fa-save"></i> @lang('categories.actions.save')
                             </button>
                             <a href="#" class="btn btn-default hidden" type="button" id="button-cancel">
-                                <i class="fa fa-undo"></i> Annuler
+                                <i class="fa fa-undo"></i> @lang('categories.actions.cancel')
                             </a>
                             <button type="submit" class="btn btn-default" type="button" id="button-add">
-                                <i class="fa fa-plus"></i> Ajouter
+                                <i class="fa fa-plus"></i> @lang('categories.actions.add')
                             </button>
                         </span>
                     </div>
@@ -86,7 +86,7 @@
         document.addEventListener("DOMContentLoaded", function() {
             $('#iconpicker').iconpicker({iconset: 'fontawesome'});
             $('#categoryvalidity').change(function() {
-                $("#validity-option ").text($(this).val() + ' jours');
+                $("#validity-option ").text($(this).val() + ' {{ trans_choice("categories.days", 90, ["number" => 90]) }}');
             });
         });
     </script>
@@ -95,20 +95,20 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <div class="panel-title pull-left">
-                Cat&eacute;gories
+                {{ trans_choice('categories.categories', 2) }}
             </div>
             <div class="panel-title pull-right">
                 <form class="form-inline pull-right" role="form">
                     <div class="input-group">
                         <input id="search-type" type="hidden" name="type" value="category">
                         <span class="search-box{{ session('results') ? '' : ' hidden' }}">
-                            <input id="search" class="form-control" name="search" value="{{ session('search') }}" placeholder="Jokers * et %">
+                            <input id="search" class="form-control" name="search" value="{{ session('search') }}" placeholder="@lang('categories.tooltip.search')">
                         </span>
                         <div id="search-button" class="search-button{{ session('results') ? ' input-group-btn' : '' }}">
                             <a href="#" class="btn btn-default has-tooltip"
                                 data-toggle="tooltip"
                                 data-placement="bottom"
-                                title="Rechercher"
+                                title="@lang('categories.actions.search')"
                                 role="button">
                                 <i class="fa fa-search"></i>
                             </a>
@@ -143,10 +143,10 @@
                     <!-- Table Headings -->
                     <thead>
                         <th>&nbsp;</th>
-                        <th>Cat&eacute;gorie</th>
-                        <th>Comptes actifs</th>
-                        <th>Comptes inactifs</th>
-                        <th>Validit&eacute;</th>
+                        <th>{{ trans_choice('categories.categories', 1) }}</th>
+                        <th>@lang('categories.accounts.enabled')</th>
+                        <th>@lang('categories.accounts.disabled')</th>
+                        <th>@lang('categories.validity')</th>
                         <th>&nbsp;</th>
                     </thead>
 
@@ -167,7 +167,7 @@
                                     <div><span class="badge">{{ $category->countAccounts(0) }}</span></div>
                                 </td>
                                 <td class="table-text">
-                                    <div id="validity{{ $category->id }}"><span class="badge">{{ $category->validity }} jours</span></div>
+                                    <div id="validity{{ $category->id }}"><span class="badge">{{ trans_choice('categories.days', $category->validity, ['number' => $category->validity]) }}</span></div>
                                 </td>
                                 <td class="align-right col-xs-3">
                                     <div class="btn-toolbar">
@@ -175,14 +175,14 @@
                                             <a href="#" class="btn btn-default has-tooltip edit-category"
                                                 data-toggle="tooltip"
                                                 data-placement="bottom"
-                                                title="Editer"
+                                                title="@lang('categories.actions.edit')"
                                                 id="edit{{ $category->id }}"><i class="fa fa-pencil"></i></a>
                                             @if ($category->countAccounts() > 0)
                                             <a href="/accounts/category/{{ $category->id }}"
                                                 class="btn btn-default has-tooltip"
                                                 data-toggle="tooltip"
                                                 data-placement="bottom"
-                                                title="Afficher tous les comptes"><i class="fa fa-list-alt"></i></a>
+                                                title="@lang('categories.actions.display')"><i class="fa fa-list-alt"></i></a>
                                             @else
                                                 <a href="#" class="btn btn-default disabled" disabled="true"><i class="fa fa-list-alt"></i></a>
                                             @endif
@@ -191,7 +191,7 @@
                                                     class="btn btn-default has-tooltip"
                                                     data-toggle="tooltip"
                                                     data-placement="bottom"
-                                                    title="Désactiver tous les comptes"><i class="fa fa-ban"></i></a>
+                                                    title="@lang('categories.actions.disable')"><i class="fa fa-ban"></i></a>
                                             @else
                                                 <a href="#" class="btn btn-default disabled" disabled="true"><i class="fa fa-ban"></i></a>
                                             @endif
@@ -200,7 +200,7 @@
                                                     class="btn btn-default has-tooltip"
                                                     data-toggle="tooltip"
                                                     data-placement="bottom"
-                                                    title="Supprimer tous les comptes désactivés"><i class="fa fa-recycle"></i></a>
+                                                    title="@lang('categories.actions.drop')"><i class="fa fa-recycle"></i></a>
                                             @else
                                                 <a href="#" class="btn btn-default disabled" disabled="true"><i class="fa fa-recycle"></i></a>
                                             @endif
@@ -211,7 +211,7 @@
                                                     class="btn btn-default has-tooltip"
                                                     data-toggle="tooltip"
                                                     data-placement="bottom"
-                                                    title="Supprimer"><i class="fa fa-trash"></i></a>
+                                                    title="@lang('categories.actions.delete')"><i class="fa fa-trash"></i></a>
                                             @endif
                                         </div>
                                     </div>
@@ -221,7 +221,7 @@
                     </tbody>
                 </table>
             @else
-                Aucune cat&eacute;gorie.
+                @lang('categories.message.empty')
             @endif
         </div>
     </div>

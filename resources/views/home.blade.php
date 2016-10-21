@@ -3,28 +3,26 @@
 @section('content')
 
     <div class="panel panel-default">
-        <div class="panel-heading">Bienvenue {{ Auth::user()->firstname }}</div>
+        <div class="panel-heading">@lang('home.section.permissions', ['user' => Auth::user()->firstname])</div>
 
         <div class="panel-body">
-            En tant que <strong>{{ Auth::user()->getLevel()['text'] }}</strong>
-            @if (Auth::user()->level == 1)
-                de la d&eacute;l&eacute;gation <strong>{{ Auth::user()->group ? Auth::user()->group->name : '' }}</strong>
-                , vous pouvez g&eacute;rer les <strong>comptes</strong> utilisateurs de la d&eacute;l&eacute;gation.
-            @elseif (Auth::user()->level == 3)
-                , vous pouvez g&eacute;rer les <strong>comptes</strong> utilisateurs de l&apos;ensemble des d&eacute;l&eacute;gations.
-            @else
-                , vous pouvez :
+            {{ trans_choice('home.permissions.intro', Auth::user()->level, ['level' => Auth::user()->getLevel()['text'], 'group' => Auth::user()->group ? Auth::user()->group->name : '']) }}
+            @unless (Auth::user()->level >= 5)
+                {{ trans('home.permissions.accounts', ['context' => trans_choice('home.permissions.accounts.groups', Auth::user()->level)]) }}.
+            @endunless
+            @if (Auth::user()->level >= 5)
+                :
                 <ul>
-                    <li>Gerer les <strong>comptes</strong> utilisateurs</li>
+                    <li>@lang('home.permissions.accounts', ['context' => ''])</li>
                     @if (Auth::user()->level >= 5)
-                    <li>Gerer la liste des <strong>d&eacute;l&eacute;gations</strong></li>
+                    <li>@lang('home.permissions.groups')</li>
                     @if (Auth::user()->level == 9)
-                    <li>Gerer la liste des <strong>cat&eacute;gories</strong> utilisateur</li>
+                    <li>@lang('home.permissions.categories')</li>
                     @endif
-                    <li>Gerer les <strong>listes blanches</strong> internet</li>
+                    <li>@lang('home.permissions.whitelist')</li>
                     @endif
                     @if (Auth::user()->level == 9)
-                    <li>Gerer la liste des <strong>administrateurs</strong> Kleis</li>
+                    <li>@lang('home.permissions.admin')</li>
                     @endif
                 </ul>
             @endif
@@ -32,7 +30,7 @@
     </div>
 
     <div class="panel panel-default">
-        <div class="panel-heading">Information</div>
+        <div class="panel-heading">@lang('home.section.info')</div>
 
         <div class="panel-body">
             <div class="row">
@@ -42,7 +40,7 @@
                         <h2><i class="fa fa-user fa-2x"></i> {{ $accounts['total'] }}</h2>
                     </a>
 			        <blockquote id="list-accounts" class="sublinks collapse blockquote">
-                        {{ $accounts['total'] }} comptes
+                        {{ $accounts['total'] }} {{ trans_choice('home.info.accounts', $accounts['total']) }}
                         <ul class="list-unstyled small">
                             @foreach ($accounts['summary'] as $item)
                                 <li><strong>{{ $item['count'] }}</strong> {{ $item['text'] }}</li>
@@ -56,7 +54,7 @@
                         <h2><i class="fa fa-group fa-2x"></i> {{ $groups['total'] }}</h2>
                     </a>
 			        <blockquote id="list-groups" class="sublinks collapse blockquote">
-                        {{ $groups['total'] }} d&eacute;l&eacute;gations
+                        {{ $groups['total'] }} {{ trans_choice('home.info.groups', $groups['total']) }}
                         <ul class="list-unstyled small">
                             @foreach ($groups['summary'] as $item)
                                 <li>{{ $item['text'] }} (<strong>{{ $item['count'] }}</strong>)</li>
@@ -70,7 +68,7 @@
                         <h2><i class="fa fa-globe fa-2x"></i> {{ $items['total'] }}</h2>
                     </a>
 			        <blockquote id="list-items" class="sublinks collapse blockquote">
-                        {{ $items['total'] }} r&eacute;f&eacute;rences en liste blanche
+                        {{ $items['total'] }} {{ trans_choice('home.info.items', $items['total']) }} @lang('home.info.items.whitelist')
                         <ul class="list-unstyled small">
                             @foreach ($items['summary'] as $item)
                                 <li><strong>{{ $item['count'] }}</strong> {{ $item['text'] }}</li>
@@ -84,7 +82,7 @@
                         <h2><i class="fa fa-user-secret fa-2x"></i> {{ $users['total'] }}</h2>
                     </a>
                     <blockquote id="list-users" class="sublinks collapse blockquote">
-                        {{ $users['total'] }} administrateurs
+                        {{ $users['total'] }} {{ trans_choice('home.info.admin', $users['total']) }}
                         <ul class="list-unstyled small">
                             @foreach ($users['summary'] as $item)
                                 <li><strong>{{ $item['count'] }}</strong> {{ $item['text'] }}</li>

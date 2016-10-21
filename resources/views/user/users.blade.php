@@ -20,7 +20,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <div class="panel-title pull-left">
-                Administrateurs
+                {{ ucfirst(trans_choice('users.administrators', 2)) }}
             </div>
             <div class="panel-title pull-right">
                 <div class="btn-toolbar pull-right" style="float: right;">
@@ -30,22 +30,22 @@
                             <div class="input-group">
                                 <div class="search-box input-group-btn{{ session('results') ? '' : ' hidden' }}">
                                     <button id="search-option-button" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <span id="search-option">Email</span>&nbsp;<span class="caret"></span>
+                                        <span id="search-option">@lang('users.email')</span>&nbsp;<span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu">
-                                        <li class="search-option{{ session('type') == 'email' ? ' option-selected' : '' }}" value="email"><a href="#">Email</a></li>
-                                        <li class="search-option{{ session('type') == 'fullname' ? ' option-selected' : '' }}" value="fullname"><a href="#">Nom</a></li>
-                                        <li class="search-option{{ session('type') == 'group' ? ' option-selected' : '' }}" value="group"><a href="#">D&eacute;l&eacute;gation</a></li>
+                                        <li class="search-option{{ session('type') == 'email' ? ' option-selected' : '' }}" value="email"><a href="#">@lang('users.email')</a></li>
+                                        <li class="search-option{{ session('type') == 'fullname' ? ' option-selected' : '' }}" value="fullname"><a href="#">@lang('users.fullname')</a></li>
+                                        <li class="search-option{{ session('type') == 'group' ? ' option-selected' : '' }}" value="group"><a href="#">@lang('users.group')</a></li>
                                     </ul>
                                 </div>
                                 <span class="search-box{{ session('results') ? '' : ' hidden' }}">
-                                    <input id="search" class="form-control" name="search" value="{{ session('search') }}" placeholder="Jokers * et %">
+                                    <input id="search" class="form-control" name="search" value="{{ session('search') }}" placeholder="@lang('users.wildcards')">
                                 </span>
                                 <div id="search-button" class="search-button{{ session('results') ? ' input-group-btn' : '' }}">
                                     <a href="#" class="btn btn-default has-tooltip"
                                         data-toggle="tooltip"
                                         data-placement="bottom"
-                                        title="Rechercher"
+                                        title="@lang('users.search')"
                                         role="button">
                                         <i class="fa fa-search"></i>
                                     </a>
@@ -53,7 +53,7 @@
                             </div>
 
                             <a href="{{ url('/user') }}" class="btn btn-default" style="float: right;">
-                                <i class="fa fa-plus"></i> Ajouter un administrateur
+                                <i class="fa fa-plus"></i> @lang('users.actions.add')
                             </a>
                         </div>
                     </form>
@@ -85,11 +85,11 @@
 
                     <!-- Table Headings -->
                     <thead>
-                        <th>Nom</th>
-                        <th>Niveau</th>
-                        <th>D&eacute;l&eacute;gation</th>
-                        <th>Email</th>
-                        <th>Actif</th>
+                        <th>@lang('users.fullname')</th>
+                        <th>@lang('users.level')</th>
+                        <th>@lang('users.group')</th>
+                        <th>@lang('users.email')</th>
+                        <th>@lang('users.enabled')</th>
                         <th>&nbsp;</th>
                     </thead>
 
@@ -117,7 +117,7 @@
                                     <div><i class="fa {{ $user->getStatus()['icon'] }} has-tooltip"
                                         data-toggle="tooltip"
                                         data-placement="bottom"
-                                        title="{{ $user->getStatus()['text'] }}"></i></div>
+                                        title="{{ trans($user->getStatus()['text']) }}"></i></div>
                                 </td>
                                 <td class="align-right col-xs-2">
                                     <div class="btn-toolbar">
@@ -126,7 +126,7 @@
                                                 class="btn btn-default has-tooltip"
                                                 data-toggle="tooltip"
                                                 data-placement="bottom"
-                                                title="Editer"><i class="fa fa-pencil"></i></a>
+                                                title="@lang('users.actions.edit')"><i class="fa fa-pencil"></i></a>
                                             @if($user->id == Auth::user()->id)
                                                 <a href="#" class="btn btn-default disabled" disabled="true"><i class="fa fa-ban"></i></a>
                                             @elseif ($user->status == 1)
@@ -134,13 +134,13 @@
                                                     class="btn btn-default has-tooltip"
                                                     data-toggle="tooltip"
                                                     data-placement="bottom"
-                                                    title="Désactiver"><i class="fa fa-ban"></i></a>
+                                                    title="@lang('users.actions.disable')"><i class="fa fa-ban"></i></a>
                                             @else
                                                 <a href="/user/{{ $user->id }}/enable"
                                                     class="btn btn-default has-tooltip"
                                                     data-toggle="tooltip"
                                                     data-placement="bottom"
-                                                    title="Activer"><i class="fa fa-check"></i></a>
+                                                    title="@lang('users.actions.enable')"><i class="fa fa-check"></i></a>
                                             @endif
                                             @if ($user->status == 1 || $user->id == Auth::user()->id)
                                                 <a href="#" class="btn btn-default disabled" disabled="true"><i class="fa fa-trash"></i></a>
@@ -149,7 +149,7 @@
                                                     class="btn btn-default has-tooltip"
                                                     data-toggle="tooltip"
                                                     data-placement="bottom"
-                                                    title="Supprimer"><i class="fa fa-trash"></i></a>
+                                                    title="@lang('users.actions.delete')"><i class="fa fa-trash"></i></a>
                                             @endif
                                         </div>
                                     </div>
@@ -159,7 +159,7 @@
                     </tbody>
                 </table>
             @else
-                Aucun utilisateur.
+                @lang('users.message.empty').
             @endif
         </div>
     </div>

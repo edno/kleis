@@ -10,7 +10,7 @@
         <div class="container">
             <div class="content">
                 <div class="title">Kleis</div>
-                <div><a href="/home">Cliquer ici pour acc&eacute;der &agrave; l&apos;application</a></div>
+                <div><a href="/home">@lang('welcome.click_here')</a></div>
             </div>
         </div>
     </body>
