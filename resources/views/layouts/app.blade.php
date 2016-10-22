@@ -37,7 +37,7 @@
                     <a class="navbar-brand" href="{{ url('/') }}">
                     <!-- <a class="navbar-brand" href="{{ url('/') }}">Kleis</a> -->
                 @endif
-                    <span><img src="images/kleis.png" alt="Kleis" style="max-height:20px;vertical-align:middle;position:relative;top:-2px;">le&#720;s<span></a>
+                    <span><img src="/images/kleis.png" alt="Kleis" style="max-height:20px;vertical-align:middle;position:relative;top:-2px;">le&#720;s<span></a>
             </div>
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -92,5 +92,15 @@
             </div>
         </div>
     </div>
+
+    <footer class="footer navbar-fixed-bottom">
+      <div class="container">
+        <p class="text-muted">
+            version 1.1
+            <br>
+            <a href="https://github.com/edno/kleis"><i class="fa fa-github"></i></a>
+        </p>
+      </div>
+    </footer>
 </body>
 </html>
