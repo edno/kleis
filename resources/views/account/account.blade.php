@@ -195,7 +195,6 @@
                             class="form-control"
                             name="expirydate"
                             min="{{ date_create('tomorrow')->format('Y-m-d') }}"
-                            max="{{ date_create('+1 year')->format('Y-m-d') }}"
                             {{ ($account->status == 0 && empty($account->id) || (Auth::user()->level > 1) === false) ? 'disabled="true"' : null }}">
                         <span class="input-group-btn">
                             <button class="btn btn-default" type="button" id="validity-button"
