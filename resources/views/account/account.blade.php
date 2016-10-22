@@ -218,6 +218,10 @@
                         $('#expirydate').trigger('refresh');
                     });
 
+                    $('#category').bind('change', function() {
+                        $('#expirydate').trigger('refresh');
+                    });
+
                     $('#expirydate').bind('refresh', function(event) {
                         var validity = $('#category option')
                             .filter('[value=' + $('#category').val() + ']')
