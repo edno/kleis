@@ -45,9 +45,6 @@ trait SearchTrait
                 }
             });
             $results = count($entities->get());
-            // $request->session()->flash('results', "{$results} résultats trouvés");
-            // $request->session()->flash('search', $request->input('search'));
-            // $request->session()->flash('type', $request->input('type'));
         }
         return $results;
     }

@@ -10,10 +10,10 @@ use WhiteHat101\Crypt\APR1_MD5;
 class Account extends Model
 {
     const ACCOUNT_STATUS = [
-        0 => [  'text' => 'inactif',
+        0 => [  'text' => 'accounts.disabled',
                 'icon' => 'fa-ban',
                 'unicon' => '&#xf05e;' ],
-        1 => [  'text' => 'actif',
+        1 => [  'text' => 'accounts.enabled',
                 'icon' => 'fa-globe',
                 'unicon' => '&#xf0ac;' ]
     ];

@@ -33,11 +33,11 @@ class ManageAdminCest
 
         $list = $this->page->getAdministratorsList();
         $I->assertContains([
-                'nom' => $this->name,
+                'nom'    => $this->name,
                 'niveau' => 'Super administrateur',
-                'delegation' => '',
-                'email' => $this->email,
-                'actif' => 'actif'
+                'groupe' => '',
+                'email'  => $this->email,
+                'actif'  => 'Actif'
             ],
             $list);
     }
@@ -63,23 +63,23 @@ class ManageAdminCest
         $this->page = $this->page
                 ->newAdministrator()
                 ->setDetails([
-                    'email' => 'codecept@kleis.app',
-                    'password' => 'codecept',
+                    'email'     => 'codecept@kleis.app',
+                    'password'  => 'codecept',
                     'password2' => 'codecept',
                     'firstname' => 'Codecept',
-                    'lastname' => 'Test',
-                    'level' => 'Gestionnaire local',
-                    'group' => 'Montreal',
-                    'status' => 'Actif',
+                    'lastname'  => 'Test',
+                    'level'     => 'Gestionnaire local',
+                    'group'     => 'Montreal',
+                    'status'    => 'Actif',
                 ])
                 ->save();
         $list = $this->page->getAdministratorsList();
         $I->assertContains([
-                'nom' => 'Codecept Test',
+                'nom'    => 'Codecept Test',
                 'niveau' => 'Gestionnaire local',
-                'delegation' => 'Montreal',
-                'email' => 'codecept@kleis.app',
-                'actif' => 'actif'
+                'groupe' => 'Montreal',
+                'email'  => 'codecept@kleis.app',
+                'actif'  => 'Actif'
             ],
             $list);
     }
@@ -95,11 +95,11 @@ class ManageAdminCest
                 ->disableAdministrator('codecept@kleis.app');
         $list = $this->page->getAdministratorsList();
         $I->assertContains([
-                'nom' => 'Codecept Test',
+                'nom'    => 'Codecept Test',
                 'niveau' => 'Gestionnaire local',
-                'delegation' => 'Montreal',
-                'email' => 'codecept@kleis.app',
-                'actif' => 'inactif'
+                'groupe' => 'Montreal',
+                'email'  => 'codecept@kleis.app',
+                'actif'  => 'Inactif'
             ],
             $list);
     }
@@ -115,11 +115,11 @@ class ManageAdminCest
                 ->enableAdministrator('codecept@kleis.app');
         $list = $this->page->getAdministratorsList();
         $I->assertContains([
-                'nom' => 'Codecept Test',
+                'nom'    => 'Codecept Test',
                 'niveau' => 'Gestionnaire local',
-                'delegation' => 'Montreal',
-                'email' => 'codecept@kleis.app',
-                'actif' => 'actif'
+                'groupe' => 'Montreal',
+                'email'  => 'codecept@kleis.app',
+                'actif'  => 'Actif'
             ],
             $list);
     }
@@ -133,26 +133,26 @@ class ManageAdminCest
     {
         $list = $this->page->getAdministratorsList();
         $I->assertContains([
-                'nom' => 'Codecept Test',
+                'nom'    => 'Codecept Test',
                 'niveau' => 'Gestionnaire local',
-                'delegation' => 'Montreal',
-                'email' => 'codecept@kleis.app',
-                'actif' => 'actif'
+                'groupe' => 'Montreal',
+                'email'  => 'codecept@kleis.app',
+                'actif'  => 'Actif'
             ],
             $list);
         $this->page = $this->page->editAdministrator('codecept@kleis.app')
                 ->setDetails([
-                    'level' => 'Gestionnaire global',
+                    'level'  => 'Gestionnaire global',
                     'status' => 'Inactif'
                 ])
                 ->save();
         $list = $this->page->getAdministratorsList();
         $I->assertContains([
-                'nom' => 'Codecept Test',
+                'nom'    => 'Codecept Test',
                 'niveau' => 'Gestionnaire global',
-                'delegation' => '',
-                'email' => 'codecept@kleis.app',
-                'actif' => 'inactif'
+                'groupe' => '',
+                'email'  => 'codecept@kleis.app',
+                'actif'  => 'Inactif'
             ],
             $list);
     }
@@ -166,21 +166,21 @@ class ManageAdminCest
     {
         $list = $this->page->getAdministratorsList();
         $I->assertContains([
-                'nom' => 'Codecept Test',
+                'nom'    => 'Codecept Test',
                 'niveau' => 'Gestionnaire global',
-                'delegation' => '',
-                'email' => 'codecept@kleis.app',
-                'actif' => 'inactif'
+                'groupe' => '',
+                'email'  => 'codecept@kleis.app',
+                'actif'  => 'Inactif'
             ],
             $list);
         $this->page = $this->page->deleteAdministrator('codecept@kleis.app');
         $list = $this->page->getAdministratorsList();
         $I->assertNotContains([
-                'nom' => 'Codecept Test',
+                'nom'    => 'Codecept Test',
                 'niveau' => 'Gestionnaire global',
-                'delegation' => '',
-                'email' => 'codecept@kleis.app',
-                'actif' => 'inactif'
+                'groupe' => '',
+                'email'  => 'codecept@kleis.app',
+                'actif'  => 'Inactif'
             ],
             $list);
     }

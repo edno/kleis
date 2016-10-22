@@ -9,7 +9,7 @@
 </script>
 
 <div class="visible-print">
-    <h1>Information compte utilisateur</h1>
+    <h1>@lang('accounts.message.print')</h1>
 </div>
 
 <div class="panel panel-default">
@@ -18,7 +18,7 @@
             @if (!empty($account->id))
                 {{ $account->firstname }} {{ $account->lastname }}
             @else
-                Nouveau compte
+                @lang('accounts.actions.new')
             @endif
         </div>
         @if (isset($account))
@@ -35,7 +35,7 @@
             {{ csrf_field() }}
 
             <div class="form-group">
-                <label for="account" class="col-md-4 control-label">Compte</label>
+                <label for="account" class="col-md-4 control-label">{{ trans_choice('accounts.accounts', 1) }}</label>
                 <div class="col-md-6">
                     <input id="account" class="form-control" name="account" value="{{ $account->netlogin }}" disabled="true">
                     @if ($errors->has('netlogin'))
@@ -52,14 +52,14 @@
             @else
                 <div id="divpass" class="form-group">
             @endif
-                <label for="password" class="col-md-4 control-label">Mot de passe</label>
+                <label for="password" class="col-md-4 control-label">@lang('accounts.password')</label>
                 <div class="col-md-6">
                     <div class="input-group">
                         <input id="password" class="form-control" name="password" value="" disabled="true">
                         <span class="input-group-btn">
                             <button class="btn btn-default" type="button" id="copy-button"
                                 data-toggle="tooltip" data-placement="button"
-                                title="Copier dans le presse-papier">
+                                title="@lang('accounts.tooltip.copy')">
                                 Copier
                             </button>
                         </span>
@@ -70,7 +70,7 @@
                         </span>
                     @else
                         <span class="help-block hidden-print">
-                            <strong>notez le mot de passe ou imprimer cette page avant d&apos;enregistrer</strong>
+                            <strong>@lang('accounts.message.password')</strong>
                         </span>
                     @endif
                 </div>
@@ -82,24 +82,24 @@
                 document.addEventListener("DOMContentLoaded", function(event) {
                     $('#copy-button').tooltip();
                     $('#copy-button').bind('click', function() {
-                        var accountinfo = "Compte: " + $('#netlogin').val()
-                            + "\r\n" + "Mot de passe: " + $('#netpass').val();
+                        var accountinfo = "{{ trans_choice('accounts.accounts', 1) }}: " + $('#netlogin').val()
+                            + "\r\n" + "@lang('accounts.password'): " + $('#netpass').val();
                         try {
                             var success = copyToClipboard(accountinfo);
                             if (success) {
-                                $('#copy-button').trigger('copied', ['Copié']);
+                                $('#copy-button').trigger('copied', ['@lang("accounts.tooltip.copied")']);
                             } else {
-                                $('#copy-button').trigger('copied', ['Copier avec Ctrl-c']);
+                                $('#copy-button').trigger('copied', ['@lang("accounts.tooltip.copy-shortcut")']);
                             }
                         } catch (err) {
-                            $('#copy-button').trigger('copied', ['Copier avec Ctrl-c']);
+                            $('#copy-button').trigger('copied', ['@lang("accounts.tooltip.copy-shortcut")']);
                         }
                     });
                     $('#copy-button').bind('copied', function(event, message) {
                         $(this).attr('title', message)
                             .tooltip('fixTitle')
                             .tooltip('show')
-                            .attr('title', "Copier dans le presse-papier")
+                            .attr('title', "@lang('accounts.tooltip.copy')")
                             .tooltip('fixTitle');
                     });
                 });
@@ -116,7 +116,7 @@
             @endif
 
             <div class="form-group generator-kleis{{ $errors->has('firstname') ? ' has-error' : '' }}">
-                <label for="firstname" class="col-md-4 control-label">Pr&eacute;nom</label>
+                <label for="firstname" class="col-md-4 control-label">@lang('accounts.firstname')</label>
                 <div class="col-md-6">
                     <input id="firstname" class="form-control" name="firstname" value="{{ $account->firstname }}"{{ empty($account->id) ? '' : ' disabled="true"' }}>
                     @if ($errors->has('firstname'))
@@ -128,7 +128,7 @@
             </div>
 
             <div class="form-group generator-kleis{{ $errors->has('lastname') ? ' has-error' : '' }}">
-                <label for="lastname" class="col-md-4 control-label">Nom</label>
+                <label for="lastname" class="col-md-4 control-label">@lang('accounts.lastname')</label>
                 <div class="col-md-6">
                     <input id="lastname" class="form-control" name="lastname" value="{{ $account->lastname }}"{{ empty($account->id) ? '' : ' disabled="true"' }}>
                     @if ($errors->has('lastname'))
@@ -152,7 +152,7 @@
             @endif
 
             <div class="form-group">
-                <label for="category" class="col-md-4 control-label">Cat&eacute;gorie</label>
+                <label for="category" class="col-md-4 control-label">@lang('accounts.category')</label>
                 <div class="col-md-6">
                     <select id="category" class="form-control" name="category" style="font-family:'FontAwesome', Arial;">
                         @foreach ($categories as $category)
@@ -164,7 +164,7 @@
 
             @if (Auth::user()->level > 1)
             <div class="form-group{{ $errors->has('group') ? ' has-error' : '' }}">
-                <label for="group" class="col-md-4 control-label">D&eacute;l&eacute;gation</label>
+                <label for="group" class="col-md-4 control-label">@lang('accounts.group')</label>
                 <div class="col-md-6">
                     <select id="group" class="form-control" name="group">
                         @foreach ($groups as $group)
@@ -183,7 +183,7 @@
             @endif
 
             <div class="form-group{{ $errors->has('expirydate') ? ' has-error' : '' }}">
-                <label for="expirydate" class="col-md-4 control-label">Date d&apos;expiration</label>
+                <label for="expirydate" class="col-md-4 control-label">@lang('accounts.expirydate')</label>
                 <div class="col-md-6">
                     <input type="date" id="expirydate" class="form-control" name="expirydate" min="{{ date_create('tomorrow')->format('Y-m-d') }}" max="{{ date_create('+1 year')->format('Y-m-d') }}" value="{{ empty($account->expire) ? date_create('+90 day')->format('Y-m-d') : $account->expire }}" {{ ($account->status == 0 && empty($account->id) === false) ? 'disabled="true"' : null }}">
                     @if ($errors->has('expirydate'))
@@ -195,11 +195,11 @@
             </div>
 
             <div class="form-group hidden-print">
-                <label for="status" class="col-md-4 control-label">Statut du compte</label>
+                <label for="status" class="col-md-4 control-label">@lang('accounts.status')</label>
                 <div class="col-md-6">
                     <select id="status" class="form-control" name="status" style="font-family:'FontAwesome', Arial;">
-                        <option value="1" {{ ($account->status == 1 || empty($account->id)) ? 'selected="true"' : null }}>&#xf0ac; Actif</option>
-                        <option value="0" {{ ($account->status == 0 && empty($account->id) === false) ? 'selected="true"' : null }}>&#xf05e; Inactif</option>
+                        <option value="1" {{ ($account->status == 1 || empty($account->id)) ? 'selected="true"' : null }}>&#xf0ac; @lang('accounts.enabled')</option>
+                        <option value="0" {{ ($account->status == 0 && empty($account->id) === false) ? 'selected="true"' : null }}>&#xf05e; @lang('accounts.disabled')</option>
                     </select>
                 </div>
             </div>
@@ -214,18 +214,18 @@
             <div class="form-group hidden-print">
                 <div class="col-md-10 col-md-offset-4">
                     <button type="submit" class="btn btn-primary">
-                        <i class="fa fa-btn fa-save"></i> Enregistrer
+                        <i class="fa fa-btn fa-save"></i> @lang('accounts.actions.save')
                     </button>
                     @if (!empty($account->id))
                         <a href="#" class="btn" onclick="$('#password').val(kleisPassword.generate()); $('#netpass').val($('#password').val()); $('#divpass').removeClass('hidden');">
-                            <i class="fa fa-btn fa-key"></i> Mot de passe
+                            <i class="fa fa-btn fa-key"></i> @lang('accounts.actions.reset')
                         </a>
                     @endif
                     <a href="#" class="btn" onclick="window.print();">
-                        <i class="fa fa-btn fa-print"></i> Imprimer
+                        <i class="fa fa-btn fa-print"></i> @lang('accounts.actions.print')
                     </a>
                     <a href="/accounts" class="btn" type="button">
-                        <i class="fa fa-btn fa-undo"></i> Annuler
+                        <i class="fa fa-btn fa-undo"></i> @lang('accounts.actions.cancel')
                     </a>
                 </div>
             </div>
@@ -237,25 +237,25 @@
         <div class="panel panel-default hidden-print">
             <div class="panel-heading">
                 <div class="panel-title">
-                    Historique
+                    @lang('accounts.history')
                 </div>
             </div>
             <div class="panel-body">
-                <li>Cr&eacute;e par : {{ empty($account->creator) ? 'inconnu' : $account->creator->firstname.' '.$account->creator->lastname }}</li>
-                <li>Cr&eacute;e le : {{ $account->created_at }}</li>
-                <li>Mis &agrave; jour le : {{ $account->updated_at }}</li>
+                <li>@lang('accounts.created-by'): {{ empty($account->creator) ? trans('accounts.unknown') : $account->creator->firstname.' '.$account->creator->lastname }}</li>
+                <li>@lang('accounts.created-at'): {{ $account->created_at }}</li>
+                <li>@lang('accounts.updated-at'): {{ $account->updated_at }}</li>
             </div>
         </div>
     @endif
 
 @elseif (count($groups) == 0 )
     <div class="alert alert-warning">
-        <strong>Aucune d&eacute;l&eacute;gation disponible !</strong> Veuillez cr&eacute;er une d&eacute;l&eacute;gation avant de continuer.
+        @lang('accounts.message.empty.groups')
     </div>
 
 @elseif (count($categories) == 0 )
     <div class="alert alert-warning">
-        <strong>Aucune cat&eacute;gorie disponible !</strong> Veuillez cr&eacute;er une cat&eacute;gorie avant de continuer.
+        @lang('accounts.message.empty.categories')
     </div>
 
 @endif

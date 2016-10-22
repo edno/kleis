@@ -23,16 +23,16 @@
                 {{ csrf_field() }}
                 <div class="col-lg-12">
                     <div class="input-group">
-                        <input type="text" class="form-control" name="name" id="groupname" placeholder="Nom de la d&eacute;l&eacute;gation">
+                        <input type="text" class="form-control" name="name" id="groupname" placeholder="@lang('groups.tooltip.group')">
                         <span class="input-group-btn">
                             <button type="submit" class="btn btn-default hidden" type="button" id="button-save">
-                                <i class="fa fa-save"></i> Enregistrer
+                                <i class="fa fa-save"></i> @lang('groups.actions.save')
                             </button>
                             <a href="#" class="btn btn-default hidden" type="button" id="button-cancel">
-                                <i class="fa fa-undo"></i> Annuler
+                                <i class="fa fa-undo"></i> @lang('groups.actions.cancel')
                             </a>
                             <button type="submit" class="btn btn-default" type="button" id="button-add">
-                                <i class="fa fa-plus"></i> Ajouter
+                                <i class="fa fa-plus"></i> @lang('groups.actions.add')
                             </button>
                         </span>
                     </div>
@@ -51,20 +51,20 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <div class="panel-title pull-left">
-                D&eacute;l&eacute;gations
+                {{ trans_choice('groups.groups', 2) }}
             </div>
             <div class="panel-title pull-right">
                 <form class="form-inline pull-right" role="form">
                     <div class="input-group">
                         <input id="search-type" type="hidden" name="type" value="group">
                         <span class="search-box{{ session('results') ? '' : ' hidden' }}">
-                            <input id="search" class="form-control" name="search" value="{{ session('search') }}" placeholder="Jokers * et %">
+                            <input id="search" class="form-control" name="search" value="{{ session('search') }}" placeholder="@lang('groups.tooltip.search')">
                         </span>
                         <div id="search-button" class="search-button{{ session('results') ? ' input-group-btn' : '' }}">
                             <a href="#" class="btn btn-default has-tooltip"
                                 data-toggle="tooltip"
                                 data-placement="bottom"
-                                title="Rechercher"
+                                title="@lang('groups.actions.search')"
                                 role="button">
                                 <i class="fa fa-search"></i>
                             </a>
@@ -98,10 +98,10 @@
 
                     <!-- Table Headings -->
                     <thead>
-                        <th>D&eacute;l&eacute;gation</th>
-                        <th>Comptes actifs</th>
-                        <th>Comptes inactifs</th>
-                        <th>Gestionnaires</th>
+                        <th>{{ trans_choice('groups.groups', 1) }}</th>
+                        <th>@lang('groups.accounts.enabled')</th>
+                        <th>@lang('groups.accounts.disabled')</th>
+                        <th>@lang('groups.managers')</th>
                         <th>&nbsp;</th>
                     </thead>
 
@@ -127,14 +127,14 @@
                                             <a href="#" class="btn btn-default has-tooltip edit-group"
                                                 data-toggle="tooltip"
                                                 data-placement="bottom"
-                                                title="Editer"
+                                                title="@lang('groups.actions.edit')"
                                                 id="edit{{ $group->id }}"><i class="fa fa-pencil"></i></a>
                                             @if ($group->countAccounts() > 0)
                                             <a href="/group/{{ $group->id }}/accounts"
                                                 class="btn btn-default has-tooltip"
                                                 data-toggle="tooltip"
                                                 data-placement="bottom"
-                                                title="Afficher tous les comptes"><i class="fa fa-list-alt"></i></a>
+                                                title="@lang('groups.actions.display')"><i class="fa fa-list-alt"></i></a>
                                             @else
                                                 <a href="#" class="btn btn-default disabled" disabled="true"><i class="fa fa-list-alt"></i></a>
                                             @endif
@@ -143,7 +143,7 @@
                                                     class="btn btn-default has-tooltip"
                                                     data-toggle="tooltip"
                                                     data-placement="bottom"
-                                                    title="Désactiver tous les comptes"><i class="fa fa-ban"></i></a>
+                                                    title="@lang('groups.actions.disable')"><i class="fa fa-ban"></i></a>
                                             @else
                                                 <a href="#" class="btn btn-default disabled" disabled="true"><i class="fa fa-ban"></i></a>
                                             @endif
@@ -152,7 +152,7 @@
                                                     class="btn btn-default has-tooltip"
                                                     data-toggle="tooltip"
                                                     data-placement="bottom"
-                                                    title="Supprimer tous les comptes désactivés"><i class="fa fa-recycle"></i></a>
+                                                    title="@lang('groups.actions.drop')"><i class="fa fa-recycle"></i></a>
                                             @else
                                                 <a href="#" class="btn btn-default disabled" disabled="true"><i class="fa fa-recycle"></i></a>
                                             @endif
@@ -163,7 +163,7 @@
                                                     class="btn btn-default has-tooltip"
                                                     data-toggle="tooltip"
                                                     data-placement="bottom"
-                                                    title="Supprimer"><i class="fa fa-trash"></i></a>
+                                                    title="@lang('groups.actions.delete')"><i class="fa fa-trash"></i></a>
                                             @endif
                                         </div>
                                     </div>
@@ -173,7 +173,7 @@
                     </tbody>
                 </table>
             @else
-                Aucune d&eacute;l&eacute;gation.
+                @lang('groups.message.empty').
             @endif
         </div>
     </div>

@@ -35,7 +35,7 @@ class ManageCategoryCest
                 'categorie'        => 'Tester',
                 'comptes actifs'   => '1',
                 'comptes inactifs' => '0',
-                'validite'         => '1 jours'
+                'validite'         => '1 jour'
             ], $list
         );
         $I->assertContains([
@@ -124,7 +124,7 @@ class ManageCategoryCest
                 'categorie'        => 'Tester',
                 'comptes actifs'   => '1',
                 'comptes inactifs' => '0',
-                'validite'         => '1 jours'
+                'validite'         => '1 jour'
             ], $list
         );
         $I->assertContains([

@@ -112,7 +112,7 @@ class HomeController extends Controller
             if ($count) {
                 $list['summary'][]= [
                     'count' => $count,
-                    'text' => "{$level['text']}s"
+                    'text' => $level['text']
                 ];
             }
         }

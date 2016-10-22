@@ -17,8 +17,8 @@ class ManageGroupCest
             $this->page = $this->page
                     ->openApplication()
                     ->login($this->email, $this->password)
-                    ->navigateTo('Délégations');
-            $I->see('Délégations');
+                    ->navigateTo('Groupes');
+            $I->see('Groupes');
         } else {
             $scenario->skip('WebDriver module not available');
         }
@@ -33,7 +33,7 @@ class ManageGroupCest
     {
         $list = $this->page->getGroupsList();
         $I->assertContains([
-            'delegation'       => 'Montreal',
+            'groupe'       => 'Montreal',
             'comptes actifs'   => '1',
             'comptes inactifs' => '0',
             'gestionnaires'    => '1'
@@ -51,7 +51,7 @@ class ManageGroupCest
         $this->page = $this->page->addGroup('Kleis');
         $list = $this->page->getGroupsList();
         $I->assertContains([
-                'delegation'       => 'Kleis',
+                'groupe'       => 'Kleis',
                 'comptes actifs'   => '0',
                 'comptes inactifs' => '0',
                 'gestionnaires'    => '0'
@@ -71,14 +71,14 @@ class ManageGroupCest
                                 ->saveChanges();
         $list = $this->page->getGroupsList();
         $I->assertNotContains([
-                'delegation'       => 'Kleis',
+                'groupe'       => 'Kleis',
                 'comptes actifs'   => '0',
                 'comptes inactifs' => '0',
                 'gestionnaires'    => '0'
             ],
             $list);
         $I->assertContains([
-                'delegation'       => 'Codecept',
+                'groupe'       => 'Codecept',
                 'comptes actifs'   => '0',
                 'comptes inactifs' => '0',
                 'gestionnaires'    => '0'
@@ -96,7 +96,7 @@ class ManageGroupCest
     {
         $list = $this->page->getGroupsList();
         $I->assertContains([
-                'delegation'       => 'Codecept',
+                'groupe'       => 'Codecept',
                 'comptes actifs'   => '0',
                 'comptes inactifs' => '0',
                 'gestionnaires'    => '0'
@@ -105,14 +105,14 @@ class ManageGroupCest
         $this->page = $this->page->deleteGroup('Codecept');
         $list = $this->page->getGroupsList();
         $I->assertNotContains([
-                'delegation'       => 'Codecept',
+                'groupe'       => 'Codecept',
                 'comptes actifs'   => '0',
                 'comptes inactifs' => '0',
                 'gestionnaires'    => '0'
             ],
             $list);
         $I->assertContains([
-                'delegation'       => 'Montreal',
+                'groupe'       => 'Montreal',
                 'comptes actifs'   => '1',
                 'comptes inactifs' => '0',
                 'gestionnaires'    => '1'

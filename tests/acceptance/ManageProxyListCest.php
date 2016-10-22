@@ -44,7 +44,7 @@ class ManageProxyListCest
     {
         $this->page = $this->page
                 ->navigateTo('Listes Blanches/Domaines');
-        $I->see('Domains en Liste Blanche');
+        $I->see('Domaines en Liste Blanche');
     }
 
     protected function openUrls(\AcceptanceTester $I)
@@ -64,13 +64,13 @@ class ManageProxyListCest
     {
         $list = $this->page->getListItems();
         $I->assertContains([
-                'domain' => 'minus-cortex.dev'
+                'domaine' => 'minus-cortex.dev'
             ],
             $list);
         $this->page = $this->page->dropItems();
         $list = $this->page->getListItems();
         $I->assertEmpty($list);
-        $I->see('Aucun domain.');
+        $I->see('Aucun domaine.');
     }
 
     /**
@@ -89,7 +89,7 @@ class ManageProxyListCest
         $this->page = $this->page->dropItems();
         $list = $this->page->getListItems();
         $I->assertEmpty($list);
-        $I->see('Aucun url.');
+        $I->see('Aucune url.');
     }
 
     /**
@@ -102,7 +102,7 @@ class ManageProxyListCest
     {
         $list = $this->page->getListItems();
         $I->assertContains([
-                'domain' => 'minus-cortex.dev'
+                'domaine' => 'minus-cortex.dev'
             ],
             $list);
     }
@@ -132,7 +132,7 @@ class ManageProxyListCest
         $this->page = $this->page->addItem('kleis.app');
         $list = $this->page->getListItems();
         $I->assertContains([
-                'domain' => 'kleis.app'
+                'domaine' => 'kleis.app'
             ],
             $list);
     }
@@ -162,7 +162,7 @@ class ManageProxyListCest
     {
         $list = $this->page->getListItems();
         $I->assertContains([
-                'domain' => 'kleis.app'
+                'domaine' => 'kleis.app'
             ],
             $list);
         $this->page = $this->page
@@ -172,7 +172,7 @@ class ManageProxyListCest
         $I->dontSeeInField($classname::$objectsMap['fieldName'], 'kleis.local.app');
         $list = $this->page->getListItems();
         $I->assertContains([
-                'domain' => 'kleis.app'
+                'domaine' => 'kleis.app'
             ],
             $list);
         $this->page = $this->page
@@ -180,7 +180,7 @@ class ManageProxyListCest
             ->saveChanges();
         $list = $this->page->getListItems();
         $I->assertContains([
-                'domain' => 'kleis.local.app'
+                'domaine' => 'kleis.local.app'
             ],
             $list);
         $I->assertNotContains([
@@ -237,7 +237,7 @@ class ManageProxyListCest
         $this->page = $this->page->deleteItem('kleis.local.app');
         $list = $this->page->getListItems();
         $I->assertNotContains([
-                'domain' => 'kleis.local.app'
+                'domaine' => 'kleis.local.app'
             ],
             $list);
     }

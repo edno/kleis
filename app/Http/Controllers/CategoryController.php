@@ -23,7 +23,14 @@ class CategoryController extends Controller
         $results = $this->search($categories, $request->input('type'), $request->input('search'));
 
         if (false === is_null($results)) {
-            $request->session()->flash('results', "{$results} résultats trouvés");
+            $request->session()->flash(
+                'results',
+                trans_choice(
+                    'categories.message.search',
+                    $results,
+                    ['number' => $results]
+                )
+            );
             $request->session()->flash('search', $request->input('search'));
             $request->session()->flash('type', $request->input('type'));
         }
@@ -47,7 +54,10 @@ class CategoryController extends Controller
             $category->validity = $request->validity;
             $category->created_by = $request->user()->id;
             $category->save();
-            return redirect('categories')->with('status', "Catégorie '{$category->name}' ajoutée avec succès.");
+            return redirect()->back()->with(
+                'status',
+                trans('categories.message.add', ['category' => $category->name])
+            );
         }
     }
 
@@ -65,7 +75,10 @@ class CategoryController extends Controller
         $category->icon = $request->icon;
         $category->validity = $request->validity;
         $category->update();
-        return redirect()->back()->with('status', "Catégorie '{$category->name}' mise à jour.");
+        return redirect()->back()->with(
+            'status',
+            trans('categories.message.update', ['category' => $category->name])
+        );
     }
 
     public function removeCategory($id)
@@ -73,7 +86,10 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
         $name = $category->name;
         $category->delete();
-        return redirect()->back()->with('status', "Catégorie '{$name}' a été supprimée.");
+        return redirect()->back()->with(
+            'status',
+            trans('categories.message.delete', ['category' => $name])
+        );
     }
 
     public function purgeAccounts($id)
@@ -83,7 +99,10 @@ class CategoryController extends Controller
         if (count($accounts) > 0 ) {
             $accounts->delete();
         }
-        return redirect()->back()->with('status', "Délégation '{$category->name}': comptes inactifs supprimés.");
+        return redirect()->back()->with(
+            'status',
+            trans('categories.message.drop', ['category' => $category->name])
+        );
     }
 
     public function disableAccounts($id)
@@ -93,6 +112,9 @@ class CategoryController extends Controller
         foreach ($accounts as $account) {
             $account->disable();
         }
-        return redirect()->back()->with('status', "Délégation '{$category->name}': comptes désactivés.");
+        return redirect()->back()->with(
+            'status',
+            trans('categories.message.disable', ['category' => $category->name])
+        );
     }
 }

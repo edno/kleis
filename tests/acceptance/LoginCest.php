@@ -43,9 +43,9 @@ class LoginCest
      * @env appWeb,withRecords
      * @example { "login": "invalid@gmail.com", "pass": "admin", "message": "Ces informations ne correspondent pas à nos enregistrements." }
      * @example { "login": "admin@kleis.app", "pass": "invalid", "message": "Ces informations ne correspondent pas à nos enregistrements." }
-     * @example { "login": "admin@kleis.app", "pass": "", "message": "The password field is required." }
-     * @example { "login": "", "pass": "admin", "message": "The email field is required." }
-     * @example { "login": "", "pass": "", "message": "The email field is required." }
+     * @example { "login": "admin@kleis.app", "pass": "", "message": "Le champ password est obligatoire." }
+     * @example { "login": "", "pass": "admin", "message": "Le champ email est obligatoire." }
+     * @example { "login": "", "pass": "", "message": "Le champ email est obligatoire." }
      */
     public function loginWithInvalidCredentials(AcceptanceTester $I, \Codeception\Example $example)
     {
