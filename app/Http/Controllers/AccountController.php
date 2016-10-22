@@ -129,8 +129,10 @@ class AccountController extends Controller
         $account->firstname = ucwords($request->firstname);
         $account->lastname = ucwords($request->lastname);
         $account->category_id = $request->category;
-        if (empty($account->expire)) {
+        if (empty($request->expirydate)) {
             $account->expire = date_create('+90 day')->format('Y-m-d');
+        } else {
+            $account->expire = $request->expirydate;
         }
         $account->status = $request->status;
         $account->group_id = $request->group;
