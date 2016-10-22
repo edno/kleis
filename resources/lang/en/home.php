@@ -15,13 +15,13 @@ return [
     'permissions'  => [
                         'intro'       => '{1} As a :level for the group :group, you can
                                         |[2,Inf] As a :level, you can ',
-                        'accounts'    => 'Manage user <strong>accounts</strong> :context',
-                        'groups'      => 'Manage account <strong>groups</strong>',
-                        'categories'  => 'Manage account <strong>categories</strong>',
-                        'whitelist'   => 'Manage internet <strong>whitelists</strong>',
-                        'admin'       => 'Manage Kleis <strong>administrators</strong>',
+                        'accounts'    => 'manage user accounts :context',
+                        'groups'      => 'manage account <strong>groups</strong>',
+                        'categories'  => 'manage account <strong>categories</strong>',
+                        'whitelist'   => 'manage internet <strong>whitelists</strong>',
+                        'admin'       => 'manage Kleis <strong>administrators</strong>',
                       ],
-    'permissions.accounts.groups'     => "for the group|for all groups",
+    'permissions.accounts.groups'     => "for this group|for all groups",
     'info'         => [
                         'accounts'    => 'account|accounts',
                         'groups'      => 'group|groups',
