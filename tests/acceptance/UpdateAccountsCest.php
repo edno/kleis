@@ -1,6 +1,6 @@
 <?php
 
-class ExportAccountsCest
+class UpdateAccountsCest
 {
     protected static $command = 'php artisan update:accounts';
 
