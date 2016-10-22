@@ -37,10 +37,11 @@ return [
                                         'search'  => 'Search',
                                     ],
     'tooltip'                      => [
-                                        'copy'          => 'Copy to clipboard',
-                                        'copy-shortcut' => 'Copy with Ctrl-c',
-                                        'copied'        => 'Copied',
-                                        'search'        => 'Wildcards * and %',
+                                        'copy'           => 'Copy to clipboard',
+                                        'copy-shortcut'  => 'Copy with Ctrl-c',
+                                        'copied'         => 'Copied',
+                                        'search'         => 'Wildcards * and %',
+                                        'refresh-expire' => "Refresh expiry date",
                                     ],
     'message'                      => [
                                         'empty'    => [

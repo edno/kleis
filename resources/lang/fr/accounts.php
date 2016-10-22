@@ -37,10 +37,11 @@ return [
                                         'search'  => 'Rechercher',
                                     ],
     'tooltip'                      => [
-                                        'copy'          => 'Copier dans le presse-papier',
-                                        'copy-shortcut' => 'Copier avec Ctrl-c',
-                                        'copied'        => 'Copié',
-                                        'search'        => 'Jokers * et %',
+                                        'copy'           => 'Copier dans le presse-papier',
+                                        'copy-shortcut'  => 'Copier avec Ctrl-c',
+                                        'copied'         => 'Copié',
+                                        'search'         => 'Jokers * et %',
+                                        'refresh-expire' => "Rafraichir la date d'expiration",
                                     ],
     'message'                      => [
                                         'empty'    => [

@@ -156,7 +156,11 @@
                 <div class="col-md-6">
                     <select id="category" class="form-control" name="category" style="font-family:'FontAwesome', Arial;">
                         @foreach ($categories as $category)
-                            <option value="{{ $category->id }}" {{ ($account->category_id == $category->id) ? 'selected="true"' : null }}>{{ $category->name }}</option>
+                            <option
+                                value="{{ $category->id }}"
+                                validity="{{ $category->validity }}"
+                                {{ ($account->category_id == $category->id) ? 'selected="true"' : null }}
+                                >{{ $category->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -185,14 +189,54 @@
             <div class="form-group{{ $errors->has('expirydate') ? ' has-error' : '' }}">
                 <label for="expirydate" class="col-md-4 control-label">@lang('accounts.expirydate')</label>
                 <div class="col-md-6">
-                    <input type="date" id="expirydate" class="form-control" name="expirydate" min="{{ date_create('tomorrow')->format('Y-m-d') }}" max="{{ date_create('+1 year')->format('Y-m-d') }}" value="{{ empty($account->expire) ? date_create('+90 day')->format('Y-m-d') : $account->expire }}" {{ ($account->status == 0 && empty($account->id) === false) ? 'disabled="true"' : null }}">
-                    @if ($errors->has('expirydate'))
-                        <span class="help-block">
-                            <strong>{{ $errors->first('expirydate') }}</strong>
+                    <div class="input-group">
+                        <input
+                            type="date" id="expirydate"
+                            class="form-control"
+                            name="expirydate"
+                            min="{{ date_create('tomorrow')->format('Y-m-d') }}"
+                            max="{{ date_create('+1 year')->format('Y-m-d') }}"
+                            {{ ($account->status == 0 && empty($account->id) || (Auth::user()->level > 1) === false) ? 'disabled="true"' : null }}">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" id="validity-button"
+                                data-toggle="tooltip" data-placement="button"
+                                title="@lang('accounts.tooltip.refresh-expire')">
+                                <i class="fa fa-btn fa-refresh"></i>
+                            </button>
                         </span>
-                    @endif
+                        @if ($errors->has('expirydate'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('expirydate') }}</strong>
+                            </span>
+                        @endif
+                    </div>
                 </div>
             </div>
+            <script type="text/javascript" language="javascript">
+                document.addEventListener("DOMContentLoaded", function(event) {
+                    $('#validity-button').bind('click', function() {
+                        $('#expirydate').trigger('refresh');
+                    });
+
+                    $('#expirydate').bind('refresh', function(event) {
+                        var validity = $('#category option')
+                            .filter('[value=' + $('#category').val() + ']')
+                            .attr('validity');
+                        var today = new Date();
+                        var expire = new Date();
+                        expire.setDate(today.getDate() + parseInt(validity));
+                        $(this).val(
+                            expire.getFullYear() + '-' +
+                            ("0" + (expire.getMonth() + 1)).slice(-2) + '-' +
+                            ("0" + expire.getDate()).slice(-2)
+                        );
+                    });
+
+                    if($('#expirydate').val() == '') {
+                        $('#expirydate').trigger('refresh');
+                    }
+                });
+            </script>
 
             <div class="form-group hidden-print">
                 <label for="status" class="col-md-4 control-label">@lang('accounts.status')</label>
