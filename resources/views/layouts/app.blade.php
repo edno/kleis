@@ -85,7 +85,7 @@
         </div>
     </nav>
 
-    <div class="container">
+    <div class="content container">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 @yield('content')
@@ -93,7 +93,7 @@
         </div>
     </div>
 
-    <footer class="footer navbar-fixed-bottom">
+    <footer class="footer navbar-fixed-bottom hidden-print">
       <div class="container">
         <p class="text-muted">
             version 1.1
