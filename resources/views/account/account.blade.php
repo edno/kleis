@@ -60,7 +60,7 @@
                             <button class="btn btn-default" type="button" id="copy-button"
                                 data-toggle="tooltip" data-placement="button"
                                 title="@lang('accounts.tooltip.copy')">
-                                Copier
+                                @lang('accounts.actions.copy')
                             </button>
                         </span>
                     </div>
