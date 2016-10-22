@@ -39,13 +39,13 @@
                                     </ul>
                                 </div>
                                 <span class="search-box{{ session('results') ? '' : ' hidden' }}">
-                                    <input id="search" class="form-control" name="search" value="{{ session('search') }}" placeholder="@lang('users.wildcards')">
+                                    <input id="search" class="form-control" name="search" value="{{ session('search') }}" placeholder="@lang('users.tooltip.wildcards')">
                                 </span>
                                 <div id="search-button" class="search-button{{ session('results') ? ' input-group-btn' : '' }}">
                                     <a href="#" class="btn btn-default has-tooltip"
                                         data-toggle="tooltip"
                                         data-placement="bottom"
-                                        title="@lang('users.search')"
+                                        title="@lang('users.actions.search')"
                                         role="button">
                                         <i class="fa fa-search"></i>
                                     </a>
@@ -105,7 +105,7 @@
                                     <div><i class="fa {{ $user->getLevel()['icon'] }} has-tooltip"
                                         data-toggle="tooltip"
                                         data-placement="bottom"
-                                        title="{{ ucfirst($user->getLevel()['text']) }}"></i></div>
+                                        title="{{ ucfirst(trans_choice($user->getLevel()['text'], 1)) }}"></i></div>
                                 </td>
                                 <td class="table-text">
                                     <div>{{ $user->group ? $user->group->name : '&#9679;' }}</div>

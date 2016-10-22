@@ -61,7 +61,14 @@ class AccountController extends Controller
 
         // store search criteria
         if (false === is_null($results)) {
-            $request->session()->flash('results', "{$results} résultats trouvés");
+            $request->session()->flash(
+                'results',
+                trans_choice(
+                    'accounts.message.search',
+                    $results,
+                    ['number' => $results]
+                )
+            );
             $request->session()->flash('search', $request->input('search'));
             $request->session()->flash('type', $request->input('type'));
         }
@@ -129,7 +136,10 @@ class AccountController extends Controller
         $account->group_id = $request->group;
         $account->created_by = $request->user()->id;
         $account->save();
-        return redirect('accounts')->with('status', "Compte '{$account->netlogin}' ajouté avec succès.");
+        return redirect('accounts')->with(
+            'status',
+            trans('accounts.message.add', ['account' => $account->netlogin])
+        );
     }
 
     /**
@@ -160,7 +170,10 @@ class AccountController extends Controller
         $account->status = $request->status;
         $account->group_id = $request->group;
         $account->update();
-        return redirect('accounts')->with('status', "Compte '{$account->netlogin}' mis à jour avec succès.");
+        return redirect('accounts')->with(
+            'status',
+            trans('accounts.message.update', ['account' => $account->netlogin])
+        );
     }
 
     /**
@@ -173,7 +186,16 @@ class AccountController extends Controller
     {
         $account = Account::findOrFail($id);
         $account->enable();
-        return redirect()->back()->with('status', "Compte '{$account->netlogin}' est maintenant actif et expirera le {$account->expire}.");
+        return redirect()->back()->with(
+            'status',
+            trans(
+                'accounts.message.enable',
+                [
+                    'account' => $account->netlogin,
+                    'date'    => $account->expire
+                ]
+            )
+        );
     }
 
     /**
@@ -186,7 +208,10 @@ class AccountController extends Controller
     {
         $account = Account::findOrFail($id);
         $account->disable();
-        return redirect()->back()->with('status', "Compte '{$account->netlogin}' a été désactivé.");
+        return redirect()->back()->with(
+            'status',
+            trans('accounts.message.disable', ['account' => $account->netlogin])
+        );
     }
 
     /**
@@ -200,6 +225,9 @@ class AccountController extends Controller
         $account = Account::findOrFail($id);
         $netlogin = $account->netlogin;
         $account->delete();
-        return redirect()->back()->with('status', "Compte '{$netlogin}' a été supprimé.");
+        return redirect()->back()->with(
+            'status',
+            trans('accounts.message.delete', ['account' => $netlogin])
+        );
     }
 }

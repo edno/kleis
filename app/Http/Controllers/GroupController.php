@@ -28,7 +28,14 @@ class GroupController extends Controller
         $results = $this->search($groups, $request->input('type'), $request->input('search'));
 
         if (false === is_null($results)) {
-            $request->session()->flash('results', "{$results} résultats trouvés");
+            $request->session()->flash(
+                'results',
+                trans_choice(
+                    'groups.message.search',
+                    $results,
+                    ['number' => $results]
+                )
+            );
             $request->session()->flash('search', $request->input('search'));
             $request->session()->flash('type', $request->input('type'));
         }
@@ -49,7 +56,10 @@ class GroupController extends Controller
             $group->name = $request->name;
             $group->created_by = $request->user()->id;
             $group->save();
-            return redirect('groups')->with('status', "Délégation '{$group->name}' ajoutée avec succès.");
+            return redirect()->back()->with(
+                'status',
+                trans('groups.message.add', ['group' => $group->name])
+            );
         }
     }
 
@@ -63,7 +73,16 @@ class GroupController extends Controller
         $name = $group->name;
         $group->name = $request->name;
         $group->update();
-        return redirect()->back()->with('status', "Délégation '{$name}' renommée en '{$group->name}'.");
+        return redirect()->back()->with(
+            'status',
+            trans(
+                'groups.message.update',
+                [
+                    'old'   => $name,
+                    'group' => $group->name,
+                ]
+            )
+        );
     }
 
     public function removeGroup($id)
@@ -71,7 +90,10 @@ class GroupController extends Controller
         $group = Group::findOrFail($id);
         $name = $group->name;
         $group->delete();
-        return redirect()->back()->with('status', "Délégation '{$name}' a été supprimée.");
+        return redirect()->back()->with(
+            'status',
+            trans('groups.message.delete', ['group' => $name])
+        );
     }
 
     public function purgeAccounts($id)
@@ -81,7 +103,10 @@ class GroupController extends Controller
         if (count($accounts) > 0 ) {
             $accounts->delete();
         }
-        return redirect()->back()->with('status', "Délégation '{$group->name}': comptes inactifs supprimés.");
+        return redirect()->back()->with(
+            'status',
+            trans('groups.message.drop', ['group' => $group->name])
+        );
     }
 
     public function disableAccounts($id)
@@ -91,6 +116,9 @@ class GroupController extends Controller
         foreach ($accounts as $account) {
             $account->disable();
         }
-        return redirect()->back()->with('status', "Délégation '{$group->name}': comptes désactivés.");
+        return redirect()->back()->with(
+            'status',
+            trans('groups.message.disable', ['group' => $group->name])
+        );
     }
 }

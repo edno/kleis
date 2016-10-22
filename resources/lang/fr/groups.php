@@ -31,6 +31,12 @@ return [
                         ],
     'message'       => [
                         'empty' => 'Aucun groupe',
+                        'search' => '{0} Aucun groupe trouv&eacute;e|{1} :number groupe trouv&eacute;|[2,Inf] :number groupes trouv&eacute;s',
+                        'add'      => "':group' ajout&eacute; avec succ&egrave;s.",
+                        'update'   => "':old' renomm&eacute; en ':group'.",
+                        'drop'   => "Comptes ':group' inactifs supprimés.",
+                        'disable'  => "Comptes ':group' ont &eacute;t&eacute; d&eacute;sactiv&eacute;s.",
+                        'delete'   => "':group' a &eacute;t&eacute; supprim&eacute;.",
                         ],
 
 ];

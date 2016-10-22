@@ -154,7 +154,7 @@
                                     <div><i class="fa {{ $account->getStatus()['icon'] }} has-tooltip"
                                         data-toggle="tooltip"
                                         data-placement="bottom"
-                                        title="{{ ucfirst($account->getStatus()['text']) }}"></i></div>
+                                        title="{{ ucfirst(trans($account->getStatus()['text'])) }}"></i></div>
                                 </td>
                                 <td class="align-right col-xs-2">
                                     <div class="btn-toolbar">

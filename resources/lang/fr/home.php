@@ -27,6 +27,8 @@ return [
                         'groups'      => 'groupe|groupes',
                         'items'       => 'r&eacute;f&eacute;rence|r&eacute;f&eacute;rences',
                         'admin'       => 'administrateur|administrateurs',
+                        'domains'     => 'domaine|domaines',
+                        'urls'        => 'url|urls',
                        ],
     'info.items.whitelist'            => 'en liste blanche',
 ];

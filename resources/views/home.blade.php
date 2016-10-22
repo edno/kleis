@@ -6,7 +6,7 @@
         <div class="panel-heading">@lang('home.section.permissions', ['user' => Auth::user()->firstname])</div>
 
         <div class="panel-body">
-            {{ trans_choice('home.permissions.intro', Auth::user()->level, ['level' => Auth::user()->getLevel()['text'], 'group' => Auth::user()->group ? Auth::user()->group->name : '']) }}
+            {{ trans_choice('home.permissions.intro', Auth::user()->level, ['level' => trans_choice(Auth::user()->getLevel()['text'], 1), 'group' => Auth::user()->group ? Auth::user()->group->name : '']) }}
             @unless (Auth::user()->level >= 5)
                 {{ trans('home.permissions.accounts', ['context' => trans_choice('home.permissions.accounts.groups', Auth::user()->level)]) }}.
             @endunless
@@ -71,7 +71,7 @@
                         {{ $items['total'] }} {{ trans_choice('home.info.items', $items['total']) }} @lang('home.info.items.whitelist')
                         <ul class="list-unstyled small">
                             @foreach ($items['summary'] as $item)
-                                <li><strong>{{ $item['count'] }}</strong> {{ $item['text'] }}</li>
+                                <li><strong>{{ $item['count'] }}</strong> {{ trans_choice('home.info.'.$item['text'], $item['count']) }}</li>
                             @endforeach
                         </ul>
                     </blockquote>
@@ -85,7 +85,7 @@
                         {{ $users['total'] }} {{ trans_choice('home.info.admin', $users['total']) }}
                         <ul class="list-unstyled small">
                             @foreach ($users['summary'] as $item)
-                                <li><strong>{{ $item['count'] }}</strong> {{ $item['text'] }}</li>
+                                <li><strong>{{ $item['count'] }}</strong> {{ trans_choice($item['text'], $item['count']) }}</li>
                             @endforeach
                         </ul>
                     </blockquote>

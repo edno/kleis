@@ -139,7 +139,7 @@
                     <select id="level" class="form-control" name="level" style="font-family:'FontAwesome', Arial;">
                         @foreach(App\User::USER_LEVEL as $key => $level)
                             @if (Auth::user()->level >= $key)
-                                <option value="{{ $key }}" {{ ($user->level == $key || old('level') == $key) ? 'selected="true"' : null }}>{{ ucfirst($level['unicon']) }} {{ ucfirst($level['text']) }}</option>
+                                <option value="{{ $key }}" {{ ($user->level == $key || old('level') == $key) ? 'selected="true"' : null }}>{{ ucfirst($level['unicon']) }} {{ ucfirst(trans_choice($level['text'], 1)) }}</option>
                             @endif
                         @endforeach
                     </select>

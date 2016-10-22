@@ -23,7 +23,7 @@
                 {{ csrf_field() }}
                 <div class="col-lg-12">
                     <div class="input-group">
-                        <input type="text" class="form-control" name="name" id="groupname" placeholder="Nom de la d&eacute;l&eacute;gation">
+                        <input type="text" class="form-control" name="name" id="groupname" placeholder="@lang('groups.tooltip.group')">
                         <span class="input-group-btn">
                             <button type="submit" class="btn btn-default hidden" type="button" id="button-save">
                                 <i class="fa fa-save"></i> @lang('groups.actions.save')

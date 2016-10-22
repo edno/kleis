@@ -7,25 +7,25 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     const USER_STATUS = [
-        0 => [  'text' => 'inactif',
+        0 => [  'text' => 'users.disabled',
                 'icon' => '',
                 'unicon' => '' ],
-        1 => [  'text' => 'actif',
+        1 => [  'text' => 'users.enabled',
                 'icon' => 'fa-check',
                 'unicon' => '&#xf00c;' ]
     ];
 
     const USER_LEVEL = [
-        1 => [  'text' => 'gestionnaire local',
+        1 => [  'text' => 'users.access.local',
                 'icon' => 'fa-support',
                 'unicon' => '&#xf1cd;' ],
-        3 => [  'text' => 'gestionnaire global',
+        3 => [  'text' => 'users.access.global',
                 'icon' => 'fa-globe',
                 'unicon' => '&#xf0ac;' ],
-        5 => [  'text' => 'administrateur',
+        5 => [  'text' => 'users.access.admin',
                 'icon' => 'fa-shield',
                 'unicon' => '&#xf132;' ],
-        9 => [  'text' => 'super administrateur',
+        9 => [  'text' => 'users.access.super',
                 'icon' => 'fa-rocket',
                 'unicon' => '&#xf135;' ],
     ];

@@ -30,7 +30,14 @@ class AdminController extends Controller
         $results = $this->search($users, $request->input('type'), $request->input('search'));
 
         if (false === is_null($results)) {
-            $request->session()->flash('results', "{$results} résultats trouvés");
+            $request->session()->flash(
+                'results',
+                trans_choice(
+                    'users.message.search',
+                    $results,
+                    ['number' => $results]
+                )
+            );
             $request->session()->flash('search', $request->input('search'));
             $request->session()->flash('type', $request->input('type'));
         }
@@ -96,7 +103,10 @@ class AdminController extends Controller
         }
         $user->created_by = $request->user()->id;
         $user->save();
-        return redirect('administrators')->with('status', "'{$user->email}' ajouté avec succès.");
+        return redirect('administrators')->with(
+            'status',
+            trans('users.message.add', ['user' => $user->email])
+        );
     }
 
     /**
@@ -147,7 +157,10 @@ class AdminController extends Controller
             $redirect = 'administrators';
         }
 
-        return redirect($redirect)->with('status', "'{$user->email}' mis à jour avec succès.");
+        return redirect($redirect)->with(
+            'status',
+            trans('users.message.update', ['user' => $user->email])
+        );
     }
 
     /**
@@ -161,7 +174,10 @@ class AdminController extends Controller
         $user = User::findOrFail($id);
         $user->status = 1;
         $user->update();
-        return redirect()->back()->with('status', "'{$user->email}' est maintenant actif.");
+        return redirect()->back()->with(
+            'status',
+            trans('users.message.enable', ['user' => $user->email])
+        );
     }
 
     /**
@@ -175,7 +191,10 @@ class AdminController extends Controller
         $user = User::findOrFail($id);
         $user->status = 0;
         $user->update();
-        return redirect()->back()->with('status', "'{$user->email}' a été désactivé.");
+        return redirect()->back()->with(
+            'status',
+            trans('users.message.disable', ['user' => $user->email])
+        );
     }
 
     /**
@@ -189,6 +208,9 @@ class AdminController extends Controller
         $user = User::findOrFail($id);
         $email = $user->email;
         $user->delete();
-        return redirect()->back()->with('status', "'{$email}' a été supprimé.");
+        return redirect()->back()->with(
+            'status',
+            trans('users.message.delete', ['user' => $email])
+        );
     }
 }

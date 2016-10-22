@@ -27,9 +27,14 @@ return [
                         ],
     'message'       => [
                         'empty' => [
-                                    'url' => 'Aucune URL',
+                                    'url'    => 'Aucune URL',
                                     'domain' => 'Aucun domaine',
                                     ],
+                        'search' => '{0} Aucun r&eacute;sultat trouv&eacute;e|{1} :number r&eacute;sultat trouv&eacute;|[2,Inf] :number r&eacute;sultats trouv&eacute;s',
+                        'add'    => ':Type ajout&eacute; avec succ&egrave;s.',
+                        'update' => ':Type mis &agrave; jour avec succ&egrave;s.',
+                        'drop'   => "Liste :type a &eacute;t&eacute; vid&eacute;e.",
+                        'delete' => ":Type ':value' a &eacute;t&eacute; supprim&eacute;.",
                         ],
 
 ];

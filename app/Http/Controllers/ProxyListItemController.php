@@ -28,7 +28,14 @@ class ProxyListItemController extends Controller
         $results = $this->search($items, 'value', $request->input('search'));
 
         if (false === is_null($results)) {
-            $request->session()->flash('results', "{$results} résultats trouvés");
+            $request->session()->flash(
+                'results',
+                trans_choice(
+                    'proxylist.message.search',
+                    $results,
+                    ['number' => $results]
+                )
+            );
             $request->session()->flash('search', $request->input('search'));
             $request->session()->flash('type', $request->input('type'));
         }
@@ -52,7 +59,10 @@ class ProxyListItemController extends Controller
             $item->whitelist = true;
             $item->created_by = $request->user()->id;
             $item->save();
-            return redirect("whitelist/{$type}s")->with('status', ucfirst("{$type} ajouté avec succès."));
+            return redirect()->back()->with(
+                'status',
+                trans('proxylist.message.add', ['type' => trans_choice("proxylist.{$type}", 1)])
+            );
         }
     }
 
@@ -66,7 +76,10 @@ class ProxyListItemController extends Controller
         $item = ProxyListItem::findOrFail($id);
         $item->value = $request->value;
         $item->update();
-        return redirect("whitelist/{$type}s")->with('status', ucfirst("{$type} mis à jour avec succès."));
+        return redirect()->back()->with(
+            'status',
+            trans('proxylist.message.update', ['type' => trans_choice("proxylist.{$type}", 1)])
+        );
     }
 
     public function removeItem($type, $id)
@@ -74,13 +87,25 @@ class ProxyListItemController extends Controller
         $item = ProxyListItem::findOrFail($id);
         $value = $item->value;
         $item->delete();
-        return redirect("whitelist/{$type}s")->with('status', ucfirst("{$type} '{$value}' a été supprimé."));
+        return redirect()->back()->with(
+            'status',
+            trans(
+                'proxylist.message.delete',
+                [
+                    'type'  => trans_choice("proxylist.{$type}", 1),
+                    'value' => $value,
+                ]
+            )
+        );
     }
 
     public function clearList($type)
     {
         $items = ProxyListItem::where('type', $type);
         $items->delete();
-        return redirect("whitelist/{$type}s")->with('status', ucfirst("Liste '{$type}' a été vidée."));
+        return redirect()->back()->with(
+            'status',
+            trans('proxylist.message.drop', ['type' => trans_choice("proxylist.{$type}", 1)])
+        );
     }
 }
