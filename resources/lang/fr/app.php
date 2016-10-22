@@ -19,5 +19,5 @@ return [
     'administrators'    => 'Administrateurs',
     'profile'           => 'Mon compte',
     'logout'            => 'D&eacute;connexion',
-    'error'             => 'Oups! Un probl&egrave;me est survenu!' //Whoops! Something went wrong!
+    'error'             => 'Oups! Un probl&egrave;me est survenu!'
 ];
