@@ -81,7 +81,13 @@ class Laravel5Extension extends \Codeception\Module
     {
         $query = $this->app['db']->table($table);
         foreach ($attributes as $key => $value) {
-            $query->where($key, $value);
+            if (is_array($value)) {
+                list($constraint, $value) = $value;
+                $query->where($key, $constraint, $value);
+            }
+            else {
+                $query->where($key, $value);
+            }
         }
 
         return (array) $query->get();
