@@ -195,7 +195,8 @@
                             class="form-control"
                             name="expirydate"
                             min="{{ date_create('tomorrow')->format('Y-m-d') }}"
-                            {{ ($account->status == 0 && empty($account->id) || (Auth::user()->level > 1) === false) ? 'disabled="true"' : null }}">
+                            value=""
+                            {{ ($account->status == 0 && empty($account->id) || (Auth::user()->level > 1) === false) ? 'readonly="true"' : null }}">
                         <span class="input-group-btn">
                             <button class="btn btn-default" type="button" id="validity-button"
                                 data-toggle="tooltip" data-placement="button"
@@ -203,12 +204,12 @@
                                 <i class="fa fa-btn fa-refresh"></i>
                             </button>
                         </span>
-                        @if ($errors->has('expirydate'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('expirydate') }}</strong>
-                            </span>
-                        @endif
                     </div>
+                    @if ($errors->has('expirydate'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('expirydate') }}</strong>
+                        </span>
+                    @endif
                 </div>
             </div>
             <script type="text/javascript" language="javascript">
