@@ -32,10 +32,12 @@
 
                 <!-- Branding Image -->
                 @if (Auth::user())
-                    <a class="navbar-brand" href="{{ url('/home') }}">Kleis</a>
+                    <a class="navbar-brand" href="{{ url('/home') }}">
                 @else
-                    <a class="navbar-brand" href="{{ url('/') }}">Kleis</a>
+                    <a class="navbar-brand" href="{{ url('/') }}">
+                    <!-- <a class="navbar-brand" href="{{ url('/') }}">Kleis</a> -->
                 @endif
+                    <span><img src="images/kleis.png" alt="Kleis" style="max-height:20px;vertical-align:middle;position:relative;top:-2px;">le&#720;s<span></a>
             </div>
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
