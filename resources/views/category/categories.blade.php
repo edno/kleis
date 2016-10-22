@@ -57,7 +57,7 @@
                                         data-placement="bottom"
                                         title="@lang('categories.validity')"
                                         value="90"/>
-                                    <span class="input-group-addon">{{ trans_choice('categories.days', 90, ['number' => 90]) }}</span>
+                                    <span class="input-group-addon">{{ trans_choice('categories.days', 90, ['number' => '']) }}</span>
                                     </div>
                                 </div>
                             </div>
