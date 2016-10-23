@@ -11,6 +11,7 @@ return [
     'section'      => [
                         'permissions' => 'Welcom :User',
                         'info'        => 'Information',
+                        'announce'    => 'Announce',
                       ],
     'permissions'  => [
                         'intro'       => '{1} As a :level for the group :group, you can

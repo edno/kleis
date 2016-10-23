@@ -11,6 +11,7 @@ return [
     'section'      => [
                         'permissions' => 'Bienvenue :User',
                         'info'        => 'Informations',
+                        'announce'    => 'Annonce',
                       ],
     'permissions'  => [
                         'intro'       => '{1} En tant que :level de la d&eacute;l&eacute;gation :group, vous pouvez

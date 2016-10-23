@@ -29,6 +29,15 @@
         </div>
     </div>
 
+    @if ($announce)
+    <div class="panel panel-default">
+        <div class="panel-heading">@lang('home.section.announce')</div>
+        <div class="panel-body">
+            {!! $announce !!}
+        </div>
+    </div>
+    @endif
+
     <div class="panel panel-default">
         <div class="panel-heading">@lang('home.section.info')</div>
 

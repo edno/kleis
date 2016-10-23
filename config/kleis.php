@@ -22,4 +22,15 @@ return [
     |
     */
     'logo_org' => env('KLEIS_LOGO_ORG', 'null'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Homepage Announce
+    |--------------------------------------------------------------------------
+    |
+    | This value determines the "company logo" to display on pages
+    | Set this in your ".env" file.
+    |
+    */
+    'announce' => env('KLEIS_ANNOUNCE', ''),
 ];
