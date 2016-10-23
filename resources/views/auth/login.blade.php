@@ -58,8 +58,8 @@
         </div>
     </div>
 
-    @if (View::exists('auth.legal.'.App::getLocale()))
-        @include('auth.legal.'.App::getLocale())
+    @if (View::exists('auth.legal.'.config('kleis.legal_notice')))
+        @include('auth.legal.'.config('kleis.legal_notice'))
     @endif
-    
+
 @endsection
