@@ -83,6 +83,11 @@
                 </ul>
             </div>
         </div>
+        @if (file_exists(public_path('images/'.config('kleis.logo_org')) ))
+        <div class="logo-brand">
+            <img src="{{ '/images/'.config('kleis.logo_org') }}" style="max-height:40px;">
+        </div>
+        @endif
     </nav>
 
     <div class="content container">

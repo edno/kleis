@@ -29,3 +29,9 @@ body {
   font-size: 8pt;
   text-align: center;
 }
+
+.logo-brand {
+    position: absolute;
+    left: 5px;
+    top: 5px;
+}
