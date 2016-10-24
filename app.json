@@ -1,0 +1,15 @@
+{
+  "name": "Kleis",
+  "description": "Simplified SquidGuard web frontend",
+  "keywords": [
+    "productivity",
+    "SquidGuard"
+  ],
+  "repository": "https://github.com/edno/kleis",
+  "logo": "https://raw.githubusercontent.com/edno/kleis/master/public/images/kleis.png",
+  "success_url": "/",
+  "scripts": {
+    "postdeploy": "php artisan migrate:refresh --seed"
+  },
+  "image": "heroku/ruby"
+}
