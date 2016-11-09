@@ -171,7 +171,7 @@
             <div class="form-group">
                 <label for="level" class="col-md-4 control-label">@lang('users.level')</label>
                 <div class="col-md-6">
-                    <input class="form-control" value="{{ ucfirst($user->getLevel()['text']) }}" disabled="true">
+                    <input class="form-control" value="{{ ucfirst(trans_choice($level['text'], 1)) }}" disabled="true">
                 </div>
             </div>
             @endif
