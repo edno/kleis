@@ -16,3 +16,5 @@ codecept
 *.yml
 !*.dist.yml
 !.travis.yml
+/nbproject
+*.log

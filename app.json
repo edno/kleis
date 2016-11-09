@@ -10,6 +10,5 @@
   "success_url": "/",
   "scripts": {
     "postdeploy": "php artisan migrate:refresh --seed"
-  },
-  "image": "heroku/ruby"
+  }
 }
