@@ -9,7 +9,7 @@ sudo: true
 branches:
   only:
   - master
-  - testing
+  - develop
 
 before_script:
   # setup database
