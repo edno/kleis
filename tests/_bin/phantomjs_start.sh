@@ -2,6 +2,9 @@
 
 echo "PhantomJS (`phantomjs -v`)"
 
-phantomjs --webdriver=4444 >/dev/null &
+if ! pgrep "phantomjs" > /dev/null 2>&1
+then
+    phantomjs --webdriver=4444 >/dev/null &
+fi
 
 sleep 5
