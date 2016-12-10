@@ -154,7 +154,7 @@ return [
          * Package Service Providers...
          */
         GrahamCampbell\Markdown\MarkdownServiceProvider::class,
-
+        RachidLaasri\LaravelInstaller\Providers\LaravelInstallerServiceProvider::class,
 
         /*
          * Application Service Providers...
