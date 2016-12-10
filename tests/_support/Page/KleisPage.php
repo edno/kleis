@@ -42,9 +42,4 @@ class KleisPage
         $this->tester->click("Déconnexion");
         return new WelcomePage($this->tester);
     }
-
-    public function openProfile()
-    {
-        return new ProfilePage($this->tester);
-    }
 }

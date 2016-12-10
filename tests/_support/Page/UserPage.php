@@ -12,14 +12,14 @@ class UserPage extends KleisPage
     }
 
     protected $fields = [
-        'email' => "//input[@id=//label[text()='Email']/@for]",
-        'password' => "//input[@id=//label[text()='Mot de passe']/@for]",
+        'email'     => "//input[@id=//label[text()='Email']/@for]",
+        'password'  => "//input[@id=//label[text()='Mot de passe']/@for]",
         'password2' => "//input[@id=//label[text()='Confirmation']/@for]",
         'firstname' => "//input[@id=//label[text()='Prénom']/@for]",
-        'lastname' => "//input[@id=//label[text()='Nom']/@for]",
-        'level' => "//select[@id=//label[text()='Niveau']/@for]",
-        'group' => "//select[@id=//label[text()='Groupe']/@for]",
-        'status' => "//select[@id=//label[text()='Statut']/@for]",
+        'lastname'  => "//input[@id=//label[text()='Nom']/@for]",
+        'level'     => "//select[@id=//label[text()='Niveau']/@for]",
+        'group'     => "//select[@id=//label[text()='Groupe']/@for]",
+        'status'    => "//select[@id=//label[text()='Statut']/@for]",
     ];
 
     public function setDetails($details)

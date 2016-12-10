@@ -171,7 +171,7 @@
             <div class="form-group">
                 <label for="level" class="col-md-4 control-label">@lang('users.level')</label>
                 <div class="col-md-6">
-                    <input class="form-control" value="{{ ucfirst(trans_choice($level['text'], 1)) }}" disabled="true">
+                    <input id="level" class="form-control" value="{{ ucfirst(trans_choice($user->getLevel()['text'], 1)) }}" disabled="true">
                 </div>
             </div>
             @endif
@@ -194,9 +194,9 @@
             </div>
             @else
             <div class="form-group">
-                <label for="level" class="col-md-4 control-label">@lang('users.group')</label>
+                <label for="group" class="col-md-4 control-label">@lang('users.group')</label>
                 <div class="col-md-6">
-                    <input class="form-control" value="{{ $user->group ? $user->group->name : '&#9679;' }}" disabled="true">
+                    <input id="group" class="form-control" value="{{ $user->group ? $user->group->name : '&#9679;' }}" disabled="true">
                 </div>
             </div>
             @endif
@@ -223,7 +223,7 @@
                             <i class="fa fa-btn fa-key"></i> @lang('users.actions.reset')
                         </a>
                     @endif
-                    <a href="{{ (Auth::user()->id == $user->id  && Request::url() == url('/profile')) ? '/home' : '/administrators' }}" class="btn" type="button">
+                    <a href="{{ (Auth::user()->id == $user->id && Request::url() == url('/profile')) ? '/home' : '/administrators' }}" class="btn" type="button">
                         <i class="fa fa-btn fa-undo"></i> @lang('users.actions.cancel')
                     </a>
                 </div>
