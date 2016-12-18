@@ -38,6 +38,10 @@ elixir(function(mix) {
         'resources/assets/css/kleis.css'
     ], 'public/css');
 
+    mix.styles([
+        'resources/assets/css/installer.css'
+    ], 'public/installer/css/installer.css');
+
     mix.copy([
         'resources/assets/bower/bootstrap-iconpicker/bootstrap-iconpicker/css/bootstrap-iconpicker.min.css',
     ], 'public/css/vendor');

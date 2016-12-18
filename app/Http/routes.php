@@ -11,7 +11,7 @@
 |
 */
 
-Route::group(['middleware' => 'install'], function () {
+Route::group(['middleware' => 'installed'], function () {
 
     Route::get('/', function () {
         return view('welcome');
@@ -67,5 +67,73 @@ Route::group(['middleware' => 'install'], function () {
     Route::post('whitelist/{type}/{id}', 'ProxyListItemController@updateItem');
     Route::get('whitelist/{type}/{id}/delete', 'ProxyListItemController@removeItem');
     Route::get('whitelist/{type}s/clear', 'ProxyListItemController@clearList');
-    
+
+});
+
+Route::group(['prefix' => 'install', 'as' => 'KleisInstaller::'], function()
+{
+    Route::get('/', [
+        'as' => 'stepWelcome',
+        'uses' => 'InstallerController@stepWelcome'
+    ]);
+
+    Route::get('application', [
+        'as' => 'stepApplication',
+        'uses' => 'InstallerController@stepApplication'
+    ]);
+
+    Route::post('application/save', [
+        'as' => 'saveApplication',
+        'uses' => 'InstallerController@stepStoreApp'
+    ]);
+
+    Route::get('database', [
+        'as' => 'stepDatabase',
+        'uses' => 'InstallerController@stepDatabase'
+    ]);
+
+    Route::get('customization', [
+        'as' => 'stepCustomization',
+        'uses' => 'InstallerController@stepCustomization'
+    ]);
+
+    Route::post('customization/save', [
+        'as' => 'saveCustomization',
+        'uses' => 'InstallerController@stepStoreCusto'
+    ]);
+
+    Route::post('database/save', [
+        'as' => 'saveDatabase',
+        'uses' => 'InstallerController@stepStoreDb'
+    ]);
+
+    Route::get('environment', [
+        'as' => 'stepEnvironment',
+        'uses' => 'InstallerController@stepEnvironment'
+    ]);
+
+    Route::post('environment/save', [
+        'as' => 'saveEnvironment',
+        'uses' => 'InstallerController@stepSaveEnv'
+    ]);
+
+    Route::get('requirements', [
+        'as' => 'stepRequirements',
+        'uses' => 'InstallerController@stepRequirements'
+    ]);
+
+    Route::get('permissions', [
+        'as' => 'stepPermissions',
+        'uses' => 'InstallerController@stepPermissions'
+    ]);
+
+    Route::get('migration', [
+        'as' => 'stepMigrate',
+        'uses' => 'InstallerController@stepMigrate'
+    ]);
+
+    Route::get('final', [
+        'as' => 'stepFinal',
+        'uses' => 'InstallerController@stepFinish'
+    ]);
 });

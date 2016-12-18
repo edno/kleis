@@ -4,9 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
-use RachidLaasri\LaravelInstaller\Middleware\canInstall as canInstall;
+use App\Http\Middleware\RedirectIfInstalled;
 
-class RedirectIfNotInstalled extends canInstall
+class RedirectIfNotInstalled extends RedirectIfInstalled
 {
     /**
      * Handle an incoming request.
@@ -18,7 +18,7 @@ class RedirectIfNotInstalled extends canInstall
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if (!$this->alreadyInstalled()) {
+        if (!$this->alreadyInstalled() && config('kleis.installer')) {
             return redirect('/install');
         }
 

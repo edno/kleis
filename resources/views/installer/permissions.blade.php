@@ -1,6 +1,6 @@
-@extends('vendor.installer.layouts.master')
+@extends('installer.layouts.master')
 
-@section('title', trans('messages.permissions.title'))
+@section('title', trans('installer.permissions.title'))
 @section('container')
     <ul class="list">
         @foreach($permissions['permissions'] as $permission)
@@ -12,11 +12,11 @@
 
     @if ( ! isset($permissions['errors']))
         <div class="buttons">
-            <a class="button" href="{{ route('LaravelInstaller::requirements') }}">
-                {{ trans('messages.previous') }}
+            <a class="button" href="{{ route('KleisInstaller::stepRequirements') }}">
+                {{ trans('installer.previous') }}
             </a>
-            <a class="button" href="{{ route('LaravelInstaller::database') }}">
-                {{ trans('messages.finish') }}
+            <a class="button" href="{{ route('KleisInstaller::stepMigrate') }}">
+                {{ trans('installer.finish') }}
             </a>
         </div>
     @endif
