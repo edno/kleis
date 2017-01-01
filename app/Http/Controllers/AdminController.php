@@ -147,7 +147,9 @@ class AdminController extends Controller
             $user->group_id = 0;
         }
 
-        $user->status = $request->status;
+        if ($request->has('status')) {
+            $user->status = $request->status;
+        }
 
         $user->update();
 
