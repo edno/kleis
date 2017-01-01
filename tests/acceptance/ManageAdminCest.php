@@ -157,6 +157,21 @@ class ManageAdminCest
             $list);
     }
 
+
+    /**
+     * @env appWeb,withRecords
+     * @depends canEditAdministrator
+     */
+    public function canUpdatePassword(\AcceptanceTester $I)
+    {
+        $newPassword = 'canUpdatePassword';
+        $account = 'codecept@kleis.app';
+        $this->page = $this->page
+                    ->editAdministrator($account)
+                    ->changePassword($newPassword);
+        $I->see("'{$account}' mis à jour avec succès.");
+    }
+
     /**
      * @env appWeb,withRecords
      * @group superadmin

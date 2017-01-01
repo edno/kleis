@@ -54,7 +54,6 @@ class AccountPage extends KleisPage
     public function save()
     {
         $this->tester->click(static::$objectsMap['buttonSave']);
-        return new AccountsPage($this->tester);
         $page = $this->tester->grabFromCurrentUrl('~/([A-z]*)/?.*~');
         $class = 'Page\\'.ucFirst($page).'Page';
         return new $class($this->tester);

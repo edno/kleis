@@ -35,7 +35,7 @@ class LoginCest
     {
         $this->page->login('admin@kleis.app', 'admin');
         $I->see('Bienvenue Super Admin');
-        $this->page->logout();
+        $this->page->logout('Super Admin');
         $I->dontSee('Bienvenue Super Admin');
     }
 
