@@ -155,7 +155,6 @@ return [
          */
         GrahamCampbell\Markdown\MarkdownServiceProvider::class,
 
-
         /*
          * Application Service Providers...
          */

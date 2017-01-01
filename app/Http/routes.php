@@ -11,57 +11,129 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['middleware' => 'installed'], function () {
+
+    Route::get('/', function () {
+        return view('welcome');
+    });
+
+    Route::auth();
+
+    // home
+    Route::get('/home', 'HomeController@index');
+
+    // Accounts
+    Route::get('/accounts', 'AccountController@showAccounts');
+    Route::post('/account', 'AccountController@addAccount');
+    Route::get('/account/{id}', 'AccountController@editAccount');
+    Route::get('/account', 'AccountController@editAccount');
+    Route::post('/account/{id}', 'AccountController@updateAccount');
+    Route::get('/account/{id}/enable', 'AccountController@enableAccount');
+    Route::get('/account/{id}/disable', 'AccountController@disableAccount');
+    Route::get('/account/{id}/delete', 'AccountController@removeAccount');
+    Route::get('/accounts/category/{category_id}', 'AccountController@showAccounts');
+
+    // Groups (accounts)
+    Route::get('/groups', 'GroupController@showGroups');
+    Route::post('/groups', 'GroupController@addGroup');
+    Route::get('/group/{id}/delete', 'GroupController@removeGroup');
+    Route::get('/group/{id}/purge', 'GroupController@purgeAccounts');
+    Route::get('/group/{id}/disable', 'GroupController@disableAccounts');
+    Route::get('/group/{group_id}/accounts', 'AccountController@showAccounts');
+    Route::get('/group/{group_id}/accounts/category/{category_id}', 'AccountController@showAccounts');
+
+    // Categories (accounts)
+    Route::get('/categories', 'CategoryController@showCategories');
+    Route::post('/categories', 'CategoryController@addCategory');
+    Route::get('/category/{id}/delete', 'CategoryController@removeCategory');
+    Route::get('/category/{id}/purge', 'CategoryController@purgeAccounts');
+    Route::get('/category/{id}/disable', 'CategoryController@disableAccounts');
+
+    // Users (app administrators)
+    Route::get('/administrators', 'AdminController@showUsers');
+    Route::get('/user', 'AdminController@newUser');
+    Route::get('/user/{id}', 'AdminController@editUser');
+    Route::post('/user', 'AdminController@addUser');
+    Route::post('/user/{id}', 'AdminController@updateUser');
+    Route::get('/user/{id}/enable', 'AdminController@enableUser');
+    Route::get('/user/{id}/disable', 'AdminController@disableUser');
+    Route::get('/user/{id}/delete', 'AdminController@removeUser');
+    Route::get('/profile', 'UserController@showProfile');
+    Route::post('/profile', 'AdminController@updateUser');
+
+    // Whitelists
+    Route::get('whitelist/{type}s', 'ProxyListItemController@showList');
+    Route::post('whitelist/{type}', 'ProxyListItemController@addItem');
+    Route::post('whitelist/{type}/{id}', 'ProxyListItemController@updateItem');
+    Route::get('whitelist/{type}/{id}/delete', 'ProxyListItemController@removeItem');
+    Route::get('whitelist/{type}s/clear', 'ProxyListItemController@clearList');
+
 });
 
-Route::auth();
+Route::group(['prefix' => 'install', 'as' => 'KleisInstaller::'], function()
+{
+    Route::get('/', [
+        'as' => 'stepWelcome',
+        'uses' => 'InstallerController@stepWelcome'
+    ]);
 
-// home
-Route::get('/home', 'HomeController@index');
+    Route::get('application', [
+        'as' => 'stepApplication',
+        'uses' => 'InstallerController@stepApplication'
+    ]);
 
-// Accounts
-Route::get('/accounts', 'AccountController@showAccounts');
-Route::post('/account', 'AccountController@addAccount');
-Route::get('/account/{id}', 'AccountController@editAccount');
-Route::get('/account', 'AccountController@editAccount');
-Route::post('/account/{id}', 'AccountController@updateAccount');
-Route::get('/account/{id}/enable', 'AccountController@enableAccount');
-Route::get('/account/{id}/disable', 'AccountController@disableAccount');
-Route::get('/account/{id}/delete', 'AccountController@removeAccount');
-Route::get('/accounts/category/{category_id}', 'AccountController@showAccounts');
+    Route::post('application/save', [
+        'as' => 'saveApplication',
+        'uses' => 'InstallerController@stepStoreApp'
+    ]);
 
-// Groups (accounts)
-Route::get('/groups', 'GroupController@showGroups');
-Route::post('/groups', 'GroupController@addGroup');
-Route::get('/group/{id}/delete', 'GroupController@removeGroup');
-Route::get('/group/{id}/purge', 'GroupController@purgeAccounts');
-Route::get('/group/{id}/disable', 'GroupController@disableAccounts');
-Route::get('/group/{group_id}/accounts', 'AccountController@showAccounts');
-Route::get('/group/{group_id}/accounts/category/{category_id}', 'AccountController@showAccounts');
+    Route::get('database', [
+        'as' => 'stepDatabase',
+        'uses' => 'InstallerController@stepDatabase'
+    ]);
 
-// Categories (accounts)
-Route::get('/categories', 'CategoryController@showCategories');
-Route::post('/categories', 'CategoryController@addCategory');
-Route::get('/category/{id}/delete', 'CategoryController@removeCategory');
-Route::get('/category/{id}/purge', 'CategoryController@purgeAccounts');
-Route::get('/category/{id}/disable', 'CategoryController@disableAccounts');
+    Route::get('customization', [
+        'as' => 'stepCustomization',
+        'uses' => 'InstallerController@stepCustomization'
+    ]);
 
-// Users (app administrators)
-Route::get('/administrators', 'AdminController@showUsers');
-Route::get('/user', 'AdminController@newUser');
-Route::get('/user/{id}', 'AdminController@editUser');
-Route::post('/user', 'AdminController@addUser');
-Route::post('/user/{id}', 'AdminController@updateUser');
-Route::get('/user/{id}/enable', 'AdminController@enableUser');
-Route::get('/user/{id}/disable', 'AdminController@disableUser');
-Route::get('/user/{id}/delete', 'AdminController@removeUser');
-Route::get('/profile', 'UserController@showProfile');
-Route::post('/profile', 'AdminController@updateUser');
+    Route::post('customization/save', [
+        'as' => 'saveCustomization',
+        'uses' => 'InstallerController@stepStoreCusto'
+    ]);
 
-// Whitelists
-Route::get('whitelist/{type}s', 'ProxyListItemController@showList');
-Route::post('whitelist/{type}', 'ProxyListItemController@addItem');
-Route::post('whitelist/{type}/{id}', 'ProxyListItemController@updateItem');
-Route::get('whitelist/{type}/{id}/delete', 'ProxyListItemController@removeItem');
-Route::get('whitelist/{type}s/clear', 'ProxyListItemController@clearList');
+    Route::post('database/save', [
+        'as' => 'saveDatabase',
+        'uses' => 'InstallerController@stepStoreDb'
+    ]);
+
+    Route::get('environment', [
+        'as' => 'stepEnvironment',
+        'uses' => 'InstallerController@stepEnvironment'
+    ]);
+
+    Route::post('environment/save', [
+        'as' => 'saveEnvironment',
+        'uses' => 'InstallerController@stepSaveEnv'
+    ]);
+
+    Route::get('requirements', [
+        'as' => 'stepRequirements',
+        'uses' => 'InstallerController@stepRequirements'
+    ]);
+
+    Route::get('permissions', [
+        'as' => 'stepPermissions',
+        'uses' => 'InstallerController@stepPermissions'
+    ]);
+
+    Route::get('migration', [
+        'as' => 'stepMigrate',
+        'uses' => 'InstallerController@stepMigrate'
+    ]);
+
+    Route::get('final', [
+        'as' => 'stepFinal',
+        'uses' => 'InstallerController@stepFinish'
+    ]);
+});
