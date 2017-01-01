@@ -33,10 +33,9 @@ elixir(function(mix) {
         'resources/assets/bower/bootstrap/fonts'
     ], 'public/fonts');
 
-    mix.copy([
-        'resources/assets/css/welcome.css',
-        'resources/assets/css/kleis.css'
-    ], 'public/css');
+    mix.styles([
+        'resources/assets/css/welcome.css'
+    ], 'public/css/welcome.css');
 
     mix.styles([
         'resources/assets/css/installer.css'
