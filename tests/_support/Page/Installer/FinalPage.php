@@ -10,7 +10,7 @@ class FinalPage extends InstallerPage
     protected $next;
     protected $back = 'Permissions';
 
-    public function exit()
+    public function end()
     {
         $this->tester->click('Cliquez ici pour quitter');
         return new WelcomePage($this->tester);

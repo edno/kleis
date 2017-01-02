@@ -45,7 +45,7 @@ class InstallerCest
         $page = $page->next() // requirements
                      ->next() // permissions
                      ->install() // final
-                     ->exit();
+                     ->end();
         $I->seeFileFound('installed', storage_path());
         $page->openApplication();
     }
