@@ -7,7 +7,6 @@ class Laravel5Extension extends \Codeception\Module
 {
     public $console;
     public $app;
-    public $env;
 
     // HOOK: before each suite
     public function _beforeSuite($settings = [])

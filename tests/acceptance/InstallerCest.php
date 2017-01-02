@@ -13,6 +13,10 @@ class InstallerCest
         $I->seeInEnvironmentVariable('kleis.installer', true);
     }
 
+    /**
+     * @env appWeb,withRecords
+     * @group installer
+     */
     public function testInstall(\AcceptanceTester $I)
     {
         $I->amOnPage('/'); // redirect to installer
