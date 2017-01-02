@@ -7,6 +7,7 @@ class Laravel5Extension extends \Codeception\Module
 {
     public $console;
     public $app;
+    public $env;
 
     // HOOK: before each suite
     public function _beforeSuite($settings = [])
@@ -18,6 +19,30 @@ class Laravel5Extension extends \Codeception\Module
             $this->app->loadEnvironmentFrom($this->getModule('Laravel5')->config['environment_file']);
             $this->console = $this->app->make('Illuminate\Contracts\Console\Kernel');
             $this->seedDatabase();
+    }
+
+    public function setEnvironmentVariable($var, $value)
+    {
+        $this->app['config']->set($var, $value);
+    }
+
+    public function grabEnvironmentVariable($var)
+    {
+        return $this->app['config']->get($var);
+    }
+
+    public function seeInEnvironmentVariable($var, $expected)
+    {
+        $value = $this->grabEnvironmentVariable($var);
+        $I = $this->getModule('Asserts');
+        $I->assertEquals($expected, $value);
+    }
+
+    public function dontSeeInEnvironmentVariable($var, $expected)
+    {
+        $value = $this->getEnvironmentVariable($var);
+        $I = $this->getModule('Asserts');
+        $I->assertNotEquals($expected, $value);
     }
 
     public function seedDatabase()
@@ -34,7 +59,7 @@ class Laravel5Extension extends \Codeception\Module
 
     public function seeNumRecords($expect, $table, $attributes = [])
     {
-        $I = $elements = $this->getModule('Asserts');
+        $I = $this->getModule('Asserts');
         if (class_exists($table)) {
             $I->assertEquals($expect, $this->findModels($table, $attributes)->count());
         } else {
