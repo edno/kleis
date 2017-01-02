@@ -87,7 +87,7 @@ return [
      *
      */
     'environment' => [
-        'title'   => 'Paramètres d’environment',
+        'title'   => 'Paramètres d’environnement',
         'success' => 'Votre fichier .env a été sauvegardé.',
         'errors'  => 'Impossible d’enregistrer le fichier .env, il faut que vous le créiez manuellement.',
     ],
