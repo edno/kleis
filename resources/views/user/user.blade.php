@@ -132,7 +132,7 @@
             </div>
 
 
-            @if ( Auth::user()->id != $user->id )
+            @if ( Auth::user()->id != $user->id)
             <div class="form-group">
                 <label for="level" class="col-md-4 control-label">@lang('users.level')</label>
                 <div class="col-md-6">
@@ -152,7 +152,7 @@
             </div>
             <script type="text/javascript" language="javascript">
                 document.addEventListener("DOMContentLoaded", function(event) {
-                    $('#level').change(function() {
+                    var toggleGroup = (function() {
                         switch ($('#level').val()) {
                             case '1':
                                 $('#divgroup').removeClass('hidden');
@@ -165,6 +165,8 @@
                                 break;
                         }
                     });
+                    toggleGroup();
+                    $('#level').change(toggleGroup);
                 });
             </script>
             @else
