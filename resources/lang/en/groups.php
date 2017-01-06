@@ -17,7 +17,7 @@ return [
                         'enabled' => 'Accounts enabled',
                         'disabled' => 'Accounts disabled',
                         ],
-    'managers'     => 'Gestionnaires',
+    'managers'     => 'Managers',
     'actions'      => [
                         'save'    => 'Save',
                         'cancel'  => 'Cancel',

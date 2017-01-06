@@ -9,8 +9,8 @@ return [
     */
 
     'tooltip'      => [
-                        'url'    => 'http://serveur/url/precise/et/complete',
-                        'domain' => 'domain.ext ou subdomain.domain.ext',
+                        'url'    => 'http://server/url/accurate/and/complete',
+                        'domain' => 'domain.ext or subdomain.domain.ext',
                         'search' => 'Wildcards * and %'
                         ],
     'domain'       => 'Domain|Domains',
