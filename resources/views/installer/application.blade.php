@@ -13,6 +13,7 @@
             <select id="locale" name="locale">
                 <option value="en">English</option>
                 <option value="fr">Fran&ccedil;ais</option>
+                <option value="de">Deutsch</option>
             </select>
         </div>
         <div>
