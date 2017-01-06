@@ -38,6 +38,10 @@ elixir(function(mix) {
     ], 'public/css/welcome.css');
 
     mix.styles([
+        'resources/assets/css/kleis.css'
+    ], 'public/css/kleis.css');
+
+    mix.styles([
         'resources/assets/css/installer.css'
     ], 'public/installer/css/installer.css');
 
