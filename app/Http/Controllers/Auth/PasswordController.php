@@ -29,4 +29,19 @@ class PasswordController extends Controller
     {
         $this->middleware($this->guestMiddleware());
     }
+
+    public function showResetForm()
+    {
+        abort(404);
+    }
+
+    public function sendResetLinkEmail()
+    {
+        abort(404);
+    }
+
+    public function reset()
+    {
+
+    }
 }

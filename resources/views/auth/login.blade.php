@@ -50,8 +50,6 @@
                         <button type="submit" class="btn btn-primary">
                             <i class="fa fa-btn fa-sign-in"></i> @lang('auth.login')
                         </button>
-
-                        <a class="btn btn-link" href="{{ url('/password/reset') }}">@lang('auth.forgotten')</a>
                     </div>
                 </div>
             </form>
