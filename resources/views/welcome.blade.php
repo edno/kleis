@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <title>Kleis</title>
+        <title>Kle&#720;s</title>
         <link href="/css/app.css" rel="stylesheet">
         <link href="/css/welcome.css" rel="stylesheet">
     </head>
