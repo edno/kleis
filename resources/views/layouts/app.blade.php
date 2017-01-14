@@ -106,7 +106,7 @@
     <footer class="footer navbar-fixed-bottom hidden-print">
       <div class="container">
         <p class="text-muted">
-            version 1.1
+            version {{ config('kleis.version') }}
             <br>
             <a href="https://github.com/edno/kleis"><i class="fa fa-github"></i></a>
         </p>

@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'version' => '1.2',
+
     /*
     |--------------------------------------------------------------------------
     | Legal Notice
@@ -43,5 +45,5 @@ return [
     | Set this in your ".env" file.
     |
     */
-    'installer' => env('KLEIS_INSTALLER_ENABLED', true),    
+    'installer' => env('KLEIS_INSTALLER_ENABLED', true),
 ];
