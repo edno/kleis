@@ -20,5 +20,6 @@ return [
     'forgotten' => 'Passwort vergessen?',
     'failed'    => 'Die Referenzen nicht mit unsere Aufzeichnungen.',
     'throttle'  => 'Sie zu viele Fehlversuche beim Login hatte. Bitte versuchen Sie es in :seconds Sekunden.',
+    'legal'     => 'Rechtlicher Hinweis',
 
 ];

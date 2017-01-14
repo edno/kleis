@@ -18,6 +18,9 @@ class ComposerServiceProvider extends ServiceProvider
         View::composer(
             'home', 'App\Http\ViewComposers\HomeComposer'
         );
+        View::composer(
+            'auth.legal.modal', 'App\Http\ViewComposers\LegalNoticeComposer'
+        );
     }
 
     /**

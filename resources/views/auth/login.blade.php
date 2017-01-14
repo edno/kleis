@@ -69,8 +69,8 @@
                     </form>
                 </div>
             </div>
-            @if (View::exists('auth.legal.'.config('kleis.legal_notice')))
-                @include('auth.legal.'.config('kleis.legal_notice'))
+            @if (config('kleis.legal_notice'))
+                @include('auth.legal.modal')
             @endif
         </div>
     </div>
