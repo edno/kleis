@@ -9,6 +9,7 @@ Homestead.json
 /.vagrant
 /resources/assets/bower
 /.ssh
+/storage/installed
 
 tests/_output/*
 tests/_support/_generated/*

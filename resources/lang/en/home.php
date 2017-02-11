@@ -9,7 +9,7 @@ return [
     */
 
     'section'      => [
-                        'permissions' => 'Welcom :User',
+                        'permissions' => 'Welcome :User',
                         'info'        => 'Information',
                         'announce'    => 'Announce',
                       ],

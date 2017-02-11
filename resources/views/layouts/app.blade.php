@@ -5,7 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Kleis</title>
+    <title>Kle&#720;s</title>
+
+    <link rel="icon" type="image/png" href="{{ asset('images/favicon-16x16.png') }}" sizes="16x16"/>
+    <link rel="icon" type="image/png" href="{{ asset('images/favicon-32x32.png') }}" sizes="32x32"/>
+    <link rel="icon" type="image/png" href="{{ asset('images/favicon-96x96.png') }}" sizes="96x96"/>
+
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
     <link href="/css/vendor/bootstrap-iconpicker.min.css" rel="stylesheet">
@@ -37,7 +42,7 @@
                     <a class="navbar-brand" href="{{ url('/') }}">
                     <!-- <a class="navbar-brand" href="{{ url('/') }}">Kleis</a> -->
                 @endif
-                    <span><img src="/images/kleis.png" alt="K" style="max-height:20px;vertical-align:middle;position:relative;top:-2px;">le&#720;s<span></a>
+                    <span><img src="/images/kleis.png" alt="K" style="max-height:20px;vertical-align:middle;position:relative;top:-2px;">le&#720;s</span></a>
             </div>
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -101,7 +106,7 @@
     <footer class="footer navbar-fixed-bottom hidden-print">
       <div class="container">
         <p class="text-muted">
-            version 1.1
+            version {{ config('kleis.version') }}
             <br>
             <a href="https://github.com/edno/kleis"><i class="fa fa-github"></i></a>
         </p>

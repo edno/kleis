@@ -36,9 +36,9 @@ class KleisPage
         }
     }
 
-    public function logout()
+    public function logout($user)
     {
-        $this->tester->click("Super Admin");
+        $this->tester->click($user);
         $this->tester->click("Déconnexion");
         return new WelcomePage($this->tester);
     }

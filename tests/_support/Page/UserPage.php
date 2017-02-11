@@ -11,22 +11,26 @@ class UserPage extends KleisPage
         $this->tester->seeInCurrentUrl($this->url);
     }
 
-    protected $fields = [
-        'email'     => "//input[@id=//label[text()='Email']/@for]",
-        'password'  => "//input[@id=//label[text()='Mot de passe']/@for]",
-        'password2' => "//input[@id=//label[text()='Confirmation']/@for]",
-        'firstname' => "//input[@id=//label[text()='Prénom']/@for]",
-        'lastname'  => "//input[@id=//label[text()='Nom']/@for]",
-        'level'     => "//select[@id=//label[text()='Niveau']/@for]",
-        'group'     => "//select[@id=//label[text()='Groupe']/@for]",
-        'status'    => "//select[@id=//label[text()='Statut']/@for]",
+    public static $objectsMap = [
+        'fieldEmail'           => "//input[@id=//label[text()='Email']/@for]",
+        'fieldPassword'        => "//input[@id=//label[text()='Mot de passe']/@for]",
+        'fieldPassword2'       => "//input[@id=//label[text()='Confirmation']/@for]",
+        'fieldFirstname'       => "//input[@id=//label[text()='Prénom']/@for]",
+        'fieldLastname'        => "//input[@id=//label[text()='Nom']/@for]",
+        'fieldLevel'           => "//select[@id=//label[text()='Niveau']/@for]",
+        'fieldGroup'           => "//select[@id=//label[text()='Groupe']/@for]",
+        'fieldStatus'          => "//select[@id=//label[text()='Statut']/@for]",
+        'buttonSave'           => "Enregistrer",
+        'buttonCancel'         => "Annuler",
+        'buttonChangePassword' => "Changer mot de passe",
     ];
 
     public function setDetails($details)
     {
         foreach($details as $key => $value)
         {
-            $field = $this->fields[$key];
+            $objectName = 'field'.ucfirst($key);
+            $field = static::$objectsMap[$objectName];
             $fieldType = preg_filter('~//([a-z]+).*~', '$1', $field);
             switch ($fieldType) {
                 case 'input':
@@ -43,8 +47,7 @@ class UserPage extends KleisPage
 
     public function save()
     {
-        $this->tester->click('Enregistrer');
-        return new AdministratorsPage($this->tester);
+        $this->tester->click(static::$objectsMap['buttonSave']);
         $page = $this->tester->grabFromCurrentUrl('~/([A-z]*)/?.*~');
         $class = 'Page\\'.ucFirst($page).'Page';
         return new $class($this->tester);
@@ -52,8 +55,17 @@ class UserPage extends KleisPage
 
     public function cancel()
     {
-        $this->tester->click('Annuler');
+        $this->tester->click(static::$objectsMap['buttonCancel']);
         return new AdministratorsPage($this->tester);
+    }
+
+    public function changePassword($password)
+    {
+        $this->tester->click(static::$objectsMap['buttonChangePassword']);
+        $this->tester->seeElement(static::$objectsMap['fieldPassword']);
+        $this->tester->fillField(static::$objectsMap['fieldPassword'], $password);
+        $this->tester->fillField(static::$objectsMap['fieldPassword2'], $password);
+        return $this->save();
     }
 
 }

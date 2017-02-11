@@ -33,10 +33,17 @@ elixir(function(mix) {
         'resources/assets/bower/bootstrap/fonts'
     ], 'public/fonts');
 
-    mix.copy([
-        'resources/assets/css/welcome.css',
+    mix.styles([
+        'resources/assets/css/welcome.css'
+    ], 'public/css/welcome.css');
+
+    mix.styles([
         'resources/assets/css/kleis.css'
-    ], 'public/css');
+    ], 'public/css/kleis.css');
+
+    mix.styles([
+        'resources/assets/css/installer.css'
+    ], 'public/installer/css/installer.css');
 
     mix.copy([
         'resources/assets/bower/bootstrap-iconpicker/bootstrap-iconpicker/css/bootstrap-iconpicker.min.css',

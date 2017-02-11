@@ -12,16 +12,12 @@ class ManageAdminCest
 
     public function _before(\AcceptanceTester $I, \Codeception\Scenario $scenario)
     {
-        if (array_key_exists('WebDriver', $scenario->current('modules'))) {
-            $I->amOnPage('/');
-            $this->page = new WelcomePage($I);
-            $this->page = $this->page
-                    ->openApplication()
-                    ->login($this->email, $this->password)
-                    ->navigateTo('Administrateurs');
-        } else {
-            $scenario->skip('WebDriver module not available');
-        }
+        $I->amOnPage('/');
+        $this->page = new WelcomePage($I);
+        $this->page = $this->page
+                ->openApplication()
+                ->login($this->email, $this->password)
+                ->navigateTo('Administrateurs');
     }
 
     /**
@@ -155,6 +151,21 @@ class ManageAdminCest
                 'actif'  => 'Inactif'
             ],
             $list);
+    }
+
+
+    /**
+     * @env appWeb,withRecords
+     * @depends canEditAdministrator
+     */
+    public function canUpdatePassword(\AcceptanceTester $I)
+    {
+        $newPassword = 'canUpdatePassword';
+        $account = 'codecept@kleis.app';
+        $this->page = $this->page
+                    ->editAdministrator($account)
+                    ->changePassword($newPassword);
+        $I->see("'{$account}' mis à jour avec succès.");
     }
 
     /**

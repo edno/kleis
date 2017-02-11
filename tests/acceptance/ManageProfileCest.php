@@ -16,16 +16,11 @@ class ManageProfileCest
 
     public function _before(\AcceptanceTester $I, \Codeception\Scenario $scenario)
     {
-        if (array_key_exists('WebDriver', $scenario->current('modules'))) {
-            $I->amOnPage('/');
-            $this->page = new WelcomePage($I);
-            $this->page = $this->page
-                    ->openApplication()
-                    ->login($this->email, $this->password)
-                    ->navigateTo("{$this->name}/Mon compte");
-        } else {
-            $scenario->skip('WebDriver module not available');
-        }
+        $I->amOnPage('/');
+        $this->page = new WelcomePage($I);
+        $this->page = $this->page
+                ->openApplication()
+                ->login($this->email, $this->password);
     }
 
     /**
@@ -33,8 +28,33 @@ class ManageProfileCest
      */
     public function canDisplayProfile(\AcceptanceTester $I)
     {
+        $this->page = $this->page->navigateTo("{$this->name}/Mon compte");
         $I->assertEquals($this->email, $this->page->getFieldValue('email'));
         $I->assertEquals($this->name, $this->page->getFieldValue('firstname'));
         $I->assertEquals($this->level, $this->page->getFieldValue('level'));
+    }
+
+    /**
+     * @env appWeb,withRecords
+     * @after canDisplayProfile
+     */
+    public function canUpdatePassword(\AcceptanceTester $I)
+    {
+        $newPassword = 'canUpdatePassword';
+
+        $this->page = $this->page
+                ->navigateTo("{$this->name}/Mon compte")
+                ->changePassword($newPassword);
+        $I->see("'{$this->email}' mis à jour avec succès.");
+        $this->page
+                ->logout('Super Admin')
+                ->openApplication()
+                ->login($this->email, $newPassword)
+                ->navigateTo("{$this->name}/Mon compte");
+    }
+
+    public function _after(\AcceptanceTester $I)
+    {
+        $I->seedDatabase(); // reset default password
     }
 }

@@ -103,4 +103,15 @@
         </div>
     </div>
 
+    <script type="text/javascript" language="javascript">
+        document.addEventListener("DOMContentLoaded", function(event) {
+            $('a[data-toggle=collapse]').on('click', function () {
+                target = $(this).attr('data-target');
+                $(target).toggle();
+                $(document).scrollTop($(document).height());
+                return false;
+            });
+        });
+    </script>
+
 @endsection

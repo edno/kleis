@@ -8,14 +8,10 @@ class LoginCest
 
     public function _before(\AcceptanceTester $I, \Codeception\Scenario $scenario)
     {
-        if (array_key_exists('WebDriver', $scenario->current('modules'))) {
-            $I->amOnPage('/');
-            $this->page = new WelcomePage($I);
-            $this->page = $this->page
-                    ->openApplication();
-        } else {
-            $scenario->skip('WebDriver module not available');
-        }
+        $I->amOnPage('/');
+        $this->page = new WelcomePage($I);
+        $this->page = $this->page
+                ->openApplication();
     }
 
     /**
@@ -35,7 +31,7 @@ class LoginCest
     {
         $this->page->login('admin@kleis.app', 'admin');
         $I->see('Bienvenue Super Admin');
-        $this->page->logout();
+        $this->page->logout('Super Admin');
         $I->dontSee('Bienvenue Super Admin');
     }
 

@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'version' => '1.2',
+
     /*
     |--------------------------------------------------------------------------
     | Legal Notice
@@ -33,4 +35,15 @@ return [
     |
     */
     'announce' => env('KLEIS_ANNOUNCE', ''),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Installer
+    |--------------------------------------------------------------------------
+    |
+    | This value enable/disable the setup wizard
+    | Set this in your ".env" file.
+    |
+    */
+    'installer' => env('KLEIS_INSTALLER_ENABLED', true),
 ];
