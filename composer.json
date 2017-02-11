@@ -44,10 +44,29 @@
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
             "php artisan optimize"
+        ],
+        "build-archive": [
+            "composer archive --format=zip --dir=bin/"
         ]
     },
     "config": {
         "preferred-install": "dist",
         "process-timeout": 0
+    },
+    "archive": {
+        "exclude": [
+            "bin",
+            "tests",
+            "node_modules",
+            "storage/*",
+            "*file",
+            "*.xml",
+            "*.yml",
+            "*.js",
+            "*.json",
+            "!composer.json",
+            "server.php",
+            "vendor"
+        ]
     }
 }

@@ -10,6 +10,7 @@ Homestead.json
 /resources/assets/bower
 /.ssh
 /storage/installed
+/bin
 
 tests/_output/*
 tests/_support/_generated/*
