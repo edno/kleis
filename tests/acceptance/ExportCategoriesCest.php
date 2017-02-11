@@ -76,7 +76,6 @@ class ExportCategoriesCest
     }
 
     /**
-     * @skip Codeception charset issue
      * @env appCli,withRecords
      * @env appCli,noRecords
      */
