@@ -9,12 +9,8 @@ class ExportGroupsCest
 
     public function _before(\AcceptanceTester $I, \Codeception\Scenario $scenario)
     {
-        if (array_key_exists('Filesystem', $scenario->current('modules'))) {
-            $I->deleteDir(static::$outPath . '/' . static::$outDir);
-            $I->seedDatabase();
-        } else {
-            $scenario->skip('Filesystem module not available');
-        }
+        $I->deleteDir(static::$outPath . '/' . static::$outDir);
+        $I->seedDatabase();
     }
 
     protected function setData(\AcceptanceTester $I)

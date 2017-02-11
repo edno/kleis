@@ -11,15 +11,11 @@ class ManageProxyListCest
 
     public function _before(\AcceptanceTester $I, \Codeception\Scenario $scenario)
     {
-        if (array_key_exists('WebDriver', $scenario->current('modules'))) {
-            $I->amOnPage('/');
-            $this->page = new WelcomePage($I);
-            $this->page = $this->page
-                    ->openApplication()
-                    ->login($this->email, $this->password);
-        } else {
-            $scenario->skip('WebDriver module not available');
-        }
+        $I->amOnPage('/');
+        $this->page = new WelcomePage($I);
+        $this->page = $this->page
+                ->openApplication()
+                ->login($this->email, $this->password);
     }
 
     protected function setDomains(\AcceptanceTester $I)

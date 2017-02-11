@@ -11,17 +11,13 @@ class ManageGroupCest
 
     public function _before(\AcceptanceTester $I, \Codeception\Scenario $scenario)
     {
-        if (array_key_exists('WebDriver', $scenario->current('modules'))) {
-            $I->amOnPage('/');
-            $this->page = new WelcomePage($I);
-            $this->page = $this->page
-                    ->openApplication()
-                    ->login($this->email, $this->password)
-                    ->navigateTo('Groupes');
-            $I->see('Groupes');
-        } else {
-            $scenario->skip('WebDriver module not available');
-        }
+        $I->amOnPage('/');
+        $this->page = new WelcomePage($I);
+        $this->page = $this->page
+                ->openApplication()
+                ->login($this->email, $this->password)
+                ->navigateTo('Groupes');
+        $I->see('Groupes');
     }
 
     /**
