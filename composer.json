@@ -11,7 +11,7 @@
         "graham-campbell/markdown": "^7.0"
     },
     "require-dev": {
-        "laravel/homestead": "^3.0",
+        "laravel/homestead": "^6.6",
         "oprudkyi/codeception-events-scripting": "*",
         "codeception/codeception": ">=2.2"
     },
