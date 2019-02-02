@@ -8,7 +8,7 @@
         "php": ">=5.5.9",
         "laravel/framework": "5.2.*",
         "whitehat101/apr1-md5": "~1.0",
-        "graham-campbell/markdown": "^7.0"
+        "graham-campbell/markdown": "^9.0"
     },
     "require-dev": {
         "laravel/homestead": "^3.0",
