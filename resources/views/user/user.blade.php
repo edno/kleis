@@ -198,7 +198,7 @@
             <div class="form-group">
                 <label for="group" class="col-md-4 control-label">@lang('users.group')</label>
                 <div class="col-md-6">
-                    <input id="group" class="form-control" value="{{ $user->group ? $user->group->name : '&#9679;' }}" disabled="true">
+                    <input id="group" class="form-control" value="{{ $user->group ? $user->group->name : '●' }}" disabled="true">
                 </div>
             </div>
             @endif

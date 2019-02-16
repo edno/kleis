@@ -108,7 +108,7 @@
                                         title="{{ ucfirst(trans_choice($user->getLevel()['text'], 1)) }}"></i></div>
                                 </td>
                                 <td class="table-text">
-                                    <div>{{ $user->group ? $user->group->name : '&#9679;' }}</div>
+                                    <div>{{ $user->group ? $user->group->name : '●' }}</div>
                                 </td>
                                 <td class="table-text">
                                     <div>{{ $user->email }}</div>
