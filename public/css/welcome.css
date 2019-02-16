@@ -1,1 +1,42 @@
-body,html{height:100%}body{margin:0;padding:0;width:100%;display:table;font-weight:100;font-family:Lato,sans-serif}.logo-brand{position:absolute;left:50%;top:10%;transform:translate(-50%,-10%)}.container{width:100%;text-align:center;display:table-cell;vertical-align:middle}.content{text-align:center;display:inline-block}.title{font-size:96px}.content a{text-decoration:none;color:#f4645f}
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    display: table;
+    font-weight: 100;
+    font-family: 'Lato', sans-serif;
+}
+
+.logo-brand {
+    position: absolute;
+    left: 50%;
+    top: 10%;
+    transform: translate(-50%, -10%);
+}
+
+.container {
+    width: 100%;
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.content {
+    text-align: center;
+    display: inline-block;
+}
+
+.title {
+    font-size: 96px;
+}
+
+.content a {
+    text-decoration: none;
+    color: #f4645f;
+}
+
+/*# sourceMappingURL=welcome.css.map */
