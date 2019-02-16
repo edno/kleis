@@ -1,5 +1,4 @@
-# Kleːs - [![Release](https://img.shields.io/github/release/edno/kleis.svg?style=flat-square)]() [![Build Status](https://img.shields.io/travis/edno/kleis.svg?style=flat-square)](https://travis-ci.org/edno/kleis)
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fedno%2Fkleis.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fedno%2Fkleis?ref=badge_shield)
+# Kleːs - [![Release](https://img.shields.io/github/release/edno/kleis.svg?style=flat-square)]() [![Build Status](https://img.shields.io/travis/edno/kleis.svg?style=flat-square)](https://travis-ci.org/edno/kleis) [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fedno%2Fkleis.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fedno%2Fkleis?ref=badge_shield)
 
 Kleis est un gestionnaire d'utilisateurs et groupes pour proxy de type Squid. Il permet aussi de gérer une liste blanche pour le filtre SquidGuard.
 Kleis maintient à jour la liste de vos utilisateurs et leur appartenance à un groupe, dans une base de données. Il est ensuite possible d'exporter ces informations sous forme de fichiers plats pour être intégrés à la configuration de Squid et de SquidGuard.
