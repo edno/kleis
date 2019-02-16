@@ -13,15 +13,8 @@ params:
     - .env.codecept
 extensions:
     enabled:
-        - Codeception\Extension\EventsScripting
+        - Codeception\Extension\Phantoman
     config:
-        Codeception\Extension\EventsScripting:
-            BeforeAll:
-                - command: ./tests/_bin/phantomjs_start.sh
-                  description: Start PhantomJS
-                  environments: appWeb
-            AfterAll:
-                - command: ./tests/_bin/phantomjs_stop.sh
-                  description: Stop PhantomJS
-                  environments: appWeb
-                  ignoreErrors: true
+        Codeception\Extension\Phantoman:
+            path: '/usr/local/bin/phantomjs'
+            suites: ['acceptance']

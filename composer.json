@@ -9,8 +9,8 @@
         "whitehat101/apr1-md5": "~1.0"
     },
     "require-dev": {
-        "oprudkyi/codeception-events-scripting": "*",
-        "codeception/codeception": "2.5.2"
+        "codeception/codeception": "2.5.2",
+        "site5/phantoman": "^2.0"
     },
     "autoload": {
         "psr-4": {

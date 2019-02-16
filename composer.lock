@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "806e8b9621523cd33f65605871d0e1fc",
+    "content-hash": "0752a6dc6af0b10bd7bd28535f8a4197",
     "packages": [
         {
             "name": "doctrine/inflector",
@@ -3242,48 +3242,6 @@
             "time": "2018-06-11T23:09:50+00:00"
         },
         {
-            "name": "oprudkyi/codeception-events-scripting",
-            "version": "v1.0.7",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/oprudkyi/codeception-events-scripting.git",
-                "reference": "50f0eb8fa14d87ca05dd0f69b5a47aabe741f3f9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/oprudkyi/codeception-events-scripting/zipball/50f0eb8fa14d87ca05dd0f69b5a47aabe741f3f9",
-                "reference": "50f0eb8fa14d87ca05dd0f69b5a47aabe741f3f9",
-                "shasum": ""
-            },
-            "require": {
-                "codeception/codeception": "^2.2",
-                "php": ">=5.5.9"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Codeception\\Extension\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Oleksii Prudkyi",
-                    "email": "Oleksii.Prudkyi@gmail.com"
-                }
-            ],
-            "description": "The Codeception extension for automatically running shell scripts on codeception events",
-            "keywords": [
-                "codeception",
-                "extension",
-                "shell"
-            ],
-            "time": "2016-06-17T08:17:36+00:00"
-        },
-        {
             "name": "phar-io/manifest",
             "version": "1.0.3",
             "source": {
@@ -4501,6 +4459,53 @@
             "description": "Library that helps with managing the version number of Git-hosted PHP projects",
             "homepage": "https://github.com/sebastianbergmann/version",
             "time": "2016-10-03T07:35:21+00:00"
+        },
+        {
+            "name": "site5/phantoman",
+            "version": "v2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/grantlucas/phantoman.git",
+                "reference": "064806e420c4cbbdf9fddf08e3612edaeb060fac"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/grantlucas/phantoman/zipball/064806e420c4cbbdf9fddf08e3612edaeb060fac",
+                "reference": "064806e420c4cbbdf9fddf08e3612edaeb060fac",
+                "shasum": ""
+            },
+            "require": {
+                "codeception/codeception": "^2.2.7",
+                "php": ">=5.4.0"
+            },
+            "suggest": {
+                "jakoch/phantomjs-installer": "Automatically installs PhantomJS locally to your project."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Codeception\\Extension\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Grant Lucas",
+                    "email": "contact@grantlucas.com"
+                }
+            ],
+            "description": "The Codeception extension for automatically starting and stopping PhantomJS when running tests.",
+            "homepage": "https://github.com/grantlucas/phantoman",
+            "keywords": [
+                "codeception",
+                "extension",
+                "headless",
+                "phantomjs"
+            ],
+            "time": "2017-10-27T13:31:22+00:00"
         },
         {
             "name": "symfony/browser-kit",
