@@ -7,7 +7,7 @@ use App\Account;
 
 class AccountPolicy
 {
-    public function manage($user, $account)
+    public function manage($user)
     {
         return $user->level >= 1;
     }

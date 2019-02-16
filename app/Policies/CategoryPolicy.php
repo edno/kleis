@@ -7,7 +7,7 @@ use App\Category;
 
 class CategoryPolicy
 {
-    public function manage($user, $category)
+    public function manage($user)
     {
         return $user->level >= 9;
     }

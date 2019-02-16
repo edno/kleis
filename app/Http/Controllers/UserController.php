@@ -25,4 +25,10 @@ class UserController extends Controller
         $controller = new AdminController();
         return $controller->editUser(Auth::user()->id);
     }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->intended('login');
+    }
 }

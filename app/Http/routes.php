@@ -13,9 +13,9 @@
 
 Route::group(['middleware' => 'installed'], function () {
 
-    Route::get('/', function () {
-        return view('welcome');
-    });
+    Route::view('/', 'welcome');
+
+    Route::get('/logout', 'UserController@logout');
 
     Route::auth();
 

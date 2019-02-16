@@ -7,7 +7,7 @@ use App\ProxyListItem;
 
 class ProxyListItemPolicy
 {
-    public function manage($user, $item)
+    public function manage($user)
     {
         return $user->level >= 1;
     }

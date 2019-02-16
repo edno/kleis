@@ -2,6 +2,8 @@
 
 return [
 
+    'name' => env('APP_NAME', 'Kleis'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment
@@ -149,11 +151,11 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Illuminate\Notifications\NotificationServiceProvider::class,
 
         /*
          * Package Service Providers...
          */
-        GrahamCampbell\Markdown\MarkdownServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -210,7 +212,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'Markdown' => GrahamCampbell\Markdown\Facades\Markdown::class,
+        'Notification' => Illuminate\Support\Facades\Notification::class,
 
     ],
 
