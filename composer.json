@@ -10,7 +10,7 @@
     },
     "require-dev": {
         "oprudkyi/codeception-events-scripting": "*",
-        "codeception/codeception": "^2.5.2"
+        "codeception/codeception": "2.5.2"
     },
     "autoload": {
         "psr-4": {
