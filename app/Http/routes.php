@@ -13,11 +13,11 @@
 
 Route::group(['middleware' => 'installed'], function () {
 
-    Route::view('/', 'welcome');
+    Route::auth();
+
+    Route::redirect('/', 'home');
 
     Route::get('/logout', 'UserController@logout');
-
-    Route::auth();
 
     // home
     Route::get('/home', 'HomeController@index');
