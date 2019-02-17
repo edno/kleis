@@ -47,7 +47,6 @@ class InstallerCest
                      ->install() // final
                      ->end();
         $I->seeFileFound('installed', storage_path());
-        $page->openApplication();
     }
 
     public function _after(\AcceptanceTester $I)

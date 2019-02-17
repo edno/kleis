@@ -1,6 +1,6 @@
 <?php
 
-use Page\WelcomePage;
+use Page\LoginPage;
 
 class LoginCest
 {
@@ -9,9 +9,7 @@ class LoginCest
     public function _before(\AcceptanceTester $I, \Codeception\Scenario $scenario)
     {
         $I->amOnPage('/');
-        $this->page = new WelcomePage($I);
-        $this->page = $this->page
-                ->openApplication();
+        $this->page = new LoginPage($I);
     }
 
     /**

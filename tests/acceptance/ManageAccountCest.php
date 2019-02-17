@@ -1,6 +1,6 @@
 <?php
 
-use Page\WelcomePage;
+use Page\LoginPage;
 
 class ManageAccountCest
 {
@@ -16,9 +16,8 @@ class ManageAccountCest
     public function _before(\AcceptanceTester $I, \Codeception\Scenario $scenario)
     {
         $I->amOnPage('/');
-        $this->page = new WelcomePage($I);
+        $this->page = new LoginPage($I);
         $this->page = $this->page
-                ->openApplication()
                 ->login($this->email, $this->password)
                 ->navigateTo('Comptes');
     }

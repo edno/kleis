@@ -1,7 +1,7 @@
 <?php
 namespace Page\Installer;
 
-use Page\WelcomePage;
+use Page\LoginPage;
 
 class FinalPage extends InstallerPage
 {
@@ -13,7 +13,7 @@ class FinalPage extends InstallerPage
     public function end()
     {
         $this->tester->click('Cliquez ici pour quitter');
-        return new WelcomePage($this->tester);
+        return new LoginPage($this->tester);
     }
 
 }

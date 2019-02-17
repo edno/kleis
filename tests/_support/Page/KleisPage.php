@@ -4,14 +4,16 @@ namespace Page;
 class KleisPage
 {
     protected $title = 'Kleis';
-    protected $url = '/';
+    protected $url;
     protected $user;
     protected $tester;
 
     public function __construct(\AcceptanceTester $tester)
     {
         $this->tester = $tester;
-        $this->tester->seeCurrentUrlEquals($this->url);
+        if ($this->url) {
+            $this->tester->seeCurrentUrlEquals($this->url);
+        }
     }
 
     public function navigateTo($menu)
