@@ -16,7 +16,7 @@ class RedirectIfNotInstalled extends RedirectIfInstalled
      * @param  string|null  $guard
      * @return mixed
      */
-    public function handle($request, Closure $next, $guard = null)
+    public function handle($request, Closure $next)
     {
         if (!$this->alreadyInstalled() && config('kleis.installer')) {
             return redirect('/install');

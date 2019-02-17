@@ -55,19 +55,9 @@ class LoginController extends Controller
         ]);
     }
 
-    protected function create(array $data)
-    {
-
-    }
-
     public function showRegistrationForm()
     {
         abort(404);
-    }
-
-    public function register()
-    {
-
     }
 
     /**

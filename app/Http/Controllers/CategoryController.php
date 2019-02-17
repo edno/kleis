@@ -70,7 +70,6 @@ class CategoryController extends Controller
         ]);
 
         $category = Category::findOrFail($id);
-        $name = $category->name;
         $category->name = mb_strtoupper(mb_substr($request->name, 0, 1)).mb_substr($request->name, 1);
         $category->icon = $request->icon;
         $category->validity = $request->validity;

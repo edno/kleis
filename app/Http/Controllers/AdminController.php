@@ -130,7 +130,6 @@ class AdminController extends Controller
         }
 
         $user = User::findOrFail($id);
-        $update = false;
 
         if (false === empty($request->password)) {
             $user->password = bcrypt($request->password);
