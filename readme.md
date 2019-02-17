@@ -1,4 +1,4 @@
-# Kleːs - [![Release](https://img.shields.io/github/release/edno/kleis.svg?style=flat-square)]() [![Build Status](https://img.shields.io/travis/edno/kleis.svg?style=flat-square)](https://travis-ci.org/edno/kleis)
+# Kleːs - [![Release](https://img.shields.io/github/release/edno/kleis.svg?style=flat-square)]() [![Build Status](https://img.shields.io/travis/edno/kleis.svg?style=flat-square)](https://travis-ci.org/edno/kleis) [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fedno%2Fkleis.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fedno%2Fkleis?ref=badge_shield)
 
 Kleis est un gestionnaire d'utilisateurs et groupes pour proxy de type Squid. Il permet aussi de gérer une liste blanche pour le filtre SquidGuard.
 Kleis maintient à jour la liste de vos utilisateurs et leur appartenance à un groupe, dans une base de données. Il est ensuite possible d'exporter ces informations sous forme de fichiers plats pour être intégrés à la configuration de Squid et de SquidGuard.
@@ -53,3 +53,7 @@ Que vous fassiez l'intégration manuellement ou que vous utilisiez un ordonanceu
 - Le fichier password doit appartenir à l'utilisateur proxy. Pour ne pas changer cela, vous pouvez ajouter l'utilisateur de votre ordonanceur au groupe proxy, et rendre le fichier des mots de passe modifiable par le groupe.
 - Les fichiers de groupe et whitelist ont les mêmes besoins. Cela est particulièrement important : si l'utilisateur du proxy ne peut pas correctement lire les fichiers, alors SquidGuard entrera en mode "Emergency", laissant passer l'intégralité du trafic.
 - Pour redémarer squid3 via la commande service, vous devriez utiliser sudo. L'usage d'autres scripts pour relancer Squid pourrait modifier les propriétaires et les droits de fichiers, et empêcher une mise à jour par votre utilisateur d'ordonnanceur.
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fedno%2Fkleis.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fedno%2Fkleis?ref=badge_large)
