@@ -30,11 +30,11 @@ return [
                                     'url'    => 'Aucune URL',
                                     'domain' => 'Aucun domaine',
                                     ],
-                        'search' => '{0} Aucun r&eacute;sultat trouv&eacute;e|{1} :number r&eacute;sultat trouv&eacute;|[2,Inf] :number r&eacute;sultats trouv&eacute;s',
-                        'add'    => ':Type ajout&eacute; avec succ&egrave;s.',
-                        'update' => ':Type mis &agrave; jour avec succ&egrave;s.',
-                        'drop'   => "Liste :type a &eacute;t&eacute; vid&eacute;e.",
-                        'delete' => ":Type ':value' a &eacute;t&eacute; supprim&eacute;.",
+                        'search' => '{0} Aucun résultat trouvée|{1} :number résultat trouvé|[2,Inf] :number résultats trouvés',
+                        'add'    => ':Type ajouté avec succès.',
+                        'update' => ':Type mis à jour avec succès.',
+                        'drop'   => "Liste :type a été vidée.",
+                        'delete' => ":Type ':value' a été supprimé.",
                         ],
 
 ];

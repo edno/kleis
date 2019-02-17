@@ -51,11 +51,11 @@ return [
      *
      */
     'database' => [
-        'title'    => 'Base de donn&eacute;es',
+        'title'    => 'Base de données',
         'type'     => 'Connexion',
         'host'     => 'H&ocirc;te',
         'port'     => 'Port',
-        'schema'   => 'Base de donn&eacute;es',
+        'schema'   => 'Base de données',
         'user'     => 'Utilisateur',
         'password' => 'Mot de passe'
     ],
@@ -67,8 +67,8 @@ return [
      */
     'customization' => [
         'title'   => 'Personnalisation (facultatif)',
-        'logo'    => 'Logo personnalis&eacute;',
-        'message' => 'Message d&apos;accueil'
+        'logo'    => 'Logo personnalisé',
+        'message' => 'Message d\'accueil'
     ],
 
     /**

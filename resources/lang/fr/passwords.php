@@ -13,10 +13,10 @@ return [
     |
     */
 
-    'password' => 'Les mots de passe doivent avoir au moins six caract&egrave;s et correspondre &agrave; la confirmation.',
-    'reset'    => 'Votre mot de passe a &eacute;t&eacute; r&eacute;initialis&eacute; !',
-    'sent'     => 'Le lien de r&eacute;initialisation de votre mot de passe a &eacute;t&eacute; envoy&eacute par courriel !',
-    'token'    => 'Ce lien de r&eacute;initialisation de mot de passe est invalide.',
+    'password' => 'Les mots de passe doivent avoir au moins six caractès et correspondre à la confirmation.',
+    'reset'    => 'Votre mot de passe a été réinitialisé !',
+    'sent'     => 'Le lien de réinitialisation de votre mot de passe a été envoyé par courriel !',
+    'token'    => 'Ce lien de réinitialisation de mot de passe est invalide.',
     'user'     => "Nous ne trouvons pas d'utilisateur avec cette adresse de courriel.",
 
 ];

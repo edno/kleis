@@ -12,12 +12,12 @@ return [
     'home'              => 'Accueil',
     'accounts'          => 'Comptes',
     'groups'            => 'Groupes',
-    'categories'        => 'Cat&eacute;gories',
+    'categories'        => 'Catégories',
     'whitelists'        => 'Listes Blanches',
     'domains'           => 'Domaines',
     'urls'              => 'URLs',
     'administrators'    => 'Administrateurs',
     'profile'           => 'Mon compte',
-    'logout'            => 'D&eacute;connexion',
-    'error'             => 'Oups! Un probl&egrave;me est survenu!'
+    'logout'            => 'Déconnexion',
+    'error'             => 'Oups! Un problème est survenu!'
 ];

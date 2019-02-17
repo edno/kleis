@@ -10,16 +10,16 @@ return [
 
     'tooltip'    => [
                     'icon'     => 'Pictogramme',
-                    'category' => 'Nom de la cat&eacute;gorie',
+                    'category' => 'Nom de la catégorie',
                     'search'   => 'Jokers * et %',
                     ],
-    'categories' => 'Cat&eacute;gorie|Cat&eacute;gories',
+    'categories' => 'Catégorie|Catégories',
     'accounts'   => [
                     'enabled'  => 'Comptes actifs',
                     'disabled' => 'Comptes inactifs',
                     ],
     'days'       => ':number jour|:number jours',
-    'validity'   => 'Validit&eacute;',
+    'validity'   => 'Validité',
     'actions'    => [
                     'save'    => 'Enregistrer',
                     'cancel'  => 'Annuler',
@@ -32,13 +32,13 @@ return [
                     'disable' => 'Désactiver tous les comptes',
                     ],
     'message'    => [
-                    'empty'  => 'Aucune cat&eacute;gorie',
-                    'search' => '{0} Aucune cat&eacute;gorie trouv&eacute;e|{1} :number cat&eacute;gorie trouv&eacute;e|[2,Inf] :number cat&eacute;gories trouv&eacute;es',
-                    'add'      => "':category' ajout&eacute;e avec succ&egrave;s.",
-                    'update'   => "':category' mise &agrave; jour avec succ&egrave;s.",
+                    'empty'  => 'Aucune catégorie',
+                    'search' => '{0} Aucune catégorie trouvée|{1} :number catégorie trouvée|[2,Inf] :number catégories trouvées',
+                    'add'      => "':category' ajoutée avec succès.",
+                    'update'   => "':category' mise à jour avec succès.",
                     'drop'   => "Comptes ':category' inactifs supprimés.",
-                    'disable'  => "Comptes ':category' ont &eacute;t&eacute; d&eacute;sactiv&eacute;s.",
-                    'delete'   => "':category' a &eacute;t&eacute; supprim&eacute;e.",
+                    'disable'  => "Comptes ':category' ont été désactivés.",
+                    'delete'   => "':category' a été supprimée.",
                     ],
 
 ];

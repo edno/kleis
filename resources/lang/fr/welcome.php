@@ -8,6 +8,6 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'click_here'  => 'Cliquer ici pour acc&eacute;der &agrave; l&apos;application',
+    'click_here'  => 'Cliquer ici pour accéder à l\'application',
 
 ];

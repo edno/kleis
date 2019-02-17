@@ -14,19 +14,19 @@ return [
                         'announce'    => 'Annonce',
                       ],
     'permissions'  => [
-                        'intro'       => '{1} En tant que :level de la d&eacute;l&eacute;gation :group, vous pouvez
+                        'intro'       => '{1} En tant que :level de la délégation :group, vous pouvez
                                         |[2,Inf] En tant que :level, vous pouvez ',
-                        'accounts'    => 'g&eacute;rer les comptes utilisateurs :context',
-                        'groups'      => 'g&eacute;rer la liste des <strong>groupes</strong>',
-                        'categories'  => 'g&eacute;rer la liste des <strong>cat&eacute;gories</strong> utilisateur',
-                        'whitelist'   => 'g&eacute;rer les <strong>listes blanches</strong> internet',
-                        'admin'       => 'g&eacute;rer la liste des <strong>administrateurs</strong> Kleis',
+                        'accounts'    => 'gérer les comptes utilisateurs :context',
+                        'groups'      => 'gérer la liste des <strong>groupes</strong>',
+                        'categories'  => 'gérer la liste des <strong>catégories</strong> utilisateur',
+                        'whitelist'   => 'gérer les <strong>listes blanches</strong> internet',
+                        'admin'       => 'gérer la liste des <strong>administrateurs</strong> Kleis',
                       ],
     'permissions.accounts.groups'     => "du groupe|de l'ensemble des groupes",
     'info'         => [
                         'accounts'    => 'compte|comptes',
                         'groups'      => 'groupe|groupes',
-                        'items'       => 'r&eacute;f&eacute;rence|r&eacute;f&eacute;rences',
+                        'items'       => 'référence|références',
                         'admin'       => 'administrateur|administrateurs',
                         'domains'     => 'domaine|domaines',
                         'urls'        => 'url|urls',
