@@ -40,6 +40,6 @@ class KleisPage
     {
         $this->tester->click($user);
         $this->tester->click("Déconnexion");
-        return new WelcomePage($this->tester);
+        return new LoginPage($this->tester);
     }
 }

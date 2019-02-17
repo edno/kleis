@@ -48,7 +48,6 @@ class ManageProfileCest
         $I->see("'{$this->email}' mis à jour avec succès.");
         $this->page
                 ->logout('Super Admin')
-                ->openApplication()
                 ->login($this->email, $newPassword)
                 ->navigateTo("{$this->name}/Mon compte");
     }
