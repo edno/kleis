@@ -5,11 +5,11 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "laravel/framework": "~5.7",
+        "laravel/framework": "~5.8",
         "whitehat101/apr1-md5": "~1.0"
     },
     "require-dev": {
-        "codeception/codeception": "2.5.4",
+        "codeception/codeception": "~2.5",
         "site5/phantoman": "^2.0"
     },
     "autoload": {
