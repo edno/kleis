@@ -1,26 +1,23 @@
 language: php
-
 php:
-  - 7.1
-  - 7.2
-  - 7.3
-
+- 7.1
+- 7.2
+- 7.3
 sudo: true
-
 branches:
   only:
   - master
   - develop
-
 before_script:
-  # setup database
-  - mysql -e 'create database kleis;'
-  # install kleis
-  - composer self-update
-  - composer install --prefer-source --no-interaction
-  - php artisan clear-compiled
-  # start Laravel development server
-  - php artisan serve >/dev/null 2>&1 &
-
+- mysql -e 'create database kleis;'
+- composer self-update
+- composer install --prefer-source --no-interaction
+- php artisan clear-compiled
+- php artisan serve >/dev/null 2>&1 &
 script:
-  - vendor/bin/codecept run acceptance --env appWeb,withRecords --env appCli,withRecords --env appCli,noRecords -f
+- vendor/bin/codecept run acceptance --env appWeb,withRecords --env appCli,withRecords
+  --env appCli,noRecords -f
+env:
+  global:
+  - secure: lnPlO+hkCe+x6BMqfXqriVqkMgBpY/1y3YQwpNt/7b0FzZ8gVSfmmnxWfIxZ2FjBaUX8uuQPNS8ai0idlH5u4T1D/6bgmcYrLwKb8FNf2G6oysypw0a9HUH1DrDPmC3PZB4QgCpP0cMgGAXASEvc8Fvv9tBeqaSmPxBlm9CLVILwvUOcPjTiFdaIoq1ulwNCTqBZmp61gG6z6tI7N9Gy/JhkYDBb2Yj9pRZiCpLpwR/MtbxSi60MvnqDhKTauOH0Ik4MoRNzOdyTq6hEI2Gw4zNE6QYW0QRdODoA5bhlK93O3O0ieuiluEK3tBRcFNH8WuNhsC/vP5B+z1OagwiYzUb5+1IXE54jrxVQJenDSnBTMoCCYoWCHL82A+rPOGngLipIVuBfnZ/Qcuc7EQxmAeiPzlQM2R4O/MRZ4XCytkuj3H4w5e/UM3flA/ODelIUw1zg4ML5Pi9HYbnozbT6bek96VEo/Veuice614Rm3gzKPlmQRheNP65tc+2mujQ02q4228t/zD2FGC0ucP+PLq+jnNIyQeMOOp/6W4t4PDcBtS1FQAAsNRzZQCdJVi9gPeqRchfOy+eytpfxu+DSMbaCcVBYkvhz/Vp9y12cmWSeapkwSbeXrq4tKcHPzvl6wWLo+KHvdlRptJY73KryeoEbyJyzx9hKEatPX+PSnac=
+  - secure: nLLPmA88+4RJtu+YppQGQyO5CD/AqKCa1Bahdz539w9qUQD4ah6yJEnrF0wD5GudExNXpTA6h+2UCYFx149t+IA45q6mVkbxTREI0ALw0xBtwzML0PMcma6kgLeWTmsxGUmN+SfYRtd9DLeSDpq2lOi0rfbWBIZzrc9gQAX75zc6Jgk6TQO/0HFHJzWiEk/cxSxYutgUpFIYRnKE3z/cIruMCA9WiUg/LfmoKRjJLHYgsyfemi0UhFXZGY6wwzlc5yDEuPE4QGHQHGo8dBbXHvx/1jL52kO2/sYtpTRy9fP+PP8Z9jKhz264vLJ2nR54QxjYKm0NZlIRRK54SmLuW8FYp6o4MSOQcO910tlsrjGgvXZ5udX/qyuEk78x1/YsLSXvCE3fRwHQzObJt4Y7/FrMCJlbp6YyYVcQuxRUGmQLnRdxkp8wPFEWCSpDbNhGwsWaGUJATMbG9q45sYZ9gLQXiRFnBz24eP/ZP9X+S2mzHeod6UJHihz9KfZdHcGPcpBlJ5evs+Rb9ZSVbf24xss3/OAAYZpGSVHYUZm9PT7IzLoERruMKUvz8fL+F+4Dstg728vjLaXJWooKwtjBnWPf13xuPNJ7DkBTOuCrjrwthcwqzaXxrWOexriKF/DZOaBSunx6Kjs4kqHAVaXxDYun/cbH+Nk5oArvT+h+s78=
