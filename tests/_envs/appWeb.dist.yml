@@ -2,6 +2,11 @@ modules:
     enabled:
         - Helper\Page
         - WebDriver:
-            url: %APP_URL%
-            browser: phantomjs
-            window_size: maximize
+           url: %APP_URL%
+           host: '%BS_PASSWORD%:%BS_LOGIN%@hub.browserstack.com'
+           port: 80
+           browser: chrome
+           capabilities:
+               os: Windows
+               os_version: 10
+               browserstack.local: true

@@ -26,17 +26,17 @@ dans votre fichier squid.conf.
 
 **Kleis** permet d'exporter les fichiers utiles par le lancement d'une commande. Les commandes suivantes :
 ```shell
-cd /var/www/kleis 
-php artisan export:accounts 
+cd /var/www/kleis
+php artisan export:accounts
 php artisan export:categories
 php artisan export:groups
-php artisan export:whitelist 
+php artisan export:whitelist
 ```
 génèrent respectivement les comptes utilisateurs, les catégories, les groupes, et les fichiers de liste blanche. Ces fichiers sont générés dans ``/var/www/kleis/storage/app/export/``, vous devez donc rendre ce repertoire modifiable par l'utilisateur. Dans la suite de l'exemple nous n'utilisons pas les groupes.
 
 Il faut ensuite déplacer les fichiers aux bons endroits :
 ```shell
-cp /var/www/kleis/storage/app/export/accounts/accounts.txt /etc/squid3/passwords 
+cp /var/www/kleis/storage/app/export/accounts/accounts.txt /etc/squid3/passwords
 cp /var/www/kleis/storage/app/export/categories/*.txt /var/lib/squidguard/db/
 cp /var/www/kleis/storage/app/export/proxylists/*.txt /var/lib/squidguard/db/
 ```
@@ -57,3 +57,6 @@ Que vous fassiez l'intégration manuellement ou que vous utilisiez un ordonanceu
 
 ## License
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fedno%2Fkleis.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fedno%2Fkleis?ref=badge_large)
+
+## Thanks for support
+[![BrowserStack](public/images/browserstack-logo.png)]([https://live.browserstack.com])

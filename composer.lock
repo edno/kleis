@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8848c9dc0ed2ca2db7b9c4c188cd803d",
+    "content-hash": "08c7ba3f71cfc60c4c6983614669e97d",
     "packages": [
         {
             "name": "doctrine/inflector",
@@ -1639,7 +1639,7 @@
                 },
                 {
                     "name": "Gert de Pagter",
-                    "email": "BackEndTea@gmail.com"
+                    "email": "backendtea@gmail.com"
                 }
             ],
             "description": "Symfony polyfill for ctype functions",
@@ -2382,20 +2382,20 @@
         },
         {
             "name": "codeception/stub",
-            "version": "2.0.4",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Stub.git",
-                "reference": "f50bc271f392a2836ff80690ce0c058efe1ae03e"
+                "reference": "853657f988942f7afb69becf3fd0059f192c705a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Stub/zipball/f50bc271f392a2836ff80690ce0c058efe1ae03e",
-                "reference": "f50bc271f392a2836ff80690ce0c058efe1ae03e",
+                "url": "https://api.github.com/repos/Codeception/Stub/zipball/853657f988942f7afb69becf3fd0059f192c705a",
+                "reference": "853657f988942f7afb69becf3fd0059f192c705a",
                 "shasum": ""
             },
             "require": {
-                "phpunit/phpunit": ">=4.8 <8.0"
+                "codeception/phpunit-wrapper": ">6.0.15 <6.1.0 | ^6.6.1 | ^7.7.1 | ^8.0.3"
             },
             "type": "library",
             "autoload": {
@@ -2408,7 +2408,7 @@
                 "MIT"
             ],
             "description": "Flexible Stub wrapper for PHPUnit's Mock Builder",
-            "time": "2018-07-26T11:55:37+00:00"
+            "time": "2019-03-02T15:35:10+00:00"
         },
         {
             "name": "doctrine/instantiator",
@@ -2466,45 +2466,32 @@
         },
         {
             "name": "facebook/webdriver",
-            "version": "1.6.0",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/facebook/php-webdriver.git",
-                "reference": "bd8c740097eb9f2fc3735250fc1912bc811a954e"
+                "reference": "af21de3ae5306a8ca0bcc02a19735dadc43e83f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facebook/php-webdriver/zipball/bd8c740097eb9f2fc3735250fc1912bc811a954e",
-                "reference": "bd8c740097eb9f2fc3735250fc1912bc811a954e",
+                "url": "https://api.github.com/repos/facebook/php-webdriver/zipball/af21de3ae5306a8ca0bcc02a19735dadc43e83f3",
+                "reference": "af21de3ae5306a8ca0bcc02a19735dadc43e83f3",
                 "shasum": ""
             },
             "require": {
                 "ext-curl": "*",
-                "ext-json": "*",
-                "ext-mbstring": "*",
-                "ext-zip": "*",
-                "php": "^5.6 || ~7.0",
-                "symfony/process": "^2.8 || ^3.1 || ^4.0"
+                "php": "^5.5 || ~7.0"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.0",
-                "jakub-onderka/php-parallel-lint": "^0.9.2",
-                "php-coveralls/php-coveralls": "^2.0",
+                "friendsofphp/php-cs-fixer": "^1.11",
                 "php-mock/php-mock-phpunit": "^1.1",
-                "phpunit/phpunit": "^5.7",
-                "sebastian/environment": "^1.3.4 || ^2.0 || ^3.0",
-                "squizlabs/php_codesniffer": "^2.6",
-                "symfony/var-dumper": "^3.3 || ^4.0"
+                "phpunit/phpunit": "4.6.* || ~5.0",
+                "squizlabs/php_codesniffer": "^2.6"
             },
             "suggest": {
-                "ext-SimpleXML": "For Firefox profile creation"
+                "phpdocumentor/phpdocumentor": "2.*"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-community": "1.5-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "Facebook\\WebDriver\\": "lib/"
@@ -2514,7 +2501,7 @@
             "license": [
                 "Apache-2.0"
             ],
-            "description": "A PHP client for Selenium WebDriver",
+            "description": "A PHP client for WebDriver",
             "homepage": "https://github.com/facebook/php-webdriver",
             "keywords": [
                 "facebook",
@@ -2522,7 +2509,7 @@
                 "selenium",
                 "webdriver"
             ],
-            "time": "2018-05-16T17:37:13+00:00"
+            "time": "2016-10-14T15:16:51+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -4065,64 +4052,17 @@
             "time": "2016-10-03T07:35:21+00:00"
         },
         {
-            "name": "site5/phantoman",
-            "version": "v2.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/grantlucas/phantoman.git",
-                "reference": "064806e420c4cbbdf9fddf08e3612edaeb060fac"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/grantlucas/phantoman/zipball/064806e420c4cbbdf9fddf08e3612edaeb060fac",
-                "reference": "064806e420c4cbbdf9fddf08e3612edaeb060fac",
-                "shasum": ""
-            },
-            "require": {
-                "codeception/codeception": "^2.2.7",
-                "php": ">=5.4.0"
-            },
-            "suggest": {
-                "jakoch/phantomjs-installer": "Automatically installs PhantomJS locally to your project."
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Codeception\\Extension\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Grant Lucas",
-                    "email": "contact@grantlucas.com"
-                }
-            ],
-            "description": "The Codeception extension for automatically starting and stopping PhantomJS when running tests.",
-            "homepage": "https://github.com/grantlucas/phantoman",
-            "keywords": [
-                "codeception",
-                "extension",
-                "headless",
-                "phantomjs"
-            ],
-            "time": "2017-10-27T13:31:22+00:00"
-        },
-        {
             "name": "symfony/browser-kit",
-            "version": "v4.2.3",
+            "version": "v4.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/browser-kit.git",
-                "reference": "ee4462581eb54bf34b746e4a5d522a4f21620160"
+                "reference": "61d85c5af2fc058014c7c89504c3944e73a086f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/browser-kit/zipball/ee4462581eb54bf34b746e4a5d522a4f21620160",
-                "reference": "ee4462581eb54bf34b746e4a5d522a4f21620160",
+                "url": "https://api.github.com/repos/symfony/browser-kit/zipball/61d85c5af2fc058014c7c89504c3944e73a086f0",
+                "reference": "61d85c5af2fc058014c7c89504c3944e73a086f0",
                 "shasum": ""
             },
             "require": {
@@ -4166,20 +4106,20 @@
             ],
             "description": "Symfony BrowserKit Component",
             "homepage": "https://symfony.com",
-            "time": "2019-01-16T21:31:25+00:00"
+            "time": "2019-02-23T15:17:42+00:00"
         },
         {
             "name": "symfony/dom-crawler",
-            "version": "v4.2.3",
+            "version": "v4.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dom-crawler.git",
-                "reference": "d8476760b04cdf7b499c8718aa437c20a9155103"
+                "reference": "53c97769814c80a84a8403efcf3ae7ae966d53bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/d8476760b04cdf7b499c8718aa437c20a9155103",
-                "reference": "d8476760b04cdf7b499c8718aa437c20a9155103",
+                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/53c97769814c80a84a8403efcf3ae7ae966d53bb",
+                "reference": "53c97769814c80a84a8403efcf3ae7ae966d53bb",
                 "shasum": ""
             },
             "require": {
@@ -4223,20 +4163,20 @@
             ],
             "description": "Symfony DomCrawler Component",
             "homepage": "https://symfony.com",
-            "time": "2019-01-16T20:35:37+00:00"
+            "time": "2019-02-23T15:17:42+00:00"
         },
         {
             "name": "symfony/yaml",
-            "version": "v4.2.3",
+            "version": "v4.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "d461670ee145092b7e2a56c1da7118f19cadadb0"
+                "reference": "761fa560a937fd7686e5274ff89dcfa87a5047df"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/d461670ee145092b7e2a56c1da7118f19cadadb0",
-                "reference": "d461670ee145092b7e2a56c1da7118f19cadadb0",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/761fa560a937fd7686e5274ff89dcfa87a5047df",
+                "reference": "761fa560a937fd7686e5274ff89dcfa87a5047df",
                 "shasum": ""
             },
             "require": {
@@ -4282,7 +4222,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2019-01-16T20:35:37+00:00"
+            "time": "2019-02-23T15:17:42+00:00"
         },
         {
             "name": "theseer/tokenizer",

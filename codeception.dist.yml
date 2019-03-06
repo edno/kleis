@@ -11,10 +11,3 @@ settings:
     memory_limit: 1024M
 params:
     - .env.codecept
-extensions:
-    enabled:
-        - Codeception\Extension\Phantoman
-    config:
-        Codeception\Extension\Phantoman:
-            path: '/usr/local/bin/phantomjs'
-            suites: ['acceptance']
