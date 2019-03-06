@@ -69,6 +69,14 @@ return [
             'prefix'   => '',
             'schema'   => 'public',
         ],
+        'sqlite' => [
+            'driver'   => 'sqlite',
+            'host'     => env('DB_HOST', ':memory:'),
+            'database' => env('DB_DATABASE', '/tmp/kleis.sqlite'),
+            'charset'  => 'utf8',
+            'prefix'   => '',
+            'foreign_key_constraints' => true,
+        ],
     ],
 
     /*
