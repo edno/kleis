@@ -3,7 +3,7 @@ modules:
         - Helper\Page
         - WebDriver:
            url: %APP_URL%
-           host: '%BS_PASSWORD%:%BS_LOGIN%@hub.browserstack.com'
+           host: '%BS_LOGINB%:%S_PASSWORD%@hub.browserstack.com'
            port: 80
            browser: chrome
            capabilities:
