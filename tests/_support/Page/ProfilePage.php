@@ -13,9 +13,9 @@ class ProfilePage extends UserPage
         'fieldPassword2'       => "//input[@id=//label[text()='Confirmation']/@for]",
         'fieldLevel'           => "//input[@id=//label[text()='Niveau']/@for]",
         'fieldGroup'           => "//input[@id=//label[text()='Groupe']/@for]",
-        'buttonSave'           => "Enregistrer",
-        'buttonCancel'         => "Annuler",
-        'buttonChangePassword' => "Changer mot de passe",
+        'buttonSave'           => "//button[contains(.,'Enregistrer')]",
+        'buttonCancel'         => "//a[contains(.,'Annuler')]",
+        'buttonChangePassword' => "//a[contains(.,'Changer mot de passe')]",
     ];
 
     public function getFieldValue($key)

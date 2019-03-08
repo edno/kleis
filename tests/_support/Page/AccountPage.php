@@ -14,8 +14,8 @@ class AccountPage extends KleisPage
         'fieldGroup'     => "//select[@id=//label[text()='Groupe']/@for]",
         'fieldExpire'    => "//input[@id='expirydate']",
         'fieldStatus'    => "//select[@id=//label[text()='Statut']/@for]",
-        'buttonSave'     => "Enregistrer",
-        'buttonCancel'   => "Annuler",
+        'buttonSave'     => "//button[contains(.,'Enregistrer')]",
+        'buttonCancel'   => "//a[contains(.,'Annuler')]",
     ];
 
     public function __construct(\AcceptanceTester $tester)

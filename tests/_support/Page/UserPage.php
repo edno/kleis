@@ -20,9 +20,9 @@ class UserPage extends KleisPage
         'fieldLevel'           => "//select[@id=//label[text()='Niveau']/@for]",
         'fieldGroup'           => "//select[@id=//label[text()='Groupe']/@for]",
         'fieldStatus'          => "//select[@id=//label[text()='Statut']/@for]",
-        'buttonSave'           => "Enregistrer",
-        'buttonCancel'         => "Annuler",
-        'buttonChangePassword' => "Changer mot de passe",
+        'buttonSave'           => "//button[contains(.,'Enregistrer')]",
+        'buttonCancel'         => "//a[contains(.,'Annuler')]",
+        'buttonChangePassword' => "//a[contains(.,'Changer mot de passe')]",
     ];
 
     public function setDetails($details)

@@ -8,6 +8,7 @@ class AccountsPage extends KleisPage
     public static $objectsMap = [
         'tableItems'   => '//table',
         'buttonAdd'    => 'Créer un compte',
+        'labelNew'     => 'Nouveau compte',
         'toolbarItem'  => [
             'edit' => "//td/*[text()='ACCOUNT']/ancestor::tr/descendant::a[@data-original-title='Editer']",
             'disable' => "//td/*[text()='ACCOUNT']/ancestor::tr/descendant::*[@data-original-title='Désactiver']",
@@ -24,7 +25,7 @@ class AccountsPage extends KleisPage
     public function newAccount()
     {
         $this->tester->click(static::$objectsMap['buttonAdd']);
-        $this->tester->see('Nouveau compte');
+        $this->tester->see(static::$objectsMap['labelNew']);
         return new AccountPage($this->tester);
     }
 

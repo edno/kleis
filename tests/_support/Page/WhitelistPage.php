@@ -7,10 +7,10 @@ class WhitelistPage extends KleisPage
 
     public static $objectsMap = [
         'tableItems'   => '//table',
-        'buttonAdd'    => 'Ajouter',
-        'buttonCancel' => 'Annuler',
-        'buttonSave'   => 'Enregistrer',
-        'buttonDrop'   => 'Vider la liste',
+        'buttonAdd'    => "//button[contains(.,'Ajouter')]",
+        'buttonCancel' => "//a[contains(.,'Annuler')]",
+        'buttonSave'   => "//button[contains(.,'Enregistrer')]",
+        'buttonDrop'   => "//a[contains(.,'Vider la liste')]",
         'fieldName'    => "//input[@id='itemname']",
         'toolbarItem'  => [
             'edit'   => "//td/*[text()='ITEMNAME']/ancestor::tr/descendant::a[@data-original-title='Editer']",

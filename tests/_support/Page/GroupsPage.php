@@ -7,9 +7,9 @@ class GroupsPage extends KleisPage
 
     public static $objectsMap = [
         'tableItems'   => '//table',
-        'buttonAdd'    => 'Ajouter',
-        'buttonCancel' => 'Annuler',
-        'buttonSave'   => 'Enregistrer',
+        'buttonAdd'    => "//button[contains(.,'Ajouter')]",
+        'buttonCancel' => "//a[contains(.,'Annuler')]",
+        'buttonSave'   => "//button[contains(.,'Enregistrer')]",
         'fieldName'    => "//input[@id='groupname']",
         'toolbarItem'  => [
             'edit'    => "//td/*[text()='ITEMNAME']/ancestor::tr/descendant::a[@data-original-title='Editer']",
