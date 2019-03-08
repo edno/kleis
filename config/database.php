@@ -71,8 +71,7 @@ return [
         ],
         'sqlite' => [
             'driver'   => 'sqlite',
-            'host'     => env('DB_HOST', ':memory:'),
-            'database' => env('DB_DATABASE', '/tmp/kleis.sqlite'),
+            'database' => env('DB_DATABASE', ':memory:'),
             'charset'  => 'utf8',
             'prefix'   => '',
             'foreign_key_constraints' => true,
