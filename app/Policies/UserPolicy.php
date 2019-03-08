@@ -8,7 +8,7 @@ class UserPolicy
 {
     public function manage($user)
     {
-        return $user->level >= 9;
+        return $user->level >= User::USER_LEVEL_SUPER;
     }
 
 }

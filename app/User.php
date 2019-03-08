@@ -6,6 +6,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
+    const USER_LEVEL_LOCAL  = 1;
+    const USER_LEVEL_GLOBAL = 3;
+    const USER_LEVEL_ADMIN  = 5;
+    const USER_LEVEL_SUPER  = 9;
+
     const USER_STATUS = [
         0 => [  'text' => 'users.disabled',
                 'icon' => '',
