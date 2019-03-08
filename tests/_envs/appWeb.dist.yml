@@ -6,7 +6,10 @@ modules:
            host: '%BS_LOGIN%:%BS_PASSWORD%@hub.browserstack.com'
            port: 80
            browser: chrome
+           window_size: maximize
            capabilities:
                os: Windows
                os_version: 10
+               resolution: 1920x1080
+               project: Kleis
                browserstack.local: true
