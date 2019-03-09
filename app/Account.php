@@ -9,6 +9,9 @@ use WhiteHat101\Crypt\APR1_MD5;
 
 class Account extends Model
 {
+    const ACCOUNT_DISABLE = 0;
+    const ACCOUNT_ENABLE = 1;
+
     const ACCOUNT_STATUS = [
         0 => [  'text' => 'accounts.disabled',
                 'icon' => 'fa-ban',

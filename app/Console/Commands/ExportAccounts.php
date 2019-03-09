@@ -23,6 +23,28 @@ class ExportAccounts extends Command
     protected $description = 'Export active proxy accounts';
 
     /**
+     * The export folder location.
+     *
+     * @var string
+     */
+    protected $exportFolder = 'accounts';
+
+    /**
+     * The export file name.
+     *
+     * @var string
+     */
+    protected $exportFileName = 'accounts';
+
+
+    /**
+     * The export extension file.
+     *
+     * @var string
+     */
+    protected $exportFileExt = '.txt';
+
+    /**
      * Create a new command instance.
      *
      * @return void
@@ -39,16 +61,24 @@ class ExportAccounts extends Command
      */
     public function handle()
     {
-        $accounts = Account::where('status', 1)->orderBy('netlogin', 'desc')->get();
-        $filename = 'export/accounts/accounts.txt';
-        Storage::put($filename, '');
+        $accounts = Account::where('status', Account::ACCOUNT_ENABLE)
+                      ->orderBy('netlogin', 'desc')->get();
+
+        if ($accounts->isEmpty()) {
+            $this->info("No accounts to export");
+            return;
+        }
+
+        $filename = "{$this->exportFolder}/{$this->exportFileName}{$this->exportFileExt}";
+        Storage::disk('export')->put($filename, '');
         $count = count($accounts);
         $bar = $this->output->createProgressBar($count);
         foreach ($accounts as $account) {
-            Storage::prepend($filename, "{$account->netlogin}:{$account->netpass}");
+            Storage::disk('export')->prepend($filename, "{$account->netlogin}:{$account->netpass}");
             $bar->advance();
         }
         $bar->finish();
-        $this->info("\n{$count} accounts exported into file 'storage/app/{$filename}'");
+        $url = Storage::disk('export')->path($filename);
+        $this->info("\n{$count} accounts exported into file '{$url}'");
     }
 }
