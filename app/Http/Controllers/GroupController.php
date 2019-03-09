@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Group;
+use App\Account;
 
 class GroupController extends Controller
 {
@@ -99,7 +100,7 @@ class GroupController extends Controller
     public function purgeAccounts($id)
     {
         $group = Group::findOrFail($id);
-        $accounts = Group::Find($id)->accounts()->where('status', 0);
+        $accounts = Group::Find($id)->accounts()->where('status', Account::ACCOUNT_DISABLE);
         if (count($accounts) > 0 ) {
             $accounts->delete();
         }
@@ -112,7 +113,7 @@ class GroupController extends Controller
     public function disableAccounts($id)
     {
         $group = Group::findOrFail($id);
-        $accounts = Group::Find($id)->accounts()->where('status', 1)->get();
+        $accounts = Group::Find($id)->accounts()->where('status', Account::ACCOUNT_ENABLE)->get();
         foreach ($accounts as $account) {
             $account->disable();
         }
