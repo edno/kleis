@@ -68,7 +68,7 @@ class HomeController extends Controller
                 'text' => $group->name
             ];
         }
-        $list['total'] = count($groups);
+        $list['total'] = Group::count();
         return $list;
     }
 
@@ -83,7 +83,7 @@ class HomeController extends Controller
                 'text' => $category->name
             ];
         }
-        $list['total'] = count($category);
+        $list['total'] = Category::count();
         return $list;
     }
 
