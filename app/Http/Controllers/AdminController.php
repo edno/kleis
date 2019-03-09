@@ -142,7 +142,7 @@ class AdminController extends Controller
         }
 
         // if not admin local then no group
-        if ($user->level !== 1) {
+        if ($user->level !== USER::USER_LEVEL_LOCAL) {
             $user->group_id = 0;
         }
 
@@ -173,7 +173,7 @@ class AdminController extends Controller
     public function enableUser($id)
     {
         $user = User::findOrFail($id);
-        $user->status = 1;
+        $user->status = User::USER_ENABLED;
         $user->update();
         return redirect()->back()->with(
             'status',
@@ -190,7 +190,7 @@ class AdminController extends Controller
     public function disableUser($id)
     {
         $user = User::findOrFail($id);
-        $user->status = 0;
+        $user->status = User::USER_DISABLED;
         $user->update();
         return redirect()->back()->with(
             'status',
