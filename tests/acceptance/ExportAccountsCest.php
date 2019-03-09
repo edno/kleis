@@ -6,11 +6,16 @@ class ExportAccountsCest
     protected static $outPath = 'storage/app/export';
     protected static $outFile = 'accounts.txt';
     protected static $outDir = 'accounts';
-    protected static $outFullPath = 'storage/app/export/accounts/accounts.txt';
+
+    private $path;
+    private $filepath;
 
     public function _before(\AcceptanceTester $I, \Codeception\Scenario $scenario)
     {
-        $I->deleteDir(static::$outPath . '/' . static::$outDir);
+        $this->path = codecept_root_dir() . static::$outPath . '/' . static::$outDir;
+        $this->filepath = $this->path . '/' . static::$outFile;
+
+        $I->deleteDir($this->path);
         $I->seedDatabase();
     }
 
@@ -21,9 +26,9 @@ class ExportAccountsCest
     {
         $activeAccounts = $I->grabNumRecords('accounts', ['status' => 1]);
         $I->runShellCommand(static::$command);
-        $I->seeInShellOutput("${activeAccounts} accounts exported into file '" . static::$outFullPath . "'");
-        $I->seeFileFound(static::$outFile, static::$outPath . '/' . static::$outDir);
-        $I->openFile(static::$outFullPath);
+        $I->seeInShellOutput("${activeAccounts} accounts exported into file '" . $this->filepath . "'");
+        $I->seeFileFound(static::$outFile, $this->path);
+        $I->openFile($this->filepath);
         $I->seeNumberNewLines($activeAccounts + 1);
         $I->seeThisFileMatches('/test:.+/');
     }
@@ -35,8 +40,7 @@ class ExportAccountsCest
     {
         $I->seeNumRecords(0, 'accounts', ['status' => 1]);
         $I->runShellCommand(static::$command);
-        $I->seeInShellOutput("0 accounts exported into file '" . static::$outFullPath . "'");
-        $I->openFile(static::$outFullPath);
-        $I->seeThisFileMatches('/^$/');
+        $I->seeInShellOutput("No accounts to export");
+        $I->dontSeeFileFound($this->path, codecept_root_dir() . static::$outPath);
     }
 }

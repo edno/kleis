@@ -6,11 +6,14 @@ class ExportProxyListsCest
     protected static $outPath = 'storage/app/export';
     protected static $outFile = '.white.txt';
     protected static $outDir = 'proxylists';
-    protected static $outFullPath = 'storage/app/export/proxylists/';
+
+    private $path;
 
     public function _before(\AcceptanceTester $I, \Codeception\Scenario $scenario)
     {
-        $I->deleteDir(static::$outPath . '/' . static::$outDir);
+        $this->path = codecept_root_dir() . static::$outPath . '/' . static::$outDir;
+
+        $I->deleteDir($this->path);
         $I->seedDatabase();
     }
 
@@ -36,11 +39,11 @@ class ExportProxyListsCest
     {
         $type = 'domain';
         $file = $type . static::$outFile;
-        $path = static::$outFullPath . $file;
+        $path = $this->path .'/' . $file;
         $activeRecords = $I->grabNumRecords('App\ProxyListItem', ['type' => $type]);
         $I->runShellCommand(static::$command);
         $I->seeInShellOutput("${activeRecords} ${type}s exported into file '${path}'");
-        $I->seeFileFound($file, static::$outPath . '/' . static::$outDir);
+        $I->seeFileFound($file, $this->path);
         $I->openFile($path);
         $I->seeNumberNewLines($activeRecords + 1);
     }
@@ -53,11 +56,11 @@ class ExportProxyListsCest
     {
         $type = 'url';
         $file = $type . static::$outFile;
-        $path = static::$outFullPath . $file;
+        $path = $this->path . '/' . $file;
         $activeRecords = $I->grabNumRecords('proxylistitems', ['type' => $type]);
         $I->runShellCommand(static::$command);
         $I->seeInShellOutput("${activeRecords} ${type}s exported into file '${path}'");
-        $I->seeFileFound($file, static::$outPath . '/' . static::$outDir);
+        $I->seeFileFound($file, $this->path);
         $I->openFile($path);
         $I->seeNumberNewLines($activeRecords + 1);
     }
@@ -69,12 +72,11 @@ class ExportProxyListsCest
     {
         $type = 'domain';
         $file = $type . static::$outFile;
-        $path = static::$outFullPath . $file;
+        $path = $this->path . '/' . $file;
         $I->seeNumRecords(0, 'proxylistitems', ['type' => $type]);
         $I->runShellCommand(static::$command);
-        $I->seeInShellOutput("0 ${type}s exported into file '${path}'");
-        $I->openFile($path);
-        $I->seeThisFileMatches('/^$/');
+        $I->seeInShellOutput("No {$type} record to export");
+        $I->dontSeeFileFound($this->path, codecept_root_dir() . static::$outPath);
     }
 
     /**
@@ -84,11 +86,10 @@ class ExportProxyListsCest
     {
         $type = 'url';
         $file = $type . static::$outFile;
-        $path = static::$outFullPath . $file;
+        $path = $this->path . '/' . $file;
         $I->seeNumRecords(0, 'proxylistitems', ['type' => $type]);
         $I->runShellCommand(static::$command);
-        $I->seeInShellOutput("0 ${type}s exported into file '${path}'");
-        $I->openFile($path);
-        $I->seeThisFileMatches('/^$/');
+        $I->seeInShellOutput("No {$type} record to export");
+        $I->dontSeeFileFound($this->path, codecept_root_dir() . static::$outPath);
     }
 }

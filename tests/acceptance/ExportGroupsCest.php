@@ -5,11 +5,15 @@ class ExportGroupsCest
     protected static $command = 'php artisan export:groups';
     protected static $outPath = 'storage/app/export';
     protected static $outDir = 'groups';
-    protected static $outFullPath = 'storage/app/export/groups/';
+
+    private $path;
+    private $filepath;
 
     public function _before(\AcceptanceTester $I, \Codeception\Scenario $scenario)
     {
-        $I->deleteDir(static::$outPath . '/' . static::$outDir);
+        $this->path = codecept_root_dir() . static::$outPath . '/' . static::$outDir;
+
+        $I->deleteDir($this->path);
         $I->seedDatabase();
     }
 
@@ -49,9 +53,9 @@ class ExportGroupsCest
         $I->runShellCommand(static::$command);
         foreach($groups as $group)
         {
-            $filePath = static::$outFullPath . $group['file'];
+            $filePath = $this->path . '/' . $group['file'];
             $I->seeInShellOutput("{$group['count']} accounts '{$group['name']}' exported into file '{$filePath}'");
-            $I->seeFileFound($group['file'], static::$outPath . '/' . static::$outDir);
+            $I->seeFileFound($group['file'], $this->path);
             $I->openFile($filePath);
             $I->seeNumberNewLines($group['count'] + 1);
             $I->seeThisFileMatches("/(\w+:\w+\n){{$group['count']}}/");
@@ -67,7 +71,7 @@ class ExportGroupsCest
         $I->seeNumRecords(0, 'groups');
         $I->runShellCommand(static::$command);
         $I->seeInShellOutput("No groups to export");
-        $I->dontSeeFileFound(static::$outPath . '/' . static::$outDir, static::$outPath);
+        $I->dontSeeFileFound($this->path, codecept_root_dir() . static::$outPath);
     }
 
     /**
@@ -77,10 +81,10 @@ class ExportGroupsCest
     public function exportGroupsWithSpecialChars(\AcceptanceTester $I)
     {
         $group = ['name' => 'Charleville-Mézières',  'file' => 'charleville_mezieres.txt',  'count' => 0];
-        $filePath = static::$outFullPath . $group['file'];
+        $filePath = $this->path . '/' . $group['file'];
         $I->haveInDatabase('groups', ['name' => $group['name'], 'created_by' => 1]);
         $I->runShellCommand(static::$command);
         $I->seeInShellOutput("{$group['count']} accounts '{$group['name']}' exported into file '{$filePath}'");
-        $I->seeFileFound($group['file'], static::$outPath . '/' . static::$outDir);
+        $I->seeFileFound($group['file'], $this->path);
     }
 }

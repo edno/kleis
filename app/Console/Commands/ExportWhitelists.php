@@ -25,6 +25,21 @@ class ExportWhitelists extends Command
     protected $description = 'Export proxy whitelists (domain, url)';
 
     /**
+     * The export folder location.
+     *
+     * @var string
+     */
+    protected $exportFolder = 'proxylists';
+
+
+    /**
+     * The export extension file.
+     *
+     * @var string
+     */
+    protected $exportFileExt = '.txt';
+
+    /**
      * Create a new command instance.
      *
      * @return void
@@ -56,17 +71,23 @@ class ExportWhitelists extends Command
                     ->where('whitelist', $isWhiteList)
                     ->orderBy('value', 'desc')
                     ->get();
-        $ext = $isWhiteList ? 'white' : 'black';
-        $filename = "export/proxylists/{$type}.{$ext}.txt";
-        Storage::put($filename, '');
+
+        if ($items->isEmpty()) {
+            $this->info("No {$type} record to export");
+            return;
+        }
+
+        $list = $isWhiteList ? 'white' : 'black';
+        $filename = "{$this->exportFolder}/{$type}.{$list}{$this->exportFileExt}";
+        Storage::disk('export')->put($filename, '');
         $count = count($items);
         $bar = $this->output->createProgressBar($count);
         foreach ($items as $item) {
-            Storage::prepend($filename, "{$item->value}");
+            Storage::disk('export')->prepend($filename, "{$item->value}");
             $bar->advance();
         }
         $bar->finish();
-
-        $this->info("\n{$count} {$type}s exported into file 'storage/app/{$filename}'");
+        $url = Storage::disk('export')->path($filename);
+        $this->info("\n{$count} {$type}s exported into file '{$url}'");
     }
 }

@@ -5,11 +5,14 @@ class ExportCategoriesCest
     protected static $command = 'php artisan export:categories';
     protected static $outPath = 'storage/app/export';
     protected static $outDir = 'categories';
-    protected static $outFullPath = 'storage/app/export/categories/';
+
+    private $path;
 
     public function _before(\AcceptanceTester $I, \Codeception\Scenario $scenario)
     {
-        $I->deleteDir(static::$outPath . '/' . static::$outDir);
+        $this->path = codecept_root_dir() . static::$outPath . '/' . static::$outDir;
+
+        $I->deleteDir($this->path);
         $I->seedDatabase();
     }
 
@@ -54,9 +57,9 @@ class ExportCategoriesCest
         $I->runShellCommand(static::$command);
         foreach($categories as $category)
         {
-            $filePath = static::$outFullPath . $category['file'];
+            $filePath = $this->path . '/' . $category['file'];
             $I->seeInShellOutput("{$category['count']} accounts '{$category['name']}' exported into file '{$filePath}'");
-            $I->seeFileFound($category['file'], static::$outPath . '/' . static::$outDir);
+            $I->seeFileFound($category['file'], $this->path);
             $I->openFile($filePath);
             $I->seeNumberNewLines($category['count'] + 1);
             $I->seeThisFileMatches("/(\w+:\w+\n){{$category['count']}}/");
@@ -72,7 +75,7 @@ class ExportCategoriesCest
         $I->seeNumRecords(0, 'categories');
         $I->runShellCommand(static::$command);
         $I->seeInShellOutput("No categories to export");
-        $I->dontSeeFileFound(static::$outPath . '/' . static::$outDir, static::$outPath);
+        $I->dontSeeFileFound($this->path, codecept_root_dir() . static::$outPath);
     }
 
     /**
@@ -83,7 +86,7 @@ class ExportCategoriesCest
     {
         $name =
         $category = ['name' => 'Charleville-Mézières',  'file' => 'charleville_mezieres.txt',  'count' => 0];
-        $filePath = static::$outFullPath . $category['file'];
+        $filePath = $this->path . '/' . $category['file'];
         $I->haveInDatabase('categories', [
             'name' => $category['name'],
             'icon' => 'kleis',
@@ -92,6 +95,6 @@ class ExportCategoriesCest
         ]);
         $I->runShellCommand(static::$command);
         $I->seeInShellOutput("{$category['count']} accounts '{$category['name']}' exported into file '{$filePath}'");
-        $I->seeFileFound($category['file'], static::$outPath . '/' . static::$outDir);
+        $I->seeFileFound($category['file'], $this->path);
     }
 }

@@ -26,6 +26,21 @@ class ExportGroups extends Command
     protected $description = 'Export proxy groups of accounts';
 
     /**
+     * The export folder location.
+     *
+     * @var string
+     */
+    protected $exportFolder = 'groups';
+
+
+    /**
+     * The export extension file.
+     *
+     * @var string
+     */
+    protected $exportFileExt = '.txt';
+
+    /**
      * Create a new command instance.
      *
      * @return void
@@ -51,20 +66,21 @@ class ExportGroups extends Command
 
          foreach ($groups as $group){
              $name = static::stringNormalise($group->name);
-             $filename = 'export/groups/' . $name . '.txt';
-             $accounts = Account::where('status', 1)
+             $filename = "{$this->exportFolder}/{$name}{$this->exportFileExt}";
+             $accounts = Account::where('status', Account::ACCOUNT_ENABLE)
                             ->where('group_id', $group->id)
                             ->orderBy('netlogin', 'desc')
                             ->get();
-             Storage::put($filename, '');
+             Storage::disk('export')->put($filename, '');
              $count = count($accounts);
              $bar = $this->output->createProgressBar($count);
              foreach ($accounts as $account) {
-                 Storage::prepend($filename, "{$account->netlogin}:{$account->netpass}");
+                 Storage::disk('export')->prepend($filename, "{$account->netlogin}:{$account->netpass}");
                  $bar->advance();
              }
              $bar->finish();
-             $this->info("\n{$count} accounts '{$group->name}' exported into file 'storage/app/{$filename}'");
+             $url = Storage::disk('export')->path($filename);
+             $this->info("\n{$count} accounts '{$group->name}' exported into file '{$url}'");
          }
      }
 }
