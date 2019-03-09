@@ -14,8 +14,8 @@ class ExportWhitelists extends Command
      * @var string
      */
     protected $signature = 'export:whitelists
-                            {--list= : type of whitelist (domain or url)}
-                            {--blacklist : export blacklist instead of whitelist}';
+                            {--list= : Type of whitelist (domain or url)}
+                            {--blacklist : Export blacklist instead of whitelist}';
 
     /**
      * The console command description.
