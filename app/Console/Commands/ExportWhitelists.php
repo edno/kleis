@@ -2,11 +2,9 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Storage;
 use App\ProxyListItem;
 
-class ExportWhitelists extends Command
+class ExportWhitelists extends AbstractExportCommand
 {
     /**
      * The name and signature of the console command.
@@ -31,39 +29,6 @@ class ExportWhitelists extends Command
      * @var string
      */
     protected $exportFolder = 'proxylists';
-
-
-    /**
-     * The export extension file.
-     *
-     * @var string
-     */
-    protected $exportFileExt = '.txt';
-
-    /**
-     * The export storage disk name.
-     *
-     * @var string
-     */
-    protected $storageDisk = 'export';
-
-    /**
-     * The export storage location.
-     *
-     * @var Illuminate\Contracts\Filesystem\Filesystem
-     */
-    protected $storage;
-
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-        $this->storage = Storage::disk($this->storageDisk);
-    }
 
     /**
      * Execute the console command.

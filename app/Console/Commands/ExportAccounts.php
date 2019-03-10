@@ -2,14 +2,8 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Storage;
-use App\Account;
-
-class ExportAccounts extends Command
+class ExportAccounts extends AbstractExportCommand
 {
-    use Traits\ExportAccountsTrait;
-
     /**
      * The name and signature of the console command.
      *
@@ -40,39 +34,6 @@ class ExportAccounts extends Command
      */
     protected $exportFileName = 'accounts';
 
-
-    /**
-     * The export extension file.
-     *
-     * @var string
-     */
-    protected $exportFileExt = '.txt';
-
-    /**
-     * The export storage disk name.
-     *
-     * @var string
-     */
-    protected $storageDisk = 'export';
-
-    /**
-     * The export storage location.
-     *
-     * @var Illuminate\Contracts\Filesystem\Filesystem
-     */
-    protected $storage;
-
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-        $this->storage = Storage::disk($this->storageDisk);
-    }
-
     /**
      * Execute the console command.
      *
@@ -80,8 +41,7 @@ class ExportAccounts extends Command
      */
     public function handle()
     {
-        $accounts = Account::where('status', Account::ACCOUNT_ENABLE)
-                      ->orderBy('netlogin', 'desc')->get();
+        $accounts = $this->fecthAccounts();
 
         if ($accounts->isEmpty() && !$this->option('empty')) {
             $this->info("No accounts to export");
@@ -90,7 +50,7 @@ class ExportAccounts extends Command
 
         $filename = "{$this->exportFolder}/{$this->exportFileName}{$this->exportFileExt}";
 
-        $count = $this->exportAccount($accounts, $filename, true, $this->option('ci'));
+        $count = $this->exportAccounts($accounts, $filename, true, $this->option('ci'));
 
         $url = $this->storage->path($filename);
         $this->info("{$count} accounts exported into file '{$url}'");

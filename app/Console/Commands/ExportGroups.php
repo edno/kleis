@@ -2,16 +2,13 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Storage;
 use App\Account;
 use App\Group;
 
-class ExportGroups extends Command
-{
-    use Traits\StringNormalizeTrait;
-    use Traits\ExportAccountsTrait;
+use function App\Lib\mb_normalise as normalise;
 
+class ExportGroups extends AbstractExportCommand
+{
     /**
      * The name and signature of the console command.
      *
@@ -34,39 +31,6 @@ class ExportGroups extends Command
      */
     protected $exportFolder = 'groups';
 
-
-    /**
-     * The export extension file.
-     *
-     * @var string
-     */
-    protected $exportFileExt = '.txt';
-
-    /**
-     * The export storage disk name.
-     *
-     * @var string
-     */
-    protected $storageDisk = 'export';
-
-    /**
-     * The export storage location.
-     *
-     * @var Illuminate\Contracts\Filesystem\Filesystem
-     */
-    protected $storage;
-
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-        $this->storage = Storage::disk($this->storageDisk);
-    }
-
     /**
      * Execute the console command.
      *
@@ -82,15 +46,12 @@ class ExportGroups extends Command
          }
 
          foreach ($groups as $group){
-             $accounts = Account::where('status', Account::ACCOUNT_ENABLE)
-                            ->where('group_id', $group->id)
-                            ->orderBy('netlogin', 'desc')
-                            ->get();
+            $accounts = $this->fecthAccounts(['group_id' => $group->id]);
 
-             $name = static::stringNormalise($group->name);
+             $name = normalise($group->name);
              $filename = "{$this->exportFolder}/{$name}{$this->exportFileExt}";
 
-             $count = $this->exportAccount($accounts, $filename, false, $this->option('ci'));
+             $count = $this->exportAccounts($accounts, $filename, false, $this->option('ci'));
 
              $url = $this->storage->path($filename);
              $this->info("{$count} accounts '{$group->name}' exported into file '{$url}'");
