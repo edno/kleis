@@ -26,8 +26,8 @@ var RandomPassword = function () {
 	Use + to combine. You can add your own sets of characters. If not at least one of the constructor defined sets of characters is found, default set of characters will be used.
 */
 RandomPassword.prototype.create = function(length, characters) {
-	var _length=this.adjustLengthWithinLimits(length);
-	var _characters=this.secureCharacterCombination(characters);
+	let _length=this.adjustLengthWithinLimits(length);
+	let _characters=this.secureCharacterCombination(characters);
 
 	return this.shufflePassword(this.assemblePassword(_characters, _length));
 };
@@ -44,7 +44,7 @@ RandomPassword.prototype.adjustLengthWithinLimits = function(length) {
 
 // Private: Make sure characters password is build of contains meaningful set of characters.
 RandomPassword.prototype.secureCharacterCombination = function(characters) {
-	var defaultCharacters=this.chrLower+this.chrUpper+this.chrNumbers;
+	let defaultCharacters=this.chrLower+this.chrUpper+this.chrNumbers;
 
 	if(!characters || this.trim(characters)=="")
 		return defaultCharacters;
@@ -57,13 +57,13 @@ RandomPassword.prototype.secureCharacterCombination = function(characters) {
 
 // Private: Assemble password using a string of characters the password will consist of.
 RandomPassword.prototype.assemblePassword = function(characters, length) {
-	var randMax=this.chrNumbers.length;
-	var randMin=randMax-4;
-	var index=this.random(0, characters.length-1);
-	var password="";
+	let randMax=this.chrNumbers.length;
+	let randMin=randMax-4;
+	let index=this.random(0, characters.length-1);
+	let password="";
 
-	for(var i=0; i<length; i++) {
-		var jump=this.random(randMin, randMax);
+	for(let i=0; i<length; i++) {
+		let jump=this.random(randMin, randMax);
 		index=((index+jump)>(characters.length-1)?this.random(0, characters.length-1):index+jump);
 		password+=characters[index];
 	}
@@ -78,7 +78,7 @@ RandomPassword.prototype.shufflePassword = function(password) {
 
 // Private: Checks if string contains at least one string in an array
 RandomPassword.prototype.containsAtLeast = function(string, strings) {
-	for(var i=0; i<strings.length; i++) {
+	for(let i=0; i<strings.length; i++) {
 		if(string.indexOf(strings[i])!=-1)
 			return true;
 	}
