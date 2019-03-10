@@ -59,4 +59,4 @@ Que vous fassiez l'intégration manuellement ou que vous utilisiez un ordonanceu
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fedno%2Fkleis.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fedno%2Fkleis?ref=badge_large)
 
 ## Thanks for support
-[![BrowserStack](public/images/browserstack-logo.png)]([https://live.browserstack.com])
+[![BrowserStack](public/images/browserstack-logo.png)](https://live.browserstack.com)
