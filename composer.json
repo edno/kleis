@@ -33,7 +33,8 @@
             "php artisan key:generate"
         ],
         "build-archive": [
-            "composer archive --format=zip --dir=bin/"
+            "php artisan clear",
+            "composer archive --format=zip --dir=bin/ --file=kleis-1.3"
         ]
     },
     "config": {
@@ -45,6 +46,7 @@
             "bin",
             "tests",
             "node_modules",
+            "resources/assets",
             "storage/*",
             "*file",
             "*.xml",
@@ -52,8 +54,11 @@
             "*.js",
             "*.json",
             "!composer.json",
-            "server.php",
-            "vendor"
+            "vendor",
+            ".env.codecept",
+            ".*",
+            "!.env.example",
+            "!kleis.conf"
         ]
     }
 }
