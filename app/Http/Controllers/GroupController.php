@@ -99,7 +99,7 @@ class GroupController extends Controller
     {
         $group = Group::findOrFail($id);
         $accounts = Group::Find($id)->accounts()->where('status', Account::ACCOUNT_DISABLE);
-        if (count($accounts) > 0 ) {
+        if ($accounts->exists()) {
             $accounts->delete();
         }
         return redirect()->back()->with(
