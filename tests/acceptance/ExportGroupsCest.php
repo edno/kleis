@@ -58,8 +58,8 @@ class ExportGroupsCest
             $I->seeFileFound($group['file'], $this->path);
             $I->openFile($filePath);
             $I->seeNumberNewLines($group['count'] + 1);
-            $I->seeThisFileMatches("/(\w+:\w+\n){{$group['count']}}/");
-            // read lines and check if each couple netlogin/netpass/active/group_id match is a valid db record
+            $I->seeThisFileMatches("/(\w+[^:]\n){{$group['count']}}/");
+            // read lines and check if each couple netlogin/active/group_id match is a valid db record
         }
     }
 

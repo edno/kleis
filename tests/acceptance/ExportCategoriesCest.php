@@ -62,8 +62,8 @@ class ExportCategoriesCest
             $I->seeFileFound($category['file'], $this->path);
             $I->openFile($filePath);
             $I->seeNumberNewLines($category['count'] + 1);
-            $I->seeThisFileMatches("/(\w+:\w+\n){{$category['count']}}/");
-            // read lines and check if each couple netlogin/netpass/active/cat_id match is a valid db record
+            $I->seeThisFileMatches("/(\w+[^:]\n){{$category['count']}}/");
+            // read lines and check if each couple netlogin/active/cat_id match is a valid db record
         }
     }
 
