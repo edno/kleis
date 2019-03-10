@@ -2,7 +2,7 @@
 
 class UpdateAccountsCest
 {
-    protected static $command = 'php artisan update:accounts';
+    protected static $command = 'php artisan update:accounts --ci';
 
     protected function setData(\AcceptanceTester $I)
     {

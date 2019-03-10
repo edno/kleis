@@ -2,7 +2,7 @@
 
 class ExportProxyListsCest
 {
-    protected static $command = 'php artisan export:whitelists';
+    protected static $command = 'php artisan export:whitelists --ci';
     protected static $outPath = 'storage/app/export';
     protected static $outFile = '.white.txt';
     protected static $outDir = 'proxylists';

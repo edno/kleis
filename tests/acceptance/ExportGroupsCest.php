@@ -2,7 +2,7 @@
 
 class ExportGroupsCest
 {
-    protected static $command = 'php artisan export:groups';
+    protected static $command = 'php artisan export:groups --ci';
     protected static $outPath = 'storage/app/export';
     protected static $outDir = 'groups';
 

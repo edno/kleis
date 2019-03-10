@@ -2,7 +2,7 @@
 
 class ExportCategoriesCest
 {
-    protected static $command = 'php artisan export:categories';
+    protected static $command = 'php artisan export:categories --ci';
     protected static $outPath = 'storage/app/export';
     protected static $outDir = 'categories';
 

@@ -2,7 +2,7 @@
 
 class ExportAccountsCest
 {
-    protected static $command = 'php artisan export:accounts';
+    protected static $command = 'php artisan export:accounts --ci';
     protected static $outPath = 'storage/app/export';
     protected static $outFile = 'accounts.txt';
     protected static $outDir = 'accounts';
