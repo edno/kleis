@@ -9,7 +9,7 @@ use Storage;
 
 class ExportGroups extends Command
 {
-    use StringNormalizeTrait;
+    use Traits\StringNormalizeTrait;
 
     /**
      * The name and signature of the console command.
