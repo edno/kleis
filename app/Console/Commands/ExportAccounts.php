@@ -8,6 +8,8 @@ use Storage;
 
 class ExportAccounts extends Command
 {
+    use Traits\ExportAccountsTrait;
+
     /**
      * The name and signature of the console command.
      *
@@ -87,28 +89,11 @@ class ExportAccounts extends Command
         }
 
         $filename = "{$this->exportFolder}/{$this->exportFileName}{$this->exportFileExt}";
-        $this->storage->put($filename, '');
 
-        $count = count($accounts);
-
-        $flagCI = $this->option('ci');
-        if ($flagCI === false) {
-          $bar = $this->output->createProgressBar($count);
-        }
-
-        foreach ($accounts as $account) {
-            $this->storage->prepend($filename, "{$account->netlogin}:{$account->netpass}");
-            if (isset($bar)) {
-              $bar->advance();
-            }
-        }
-
-        if (isset($bar)) {
-          $bar->finish();
-          $this->info("\n");
-        }
-
+        $count = $this->exportAccount($accounts, $filename, true, $this->option('ci'));
+        
         $url = $this->storage->path($filename);
         $this->info("{$count} accounts exported into file '{$url}'");
+
     }
 }
