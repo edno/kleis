@@ -48,9 +48,9 @@ class HomeController extends Controller
                     'count' => $count,
                     'text' => $category->name
                 ];
+                $list['total'] += $count;
             }
         }
-        $list['total'] = Account::count();
         return $list;
     }
 
@@ -65,22 +65,7 @@ class HomeController extends Controller
                 'text' => $group->name
             ];
         }
-        $list['total'] = Group::count();
-        return $list;
-    }
-
-    private function categorySummary()
-    {
-        $list = [ 'total' => 0, 'summary' => []];
-        $categories = Category::get();
-        foreach ($categories as $category) {
-            $count = Account::where('category_id', $category->id)->count();
-            $list['summary'][]= [
-                'count' => $count,
-                'text' => $category->name
-            ];
-        }
-        $list['total'] = Category::count();
+        $list['total'] = $groups->count();
         return $list;
     }
 
@@ -95,9 +80,9 @@ class HomeController extends Controller
                     'count' => $count,
                     'text' => "{$type}s"
                 ];
+                $list['total'] += $count;
             }
         }
-        $list['total'] = ProxyListItem::count();
         return $list;
     }
 
@@ -111,9 +96,9 @@ class HomeController extends Controller
                     'count' => $count,
                     'text' => $level['text']
                 ];
+                $list['total'] += $count;
             }
         }
-        $list['total'] = User::count();
         return $list;
     }
 }
