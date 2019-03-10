@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Category;
+use App\Account;
 
 class CategoryController extends Controller
 {
@@ -47,7 +48,7 @@ class CategoryController extends Controller
                 'validity' => 'required|integer|min:1|max:1000',
             ]);
             $category = new Category;
-            $category->name = mb_strtoupper(mb_substr($request->name, 0, 1)).mb_substr($request->name, 1);
+            $category->name = mb_convert_case($request->name, MB_CASE_TITLE, 'UTF-8');
             $category->icon = $request->icon;
             $category->validity = $request->validity;
             $category->created_by = $request->user()->id;
@@ -68,7 +69,7 @@ class CategoryController extends Controller
         ]);
 
         $category = Category::findOrFail($id);
-        $category->name = mb_strtoupper(mb_substr($request->name, 0, 1)).mb_substr($request->name, 1);
+        $category->name = mb_convert_case($request->name, MB_CASE_TITLE, 'UTF-8');
         $category->icon = $request->icon;
         $category->validity = $request->validity;
         $category->update();
@@ -92,7 +93,7 @@ class CategoryController extends Controller
     public function purgeAccounts($id)
     {
         $category = Category::findOrFail($id);
-        $accounts = $category->accounts()->where('status', 0);
+        $accounts = $category->accounts()->where('status', Account::ACCOUNT_DISABLE);
         if (count($accounts) > 0 ) {
             $accounts->delete();
         }
@@ -105,7 +106,7 @@ class CategoryController extends Controller
     public function disableAccounts($id)
     {
         $category = Category::findOrFail($id);
-        $accounts = $category->accounts()->where('status', 1)->get();
+        $accounts = $category->accounts()->where('status', Account::ACCOUNT_ENABLE)->get();
         foreach ($accounts as $account) {
             $account->disable();
         }
