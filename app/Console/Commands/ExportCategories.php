@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use App\Account;
 use App\Category;
 
 use function App\Lib\mb_normalise as normalise;
