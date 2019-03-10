@@ -3,9 +3,9 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Storage;
 use App\Account;
 use App\Group;
-use Storage;
 
 class ExportGroups extends Command
 {

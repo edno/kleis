@@ -3,8 +3,8 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Storage;
 use App\ProxyListItem;
-use Storage;
 
 class ExportWhitelists extends Command
 {

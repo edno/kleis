@@ -3,8 +3,8 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Storage;
 use App\Account;
-use Storage;
 
 class ExportAccounts extends Command
 {
@@ -91,7 +91,7 @@ class ExportAccounts extends Command
         $filename = "{$this->exportFolder}/{$this->exportFileName}{$this->exportFileExt}";
 
         $count = $this->exportAccount($accounts, $filename, true, $this->option('ci'));
-        
+
         $url = $this->storage->path($filename);
         $this->info("{$count} accounts exported into file '{$url}'");
 
