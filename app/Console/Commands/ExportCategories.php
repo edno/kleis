@@ -16,7 +16,8 @@ class ExportCategories extends Command
      *
      * @var string
      */
-    protected $signature = 'export:categories';
+    protected $signature = 'export:categories
+                            {--ci : No progress bar (eg for CI)}';
 
     /**
      * The console command description.
@@ -80,22 +81,36 @@ class ExportCategories extends Command
          }
 
          foreach ($categories as $category){
-             $name = static::stringNormalise($category->name);
-             $filename = "{$this->exportFolder}/{$name}{$this->exportFileExt}";
              $accounts = Account::where('status', Account::ACCOUNT_ENABLE)
                             ->where('category_id', $category->id)
                             ->orderBy('netlogin', 'desc')
                             ->get();
-             $this->storage->put($filename, '');
+
              $count = count($accounts);
-             $bar = $this->output->createProgressBar($count);
+
+             $name = static::stringNormalise($category->name);
+             $filename = "{$this->exportFolder}/{$name}{$this->exportFileExt}";
+             $this->storage->put($filename, '');
+
+             $flagCI = $this->option('ci');
+             if ($flagCI === false) {
+               $bar = $this->output->createProgressBar($count);
+             }
+
              foreach ($accounts as $account) {
                  $this->storage->prepend($filename, "{$account->netlogin}:{$account->netpass}");
-                 $bar->advance();
+                 if ($flagCI === false) {
+                   $bar->advance();
+                 }
              }
-             $bar->finish();
+
+             if ($flagCI === false) {
+               $bar->finish();
+               $this->info("\n");
+             }
+
              $url = $this->storage->path($filename);
-             $this->info("\n{$count} accounts '{$category->name}' exported into file '{$url}'");
+             $this->info("{$count} accounts '{$category->name}' exported into file '{$url}'");
          }
      }
 }

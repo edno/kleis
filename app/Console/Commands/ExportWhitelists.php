@@ -15,7 +15,8 @@ class ExportWhitelists extends Command
      */
     protected $signature = 'export:whitelists
                             {--list= : Type of whitelist (domain or url)}
-                            {--blacklist : Export blacklist instead of whitelist}';
+                            {--blacklist : Export blacklist instead of whitelist}
+                            {--ci : No progress bar (eg for CI)}';
 
     /**
      * The console command description.
@@ -86,6 +87,7 @@ class ExportWhitelists extends Command
                     ->where('whitelist', $isWhiteList)
                     ->orderBy('value', 'desc')
                     ->get();
+        $count = count($items);
 
         if ($items->isEmpty()) {
             $this->info("No {$type} record to export");
@@ -95,14 +97,25 @@ class ExportWhitelists extends Command
         $list = $isWhiteList ? 'white' : 'black';
         $filename = "{$this->exportFolder}/{$type}.{$list}{$this->exportFileExt}";
         $this->storage->put($filename, '');
-        $count = count($items);
-        $bar = $this->output->createProgressBar($count);
+
+        $flagCI = $this->option('ci');
+        if ($flagCI === false) {
+          $bar = $this->output->createProgressBar($count);
+        }
+
         foreach ($items as $item) {
             $this->storage->prepend($filename, "{$item->value}");
-            $bar->advance();
+            if ($flagCI === false) {
+              $bar->advance();
+            }
         }
-        $bar->finish();
+
+        if ($flagCI === false) {
+          $bar->finish();
+          $this->info("\n");
+        }
+
         $url = $this->storage->path($filename);
-        $this->info("\n{$count} {$type}s exported into file '{$url}'");
+        $this->info("{$count} {$type}s exported into file '{$url}'");
     }
 }

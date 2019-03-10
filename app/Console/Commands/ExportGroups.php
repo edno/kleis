@@ -16,7 +16,8 @@ class ExportGroups extends Command
      *
      * @var string
      */
-    protected $signature = 'export:groups';
+    protected $signature = 'export:groups
+                            {--ci : No progress bar (eg for CI)}';
 
     /**
      * The console command description.
@@ -64,7 +65,7 @@ class ExportGroups extends Command
         parent::__construct();
         $this->storage = Storage::disk($this->storageDisk);
     }
-    
+
     /**
      * Execute the console command.
      *
@@ -80,22 +81,36 @@ class ExportGroups extends Command
          }
 
          foreach ($groups as $group){
-             $name = static::stringNormalise($group->name);
-             $filename = "{$this->exportFolder}/{$name}{$this->exportFileExt}";
              $accounts = Account::where('status', Account::ACCOUNT_ENABLE)
                             ->where('group_id', $group->id)
                             ->orderBy('netlogin', 'desc')
                             ->get();
-             $this->storage->put($filename, '');
+
              $count = count($accounts);
-             $bar = $this->output->createProgressBar($count);
+
+             $name = static::stringNormalise($group->name);
+             $filename = "{$this->exportFolder}/{$name}{$this->exportFileExt}";
+             $this->storage->put($filename, '');
+
+             $flagCI = $this->option('ci');
+             if ($flagCI === false) {
+               $bar = $this->output->createProgressBar($count);
+             }
+
              foreach ($accounts as $account) {
                  $this->storage->prepend($filename, "{$account->netlogin}:{$account->netpass}");
-                 $bar->advance();
+                 if ($flagCI === false) {
+                   $bar->advance();
+                 }
              }
-             $bar->finish();
+
+             if ($flagCI === false) {
+               $bar->finish();
+               $this->info("\n");
+             }
+
              $url = $this->storage->path($filename);
-             $this->info("\n{$count} accounts '{$group->name}' exported into file '{$url}'");
+             $this->info("{$count} accounts '{$group->name}' exported into file '{$url}'");
          }
      }
 }

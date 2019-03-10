@@ -12,7 +12,8 @@ class UpdateAccounts extends Command
      *
      * @var string
      */
-    protected $signature = 'update:accounts';
+    protected $signature = 'update:accounts
+                            {--ci : No progress bar (eg for CI)}';
 
     /**
      * The console command description.
@@ -41,13 +42,26 @@ class UpdateAccounts extends Command
         $accounts = Account::where('expire', '<=', date('Y-m-d'))
                     ->where('status', Account::ACCOUNT_ENABLE)
                     ->get();
+                    
         $count = count($accounts);
-        $bar = $this->output->createProgressBar($count);
+
+        $flagCI = $this->option('ci');
+        if ($flagCI === false) {
+          $bar = $this->output->createProgressBar($count);
+        }
+
         foreach ($accounts as $account) {
             $account->disable();
-            $bar->advance();
+            if ($flagCI === false) {
+              $bar->advance();
+            }
         }
-        $bar->finish();
-        $this->info("\n{$count} accounts disabled");
+
+        if ($flagCI === false) {
+          $bar->finish();
+          $this->info("\n");
+        }
+
+        $this->info("{$count} accounts disabled");
     }
 }
