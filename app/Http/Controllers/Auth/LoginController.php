@@ -53,11 +53,6 @@ class LoginController extends Controller
         ]);
     }
 
-    public function showRegistrationForm()
-    {
-        abort(404);
-    }
-
     /**
      * Handle an authentication attempt.
      *
