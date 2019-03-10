@@ -40,6 +40,20 @@ class ExportWhitelists extends Command
     protected $exportFileExt = '.txt';
 
     /**
+     * The export storage disk name.
+     *
+     * @var string
+     */
+    protected $storageDisk = 'export';
+
+    /**
+     * The export storage location.
+     *
+     * @var Illuminate\Contracts\Filesystem\Filesystem
+     */
+    protected $storage;
+
+    /**
      * Create a new command instance.
      *
      * @return void
@@ -47,6 +61,7 @@ class ExportWhitelists extends Command
     public function __construct()
     {
         parent::__construct();
+        $this->storage = Storage::disk($this->storageDisk);
     }
 
     /**
@@ -79,15 +94,15 @@ class ExportWhitelists extends Command
 
         $list = $isWhiteList ? 'white' : 'black';
         $filename = "{$this->exportFolder}/{$type}.{$list}{$this->exportFileExt}";
-        Storage::disk('export')->put($filename, '');
+        $this->storage->put($filename, '');
         $count = count($items);
         $bar = $this->output->createProgressBar($count);
         foreach ($items as $item) {
-            Storage::disk('export')->prepend($filename, "{$item->value}");
+            $this->storage->prepend($filename, "{$item->value}");
             $bar->advance();
         }
         $bar->finish();
-        $url = Storage::disk('export')->path($filename);
+        $url = $this->storage->path($filename);
         $this->info("\n{$count} {$type}s exported into file '{$url}'");
     }
 }

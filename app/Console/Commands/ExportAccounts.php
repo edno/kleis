@@ -14,7 +14,8 @@ class ExportAccounts extends Command
      * @var string
      */
     protected $signature = 'export:accounts
-                            {--empty : Create empty file if no record}';
+                            {--empty : Create empty file if no record}
+                            {--ci : No progress bar (eg for CI)}';
 
     /**
      * The console command description.
@@ -90,16 +91,24 @@ class ExportAccounts extends Command
 
         $count = count($accounts);
 
-        $bar = $this->output->createProgressBar($count);
+        $flagCI = $this->option('ci');
+        if ($flagCI === false) {
+          $bar = $this->output->createProgressBar($count);
+        }
 
         foreach ($accounts as $account) {
             $this->storage->prepend($filename, "{$account->netlogin}:{$account->netpass}");
-            $bar->advance();
+            if ($flagCI === false) {
+              $bar->advance();
+            }
         }
 
-        $bar->finish();
+        if ($flagCI === false) {
+          $bar->finish();
+          $this->info("\n");
+        }
 
         $url = $this->storage->path($filename);
-        $this->info("\n{$count} accounts exported into file '{$url}'");
+        $this->info("{$count} accounts exported into file '{$url}'");
     }
 }

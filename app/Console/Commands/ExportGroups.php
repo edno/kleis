@@ -41,6 +41,20 @@ class ExportGroups extends Command
     protected $exportFileExt = '.txt';
 
     /**
+     * The export storage disk name.
+     *
+     * @var string
+     */
+    protected $storageDisk = 'export';
+
+    /**
+     * The export storage location.
+     *
+     * @var Illuminate\Contracts\Filesystem\Filesystem
+     */
+    protected $storage;
+
+    /**
      * Create a new command instance.
      *
      * @return void
@@ -48,8 +62,9 @@ class ExportGroups extends Command
     public function __construct()
     {
         parent::__construct();
+        $this->storage = Storage::disk($this->storageDisk);
     }
-
+    
     /**
      * Execute the console command.
      *
@@ -71,15 +86,15 @@ class ExportGroups extends Command
                             ->where('group_id', $group->id)
                             ->orderBy('netlogin', 'desc')
                             ->get();
-             Storage::disk('export')->put($filename, '');
+             $this->storage->put($filename, '');
              $count = count($accounts);
              $bar = $this->output->createProgressBar($count);
              foreach ($accounts as $account) {
-                 Storage::disk('export')->prepend($filename, "{$account->netlogin}:{$account->netpass}");
+                 $this->storage->prepend($filename, "{$account->netlogin}:{$account->netpass}");
                  $bar->advance();
              }
              $bar->finish();
-             $url = Storage::disk('export')->path($filename);
+             $url = $this->storage->path($filename);
              $this->info("\n{$count} accounts '{$group->name}' exported into file '{$url}'");
          }
      }
