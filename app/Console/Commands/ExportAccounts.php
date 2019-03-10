@@ -13,7 +13,8 @@ class ExportAccounts extends Command
      *
      * @var string
      */
-    protected $signature = 'export:accounts';
+    protected $signature = 'export:accounts
+                            {--empty : Create empty file if no record}';
 
     /**
      * The console command description.
@@ -79,7 +80,7 @@ class ExportAccounts extends Command
         $accounts = Account::where('status', Account::ACCOUNT_ENABLE)
                       ->orderBy('netlogin', 'desc')->get();
 
-        if ($accounts->isEmpty()) {
+        if ($accounts->isEmpty() && !$this->option('empty')) {
             $this->info("No accounts to export");
             return;
         }
