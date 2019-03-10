@@ -12,7 +12,8 @@ class Export extends Command
      * @var string
      */
     protected $signature = 'export
-                            {--ci : No progress bar (eg for CI)}';
+                            {--ci : No interaction (no progess, no confirmation)}
+                            {output? : Target location for export (default Storage)}';
 
     /**
      * The console command description.
@@ -46,7 +47,8 @@ class Export extends Command
     {
         foreach ($this->commands as $cmd) {
           $this->call($cmd, [
-            '--ci' => $this->option('ci')
+            '--ci' => $this->option('ci'),
+            'output' => $this->argument('output'),
           ]);
         }
     }

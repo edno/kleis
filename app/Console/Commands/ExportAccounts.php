@@ -11,7 +11,8 @@ class ExportAccounts extends AbstractExportCommand
      */
     protected $signature = 'export:accounts
                             {--empty : Create empty file if no record}
-                            {--ci : No progress bar (eg for CI)}';
+                            {--ci : No interaction (no progess, no confirmation)}
+                            {output? : Target location for export (default Storage)}';
 
     /**
      * The console command description.
@@ -37,7 +38,7 @@ class ExportAccounts extends AbstractExportCommand
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return void
      */
     public function handle()
     {
@@ -52,7 +53,13 @@ class ExportAccounts extends AbstractExportCommand
 
         $count = $this->exportAccounts($accounts, $filename, true, $this->option('ci'));
 
-        $url = $this->storage->path($filename);
+        try {
+            $url = $this->exportToLocation($filename);
+        } catch(\Exception $e) {
+            $this->error('Export cancelled by user!');
+            return;
+        }
+
         $this->info("{$count} accounts exported into file '{$url}'");
 
     }

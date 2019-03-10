@@ -4,6 +4,8 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
+use League\Flysystem\Filesystem;
+use League\Flysystem\Adapter\Local;
 use App\Account;
 
 abstract class AbstractExportCommand extends Command
@@ -131,5 +133,35 @@ abstract class AbstractExportCommand extends Command
         }
 
         return $query->orderBy('netlogin', 'desc')->get();
+    }
+
+    final protected function exportToLocation($filename)
+    {
+        $source = $this->storage->path($filename);
+
+        if($this->argument('output')) {
+            $target = $this->argument('output') . '/' . $filename;
+
+            $fs = new Filesystem(new Local('/'));
+
+            if ($fs->has($target) ) {
+                if ($this->option('ci')) {
+                    $fs->delete($target);
+                } else {
+                    if ($this->confirm("Overwrite existing '$target' ?")) {
+                        $fs->delete($target);
+                    } else {
+                      throw new \Exception();
+                    }
+                }
+            }
+
+            $fs->rename($source, $target);
+
+        } else {
+          $target = $source;
+        }
+
+        return $target;
     }
 }

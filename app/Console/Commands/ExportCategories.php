@@ -14,7 +14,8 @@ class ExportCategories extends AbstractExportCommand
      * @var string
      */
     protected $signature = 'export:categories
-                            {--ci : No progress bar (eg for CI)}';
+                            {--ci : No interaction (no progess, no confirmation)}
+                            {output? : Target location for export (default Storage)}';
 
     /**
      * The console command description.
@@ -52,7 +53,13 @@ class ExportCategories extends AbstractExportCommand
 
              $count = $this->exportAccounts($accounts, $filename, false, $this->option('ci'));
 
-             $url = $this->storage->path($filename);
+             try {
+                 $url = $this->exportToLocation($filename);
+             } catch(\Exception $e) {
+                 $this->error('Export cancelled by user!');
+                 return;
+             }
+
              $this->info("{$count} accounts '{$category->name}' exported into file '{$url}'");
          }
      }

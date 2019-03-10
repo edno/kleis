@@ -14,7 +14,8 @@ class ExportWhitelists extends AbstractExportCommand
     protected $signature = 'export:whitelists
                             {--list= : Type of whitelist (domain or url)}
                             {--blacklist : Export blacklist instead of whitelist}
-                            {--ci : No progress bar (eg for CI)}';
+                            {--ci : No interaction (no progess, no confirmation)}
+                            {output? : Target location for export (default Storage)}';
 
     /**
      * The console command description.
@@ -80,7 +81,13 @@ class ExportWhitelists extends AbstractExportCommand
           $this->info("\n");
         }
 
-        $url = $this->storage->path($filename);
+        try {
+            $url = $this->exportToLocation($filename);
+        } catch(\Exception $e) {
+            $this->error('Export cancelled by user!');
+            return;
+        }
+
         $this->info("{$count} {$type}s exported into file '{$url}'");
     }
 }
