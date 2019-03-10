@@ -2,6 +2,13 @@
 
 namespace App\Lib;
 
+/**
+ * Normalise a string (remove diacritics)
+ *
+ * @param string $string
+ *
+ * @return string
+ */
 function mb_normalise($string)
 {
     $string = html_entity_decode(

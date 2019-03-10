@@ -77,6 +77,17 @@ abstract class AbstractExportCommand extends Command
      */
     abstract public function handle();
 
+
+    /**
+     * Export filtered accounts into target file.
+     *
+     * @param App\Account $accounts
+     * @param string $filename
+     * @param bool $password
+     * @param bool $flagCI
+     *
+     * @return int
+     */
     final protected function exportAccounts($accounts, $filename, $password = false, $flagCI = false)
     {
         $this->storage->put($filename, '');
@@ -104,6 +115,13 @@ abstract class AbstractExportCommand extends Command
         return $count;
     }
 
+    /**
+     * Retrieve enabled accounts.
+     *
+     * @param array $filter
+     *
+     * @return App\Account
+     */
     final protected function fecthAccounts($filter=null)
     {
         $query = Account::where('status', Account::ACCOUNT_ENABLE);
