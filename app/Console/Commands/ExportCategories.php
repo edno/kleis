@@ -99,12 +99,12 @@ class ExportCategories extends Command
 
              foreach ($accounts as $account) {
                  $this->storage->prepend($filename, "{$account->netlogin}:{$account->netpass}");
-                 if ($flagCI === false) {
+                 if (isset($bar)) {
                    $bar->advance();
                  }
              }
 
-             if ($flagCI === false) {
+             if (isset($bar)) {
                $bar->finish();
                $this->info("\n");
              }

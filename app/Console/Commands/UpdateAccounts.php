@@ -42,7 +42,7 @@ class UpdateAccounts extends Command
         $accounts = Account::where('expire', '<=', date('Y-m-d'))
                     ->where('status', Account::ACCOUNT_ENABLE)
                     ->get();
-                    
+
         $count = count($accounts);
 
         $flagCI = $this->option('ci');
@@ -52,12 +52,12 @@ class UpdateAccounts extends Command
 
         foreach ($accounts as $account) {
             $account->disable();
-            if ($flagCI === false) {
+            if (isset($bar)) {
               $bar->advance();
             }
         }
 
-        if ($flagCI === false) {
+        if (isset($bar)) {
           $bar->finish();
           $this->info("\n");
         }

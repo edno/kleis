@@ -105,12 +105,12 @@ class ExportWhitelists extends Command
 
         foreach ($items as $item) {
             $this->storage->prepend($filename, "{$item->value}");
-            if ($flagCI === false) {
+            if (isset($bar)) {
               $bar->advance();
             }
         }
 
-        if ($flagCI === false) {
+        if (isset($bar)) {
           $bar->finish();
           $this->info("\n");
         }
