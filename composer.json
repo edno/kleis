@@ -3,6 +3,12 @@
     "description": "Squid Guard Basic Front End",
     "keywords": ["users", "management"],
     "license": "MIT",
+    "authors": [
+      {
+        "name": "Gregory Heitz",
+        "email": "edno@edno.io"
+      }
+    ],
     "type": "project",
     "require": {
         "laravel/framework": "~5.8",
